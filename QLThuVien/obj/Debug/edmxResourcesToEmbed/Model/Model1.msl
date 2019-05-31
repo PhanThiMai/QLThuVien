@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QLTHUVIENModelStoreContainer" CdmEntityContainer="QLTHUVIENEntities">
+    <EntitySetMapping Name="DOCGIAs">
+      <EntityTypeMapping TypeName="QLTHUVIENModel.DOCGIA">
+        <MappingFragment StoreEntitySet="DOCGIA">
+          <ScalarProperty Name="MADG" ColumnName="MADG" />
+          <ScalarProperty Name="TEN" ColumnName="TEN" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+          <ScalarProperty Name="CMND" ColumnName="CMND" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="SODT" ColumnName="SODT" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAISACHes">
+      <EntityTypeMapping TypeName="QLTHUVIENModel.LOAISACH">
+        <MappingFragment StoreEntitySet="LOAISACH">
+          <ScalarProperty Name="MALOAISACH" ColumnName="MALOAISACH" />
+          <ScalarProperty Name="TENLOAISACH" ColumnName="TENLOAISACH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NHANVIENs">
+      <EntityTypeMapping TypeName="QLTHUVIENModel.NHANVIEN">
+        <MappingFragment StoreEntitySet="NHANVIEN">
+          <ScalarProperty Name="MANV" ColumnName="MANV" />
+          <ScalarProperty Name="TEN" ColumnName="TEN" />
+          <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="SODT" ColumnName="SODT" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="CMND" ColumnName="CMND" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PHIEUGIAODICHes">
+      <EntityTypeMapping TypeName="QLTHUVIENModel.PHIEUGIAODICH">
+        <MappingFragment StoreEntitySet="PHIEUGIAODICH">
+          <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
+          <ScalarProperty Name="MADG" ColumnName="MADG" />
+          <ScalarProperty Name="LOAIPHIEU" ColumnName="LOAIPHIEU" />
+          <ScalarProperty Name="NGAYMUON" ColumnName="NGAYMUON" />
+          <ScalarProperty Name="NGAYTRA" ColumnName="NGAYTRA" />
+          <ScalarProperty Name="PHIPHATSINH" ColumnName="PHIPHATSINH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PHIEUSACHes">
+      <EntityTypeMapping TypeName="QLTHUVIENModel.PHIEUSACH">
+        <MappingFragment StoreEntitySet="PHIEUSACH">
+          <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
+          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SACHes">
+      <EntityTypeMapping TypeName="QLTHUVIENModel.SACH">
+        <MappingFragment StoreEntitySet="SACH">
+          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+          <ScalarProperty Name="TENSACH" ColumnName="TENSACH" />
+          <ScalarProperty Name="MALOAISACH" ColumnName="MALOAISACH" />
+          <ScalarProperty Name="TACGIA" ColumnName="TACGIA" />
+          <ScalarProperty Name="NAMSX" ColumnName="NAMSX" />
+          <ScalarProperty Name="GIASACH" ColumnName="GIASACH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TAIKHOANDGs">
+      <EntityTypeMapping TypeName="QLTHUVIENModel.TAIKHOANDG">
+        <MappingFragment StoreEntitySet="TAIKHOANDG">
+          <ScalarProperty Name="TENTK" ColumnName="TENTK" />
+          <ScalarProperty Name="MADG" ColumnName="MADG" />
+          <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
+          <ScalarProperty Name="ENCODE" ColumnName="ENCODE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TAIKHOANNVs">
+      <EntityTypeMapping TypeName="QLTHUVIENModel.TAIKHOANNV">
+        <MappingFragment StoreEntitySet="TAIKHOANNV">
+          <ScalarProperty Name="TENTK" ColumnName="TENTK" />
+          <ScalarProperty Name="MANV" ColumnName="MANV" />
+          <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
+          <ScalarProperty Name="ENCODE" ColumnName="ENCODE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="THANHLYHUYs">
+      <EntityTypeMapping TypeName="QLTHUVIENModel.THANHLYHUY">
+        <MappingFragment StoreEntitySet="THANHLYHUY">
+          <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
+          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+          <ScalarProperty Name="NGAY" ColumnName="NGAY" />
+          <ScalarProperty Name="TIEN" ColumnName="TIEN" />
+          <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

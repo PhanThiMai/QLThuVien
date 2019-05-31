@@ -1,0 +1,504 @@
+﻿<Fluent:RibbonWindow x:Class="QLThuVien.DocGia"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QLThuVien"
+        mc:Ignorable="d"
+                  
+     
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+    DataContext="{StaticResource docgiavm}"
+                     WindowStartupLocation="CenterScreen"
+        Title="ĐỘC GIẢ" Height="450" Width="800" >
+
+
+    <Grid>
+
+        <Grid.Resources>
+            <Style TargetType="Grid">
+                <Setter Property="Margin" Value="5 0 0 5"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Fluent:Ribbon Grid.Row="0">
+        
+                <!--Tabs-->
+            
+                <Fluent:RibbonTabItem Header="HOME" Background="LightGoldenrodYellow" >
+                    <Fluent:RibbonGroupBox >
+                        <Fluent:Button   Background="DarkGray" Header="Infor" Width="100"
+                                     LargeIcon="../Resource/Icons/profile.png" Command="{Binding ThongTinDocGiaCommand}">
+
+                        </Fluent:Button>
+                        <Fluent:Button   Background="DarkGray" Header="Setting" Width="100"
+                                     LargeIcon="../Resource/Icons/setting.png" Command="{Binding SettingCommand}" >
+
+
+                        </Fluent:Button>
+                        <Fluent:Button   Background="DarkGray" Header="Logout" Width="100"
+                                     LargeIcon="../Resource/Icons/logout.png" Command="{Binding DangXuatCommand}">
+
+
+                        </Fluent:Button>
+
+                    </Fluent:RibbonGroupBox>
+
+                </Fluent:RibbonTabItem>
+
+                <Fluent:RibbonTabItem Header="SÁCH" Background="LightGoldenrodYellow">
+                    <Fluent:RibbonGroupBox >
+                        <Fluent:Button   Background="DarkGray" Header="Danh sách" Width="100"
+                                     LargeIcon="../Resource/Icons/bookshelf.png"  Command="{Binding SachCommand}">
+
+                        </Fluent:Button>
+                        <Fluent:Button   Background="DarkGray" Header="Giỏ sách đã chọn" Width="100"
+                                     LargeIcon="../Resource/Icons/bookshelf.png" Command="{Binding GioSachCommand}"  >
+
+
+                        </Fluent:Button>
+
+                    </Fluent:RibbonGroupBox>
+
+                </Fluent:RibbonTabItem>
+
+                <Fluent:RibbonTabItem Header="GIAO DỊCH" Background="LightGoldenrodYellow" >
+                    <Fluent:RibbonGroupBox >
+
+                        <Fluent:Button  Background="DarkGray" Header="Đang Mượn" Width="100"
+                                    LargeIcon="../Resource/Icons/bookshelf.png"  Command="{Binding DangMuonCommand}" >
+
+                        </Fluent:Button>
+                        <Fluent:Button   Background="DarkGray" Header="Đã trả" Width="100"  
+                                     LargeIcon="../Resource/Icons/bookshelf.png" Command="{Binding DaTraCommand}" >
+
+                        </Fluent:Button>
+
+
+                    </Fluent:RibbonGroupBox>
+
+                </Fluent:RibbonTabItem>
+
+        </Fluent:Ribbon>
+        
+        
+        
+        <Grid Grid.Row="1">
+            <Grid Visibility="{Binding Path=SachGrid, Converter={StaticResource Converter}}">
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="5 0 0 5"/>
+                    </Style>
+                </Grid.Resources>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+
+                    <RowDefinition ></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Grid Grid.Row="0">
+                    <Label Content="SACH"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+
+                    </Label>
+                </Grid>
+                
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Grid.Column="0">
+                        <ComboBox Text="--- Loại Sách ---" ItemsSource="{Binding LOAICBX}" IsEditable="True">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <ComboBox Text="--- Năm SX ---" ItemsSource="{Binding NAMSXCBX}" IsEditable="True">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <ComboBox Text="--- Tác Giả ---" ItemsSource="{Binding TACGIACBX}" IsEditable="True">
+                        </ComboBox>
+                    </Grid>
+                  
+                    
+                </Grid>
+                
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                            <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập thông tin "
+                       Text=""></TextBox>
+
+                    </Grid>
+                    <Grid Grid.Column="1">
+                            <Button
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                      Width="100" 
+                          Command="{Binding TIMKIEM}"
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
+                            </Button>
+                    </Grid>
+
+                </Grid>
+                
+                <Grid Grid.Row="3">
+                    <ListView ItemsSource="{Binding SACHLIST}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã Sách" Width="100" x:Name="MASACH" DisplayMemberBinding="{Binding MASACH}"></GridViewColumn>
+                                <GridViewColumn Header="Tên Sách" Width="120" x:Name="TENSACH" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Mã Loại" x:Name="MALOAISACH" DisplayMemberBinding="{Binding MALOAISACH}"></GridViewColumn>
+                                <GridViewColumn Header="Tác Giả" x:Name="TACGIA" DisplayMemberBinding="{Binding TACGIA}"></GridViewColumn>
+                                <GridViewColumn Header="Năm SX" x:Name="NAMSANXUAT" DisplayMemberBinding="{Binding NAMSANXUAT}"></GridViewColumn>
+                                <GridViewColumn Header="Giá Sách" x:Name="GIASACH" DisplayMemberBinding="{Binding GIASACH}"></GridViewColumn>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
+            </Grid>
+
+
+
+            <!-- Thong tin -->
+            <Grid  Visibility="{Binding Path=TTDocGiaGrid, Converter={StaticResource Converter}}">
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="5 0 0 5"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="{Binding TENDOCGIA}"  FontSize="20" FontStyle="Normal"
+                           HorizontalContentAlignment="Center" Background="CornflowerBlue">
+
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="1">
+
+                </Grid>
+            </Grid>
+
+
+
+            <!-- setting-->
+            <Grid  Visibility="{Binding Path=SettingGrid, Converter={StaticResource Converter}}">
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="5 0 0 5"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="SETTING"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <ComboBox></ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập mã sản phẩm "
+                   Text=""></TextBox>
+
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                    Command="{Binding TimKiem}"
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
+                        </Button>
+                    </Grid>
+
+                </Grid>
+                <Grid Grid.Row="2">
+
+                </Grid>
+            </Grid>
+
+            <!--  logout -->
+
+            <Grid Visibility="{Binding Path=LogOutGrid, Converter={StaticResource Converter}}">
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="5 0 0 5"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="LogOut"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <ComboBox></ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập mã sản phẩm "
+                   Text=""></TextBox>
+
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
+                        </Button>
+                    </Grid>
+
+                </Grid>
+                <Grid Grid.Row="2">
+
+                </Grid>
+            </Grid>
+
+            <!-- Gio sach-->
+            <Grid Visibility="{Binding Path=GioSachGrid, Converter={StaticResource Converter}}">
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="5 0 0 5"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="GioSach"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <ComboBox Text="-- Loại Sách --" ItemsSource="{Binding LOAICBX}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <ComboBox Text="-- Năm SX --" ItemsSource="{Binding NAMSXCBX}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <ComboBox Text="-- Tác Giả --" ItemsSource="{Binding TACGIACBX}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <ComboBox Text="-- Giá --" >
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="4">
+
+                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập thông tin "
+                   Text=""></TextBox>
+
+                    </Grid>
+                    <Grid Grid.Column="5">
+                        <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                      Command="{Binding TIMKIEM}"
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
+                        </Button>
+                    </Grid>
+
+                </Grid>
+                <Grid Grid.Row="2">
+
+
+
+                </Grid>
+            </Grid>
+
+            <!-- Dang muon-->
+
+            <Grid Visibility="{Binding Path=DangMuonGrid, Converter={StaticResource Converter}}">
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="5 0 0 5"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="Dang Muon"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <ComboBox Text="-- Loại Sách --" ItemsSource="{Binding LOAICBX}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <ComboBox Text="-- Năm SX --" ItemsSource="{Binding NAMSXCBX}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <ComboBox Text="-- Tác Giả --" ItemsSource="{Binding TACGIACBX}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <ComboBox Text="-- Giá --" >
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="4">
+
+                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập thông tin "
+                   Text=""></TextBox>
+
+                    </Grid>
+                    <Grid Grid.Column="5">
+                        <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                      Command="{Binding TIMKIEM}"
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
+                        </Button>
+                    </Grid>
+
+                </Grid>
+                <Grid Grid.Row="2">
+
+                </Grid>
+            </Grid>
+
+            <!-- Da tra-->
+
+            <Grid Visibility="{Binding Path=DaTraGrid, Converter={StaticResource Converter}}">
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="5 0 0 5"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="DA TRA"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <ComboBox Text="-- Loại Sách --" ItemsSource="{Binding LOAICBX}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <ComboBox Text="-- Năm SX --" ItemsSource="{Binding NAMSXCBX}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <ComboBox Text="-- Tác Giả --" ItemsSource="{Binding TACGIACBX}">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <ComboBox Text="-- Giá --" >
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="4">
+
+                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập thông tin "
+                   Text=""></TextBox>
+
+                    </Grid>
+                    <Grid Grid.Column="5">
+                        <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                      Command="{Binding TIMKIEM}"
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
+                        </Button>
+                    </Grid>
+
+                </Grid>
+                <Grid Grid.Row="2">
+
+                </Grid>
+            </Grid>
+
+
+        </Grid>
+      
+
+        <!-- sach -->
+
+    </Grid>
+</Fluent:RibbonWindow>

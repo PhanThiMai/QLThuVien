@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLTHUVIENModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DOCGIA">
+    <Key>
+      <PropertyRef Name="MADG" />
+    </Key>
+    <Property Name="MADG" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GIOITINH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CMND" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DIACHI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SODT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="PHIEUGIAODICHes" Relationship="Self.fk_PHIEUGD_MADG" FromRole="DOCGIA" ToRole="PHIEUGIAODICH" />
+    <NavigationProperty Name="TAIKHOANDGs" Relationship="Self.fk_TK_MADG" FromRole="DOCGIA" ToRole="TAIKHOANDG" />
+  </EntityType>
+  <EntityType Name="LOAISACH">
+    <Key>
+      <PropertyRef Name="MALOAISACH" />
+    </Key>
+    <Property Name="MALOAISACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TENLOAISACH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SACHes" Relationship="Self.fk_SACH_MALOAISACH" FromRole="LOAISACH" ToRole="SACH" />
+  </EntityType>
+  <EntityType Name="NHANVIEN">
+    <Key>
+      <PropertyRef Name="MANV" />
+    </Key>
+    <Property Name="MANV" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CHUCVU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DIACHI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SODT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="GIOITINH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
+    <Property Name="CMND" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TAIKHOANNVs" Relationship="Self.FK_TK_MANV" FromRole="NHANVIEN" ToRole="TAIKHOANNV" />
+  </EntityType>
+  <EntityType Name="PHIEUGIAODICH">
+    <Key>
+      <PropertyRef Name="MAPHIEU" />
+    </Key>
+    <Property Name="MAPHIEU" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MADG" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="LOAIPHIEU" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="NGAYMUON" Type="DateTime" Precision="0" />
+    <Property Name="NGAYTRA" Type="DateTime" Precision="0" />
+    <Property Name="PHIPHATSINH" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="DOCGIA" Relationship="Self.fk_PHIEUGD_MADG" FromRole="PHIEUGIAODICH" ToRole="DOCGIA" />
+    <NavigationProperty Name="PHIEUSACHes" Relationship="Self.fk_PHIEUSACH_MAPHIEU" FromRole="PHIEUGIAODICH" ToRole="PHIEUSACH" />
+  </EntityType>
+  <EntityType Name="PHIEUSACH">
+    <Key>
+      <PropertyRef Name="MAPHIEU" />
+      <PropertyRef Name="MASACH" />
+    </Key>
+    <Property Name="MAPHIEU" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MASACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SOLUONG" Type="Int32" />
+    <NavigationProperty Name="PHIEUGIAODICH" Relationship="Self.fk_PHIEUSACH_MAPHIEU" FromRole="PHIEUSACH" ToRole="PHIEUGIAODICH" />
+    <NavigationProperty Name="SACH" Relationship="Self.fk_PHIEUSACH_MASACH" FromRole="PHIEUSACH" ToRole="SACH" />
+  </EntityType>
+  <EntityType Name="SACH">
+    <Key>
+      <PropertyRef Name="MASACH" />
+    </Key>
+    <Property Name="MASACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TENSACH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MALOAISACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="TACGIA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NAMSX" Type="Time" Precision="7" />
+    <Property Name="GIASACH" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="LOAISACH" Relationship="Self.fk_SACH_MALOAISACH" FromRole="SACH" ToRole="LOAISACH" />
+    <NavigationProperty Name="PHIEUSACHes" Relationship="Self.fk_PHIEUSACH_MASACH" FromRole="SACH" ToRole="PHIEUSACH" />
+    <NavigationProperty Name="THANHLYHUYs" Relationship="Self.fk_THANHLYHUY_MASACH" FromRole="SACH" ToRole="THANHLYHUY" />
+  </EntityType>
+  <EntityType Name="TAIKHOANDG">
+    <Key>
+      <PropertyRef Name="TENTK" />
+    </Key>
+    <Property Name="TENTK" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MADG" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MATKHAU" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ENCODE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DOCGIA" Relationship="Self.fk_TK_MADG" FromRole="TAIKHOANDG" ToRole="DOCGIA" />
+  </EntityType>
+  <EntityType Name="TAIKHOANNV">
+    <Key>
+      <PropertyRef Name="TENTK" />
+    </Key>
+    <Property Name="TENTK" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MANV" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MATKHAU" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ENCODE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_TK_MANV" FromRole="TAIKHOANNV" ToRole="NHANVIEN" />
+  </EntityType>
+  <EntityType Name="THANHLYHUY">
+    <Key>
+      <PropertyRef Name="MAPHIEU" />
+    </Key>
+    <Property Name="MAPHIEU" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MASACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SOLUONG" Type="Int32" />
+    <Property Name="NGAY" Type="DateTime" Precision="0" />
+    <Property Name="TIEN" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="GHICHU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SACH" Relationship="Self.fk_THANHLYHUY_MASACH" FromRole="THANHLYHUY" ToRole="SACH" />
+  </EntityType>
+  <Association Name="fk_PHIEUGD_MADG">
+    <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="0..1" />
+    <End Role="PHIEUGIAODICH" Type="Self.PHIEUGIAODICH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOCGIA">
+        <PropertyRef Name="MADG" />
+      </Principal>
+      <Dependent Role="PHIEUGIAODICH">
+        <PropertyRef Name="MADG" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TK_MADG">
+    <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="0..1" />
+    <End Role="TAIKHOANDG" Type="Self.TAIKHOANDG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOCGIA">
+        <PropertyRef Name="MADG" />
+      </Principal>
+      <Dependent Role="TAIKHOANDG">
+        <PropertyRef Name="MADG" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_SACH_MALOAISACH">
+    <End Role="LOAISACH" Type="Self.LOAISACH" Multiplicity="0..1" />
+    <End Role="SACH" Type="Self.SACH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAISACH">
+        <PropertyRef Name="MALOAISACH" />
+      </Principal>
+      <Dependent Role="SACH">
+        <PropertyRef Name="MALOAISACH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TK_MANV">
+    <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+    <End Role="TAIKHOANNV" Type="Self.TAIKHOANNV" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHANVIEN">
+        <PropertyRef Name="MANV" />
+      </Principal>
+      <Dependent Role="TAIKHOANNV">
+        <PropertyRef Name="MANV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PHIEUSACH_MAPHIEU">
+    <End Role="PHIEUGIAODICH" Type="Self.PHIEUGIAODICH" Multiplicity="1" />
+    <End Role="PHIEUSACH" Type="Self.PHIEUSACH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PHIEUGIAODICH">
+        <PropertyRef Name="MAPHIEU" />
+      </Principal>
+      <Dependent Role="PHIEUSACH">
+        <PropertyRef Name="MAPHIEU" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PHIEUSACH_MASACH">
+    <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
+    <End Role="PHIEUSACH" Type="Self.PHIEUSACH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SACH">
+        <PropertyRef Name="MASACH" />
+      </Principal>
+      <Dependent Role="PHIEUSACH">
+        <PropertyRef Name="MASACH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_THANHLYHUY_MASACH">
+    <End Role="SACH" Type="Self.SACH" Multiplicity="0..1" />
+    <End Role="THANHLYHUY" Type="Self.THANHLYHUY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SACH">
+        <PropertyRef Name="MASACH" />
+      </Principal>
+      <Dependent Role="THANHLYHUY">
+        <PropertyRef Name="MASACH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLTHUVIENEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DOCGIAs" EntityType="Self.DOCGIA" />
+    <EntitySet Name="LOAISACHes" EntityType="Self.LOAISACH" />
+    <EntitySet Name="NHANVIENs" EntityType="Self.NHANVIEN" />
+    <EntitySet Name="PHIEUGIAODICHes" EntityType="Self.PHIEUGIAODICH" />
+    <EntitySet Name="PHIEUSACHes" EntityType="Self.PHIEUSACH" />
+    <EntitySet Name="SACHes" EntityType="Self.SACH" />
+    <EntitySet Name="TAIKHOANDGs" EntityType="Self.TAIKHOANDG" />
+    <EntitySet Name="TAIKHOANNVs" EntityType="Self.TAIKHOANNV" />
+    <EntitySet Name="THANHLYHUYs" EntityType="Self.THANHLYHUY" />
+    <AssociationSet Name="fk_PHIEUGD_MADG" Association="Self.fk_PHIEUGD_MADG">
+      <End Role="DOCGIA" EntitySet="DOCGIAs" />
+      <End Role="PHIEUGIAODICH" EntitySet="PHIEUGIAODICHes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TK_MADG" Association="Self.fk_TK_MADG">
+      <End Role="DOCGIA" EntitySet="DOCGIAs" />
+      <End Role="TAIKHOANDG" EntitySet="TAIKHOANDGs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_SACH_MALOAISACH" Association="Self.fk_SACH_MALOAISACH">
+      <End Role="LOAISACH" EntitySet="LOAISACHes" />
+      <End Role="SACH" EntitySet="SACHes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TK_MANV" Association="Self.FK_TK_MANV">
+      <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+      <End Role="TAIKHOANNV" EntitySet="TAIKHOANNVs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PHIEUSACH_MAPHIEU" Association="Self.fk_PHIEUSACH_MAPHIEU">
+      <End Role="PHIEUGIAODICH" EntitySet="PHIEUGIAODICHes" />
+      <End Role="PHIEUSACH" EntitySet="PHIEUSACHes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PHIEUSACH_MASACH" Association="Self.fk_PHIEUSACH_MASACH">
+      <End Role="SACH" EntitySet="SACHes" />
+      <End Role="PHIEUSACH" EntitySet="PHIEUSACHes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_THANHLYHUY_MASACH" Association="Self.fk_THANHLYHUY_MASACH">
+      <End Role="SACH" EntitySet="SACHes" />
+      <End Role="THANHLYHUY" EntitySet="THANHLYHUYs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

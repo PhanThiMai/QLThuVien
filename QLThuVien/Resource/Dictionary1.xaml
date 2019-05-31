@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:QLThuVien.Resource"
+                    xmlns:viewmodel ="clr-namespace:QLThuVien.ViewModel">
+
+    <viewmodel:DocGiaViewModel x:Key="docgiavm"></viewmodel:DocGiaViewModel>
+    <viewmodel:MainViewModel x:Key="mainvm"></viewmodel:MainViewModel>
+    <viewmodel:SignUpViewModel x:Key="signupvm"></viewmodel:SignUpViewModel>
+    <viewmodel:NhanVienViewModel x:Key="nhanvienv"></viewmodel:NhanVienViewModel>
+    <viewmodel:BooleanToCollapsedConverter x:Key="Converter"></viewmodel:BooleanToCollapsedConverter>
+</ResourceDictionary>
