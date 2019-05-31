@@ -219,6 +219,7 @@ namespace QLThuVien.ViewModel
             LOAISACHLIST = new ObservableCollection<LOAISACH>(DataProvider.Ins.DB.LOAISACHes);
 
             LOAICBX = new ObservableCollection<string>();
+
             NAMSXCBX = new ObservableCollection<string>();
             TACGIACBX = new ObservableCollection<string>();
 
