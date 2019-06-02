@@ -6,8 +6,280 @@
         xmlns:local="clr-namespace:QLThuVien"
         mc:Ignorable="d"
         DataContext="{StaticResource signupvm}"
-        Title="SignUp" Height="450" Width="800">
-    <Grid>
+                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+
+
+        Name="signupwindow"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+         Background="{DynamicResource MaterialDesignPaper}"
+         FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
         
+        Title="Đăng ký" Height="500" Width="800">
+    
+    
+    <Grid>
+
+        <materialDesign:Card Grid.Row="1" Width="700" Height="450" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="15 15 15 0"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" ></RowDefinition>
+                    <RowDefinition></RowDefinition>
+         
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="15"></RowDefinition>
+
+                </Grid.RowDefinitions>
+
+
+                <Grid Grid.Row="0">
+                    <materialDesign:Card
+                          Background="{DynamicResource PrimaryHueDarkBrush}"
+                          Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                          Width="400"
+                        
+                          Padding="8">
+                        <WrapPanel
+                            Margin="3"
+                            >
+
+
+                            <RadioButton
+                                  Margin="16 4 16 0"
+                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}"
+                                Command="{Binding DocGiaRadioButton}"
+                                >
+                                Độc giả
+                            </RadioButton>
+                            <RadioButton
+                                   Margin="30 4 30 0"
+                                   Command="{Binding ThuThuRadioButton}"
+
+                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
+                                Thủ thư
+                            </RadioButton>
+                            <RadioButton
+                                  Margin="30 4 0 0"
+                                Command="{Binding KiemToanRadioButton}"
+                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
+                                Kiểm toán
+                            </RadioButton>
+
+                        </WrapPanel>
+                    </materialDesign:Card>
+
+                </Grid>
+                
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                      
+                 
+                        <StackPanel>
+                            <TextBox
+                                  x:Name="HoTenTextBox"
+                                Height="50"
+                                Margin="10 10"
+                                  materialDesign:HintAssist.Hint="Họ và tên">
+                                <TextBox.Text>
+                                    <Binding
+                                          Path="HoTen"
+                                          UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            
+
+                            <TextBox
+                                  x:Name="UserNameTextBox"
+                                Height="50"
+                                Margin="10 10"
+                                  materialDesign:HintAssist.Hint="UserName">
+                                <TextBox.Text>
+                                    <Binding
+                                          Path="UserName"
+                                          UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <StackPanel Orientation="Horizontal">
+                                <PasswordBox
+                                     x:Name="FloatingPasswordBox"
+                                    Width="200"
+                                    Margin="5 10 0 5"
+                                 materialDesign:HintAssist.Hint="Mật khẩu"
+                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PasswordChanged">
+                                            <i:InvokeCommandAction
+                                       Command="{Binding MatKhau}" 
+                                   CommandParameter="{Binding ElementName=FloatingPasswordBox}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+
+
+                                </PasswordBox>
+                               
+                                
+                                <CheckBox
+                                    Margin="5 5 5 5"
+                                    Style="{StaticResource MaterialDesignCheckBox}"
+                                    Command="{Binding HienThiMatKhau}"
+                                    >
+                                  Hiển thị
+                                </CheckBox>
+                            </StackPanel>
+                           
+                            <materialDesign:Card
+                                Height="50"
+                                Margin="8 25 "
+                               
+                          Background="{DynamicResource PrimaryHueDarkBrush}"
+                          Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+       
+                          Padding="5">
+                                <StackPanel
+                                    Margin="5"
+                                    Orientation="Horizontal"
+                                    >
+                                    <RadioButton
+                                   Margin="20 4 10 0"
+                                        Command="{Binding NamRadioButton}"
+                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
+                                        Nam
+                                    </RadioButton>
+                                    <RadioButton
+                                   Margin="30 4 10 0"
+                                        Command="{Binding NuRadioButton}"
+
+                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
+                                        Nữ
+                                    </RadioButton>
+                                    <RadioButton
+                                  Margin="30 4 0 0"
+                                 Command="{Binding GioiTinhKhacRadioButton}"
+
+                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
+                                        Khác
+                                    </RadioButton>
+
+                                </StackPanel>
+                            </materialDesign:Card>
+
+                            
+                        </StackPanel>
+                        
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        
+
+                        <StackPanel>
+
+                            <DatePicker
+                                  Height="50"
+                                 Margin="10 10"
+                                  materialDesign:HintAssist.Hint="Ngày sinh"
+                                
+                                  Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                            
+                            <TextBox
+                                  x:Name="SoDTTextBox"
+                                Height="50"
+                                Margin="10 10"
+                                
+                                  materialDesign:HintAssist.Hint="Số điện thoại">
+                                <TextBox.Text>
+                                    <Binding
+                                          Path="SoDienThoai"
+                                          UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+
+                            <TextBox
+                                  x:Name="CMNDTextBox"
+                                Height="50"
+                                Margin="10 10"
+                                  materialDesign:HintAssist.Hint="CMND">
+                                <TextBox.Text>
+                                    <Binding
+                                          Path="CMND"
+                                          UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox
+                                  x:Name="DiaChiTextBox"
+                                Height="50"
+                                Margin="10 10"
+                                  materialDesign:HintAssist.Hint="Địa chỉ">
+                                <TextBox.Text>
+                                    <Binding
+                                          Path="DiaChi"
+                                          UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+
+                    </Grid>
+
+                </Grid>
+
+
+                <Grid Grid.Row="2">
+
+                    <Button Grid.Column="0"
+                                Height="40"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Width="120"
+                                
+                        ToolTip="Resource name: MaterialDesignRaisedButton" Content="Đăng Ký" 
+                                Name="LoginEnter" 
+                           Command="{Binding SignUpCommand}" 
+                                CommandParameter="{Binding ElementName=signupwindow}"  >
+
+                    </Button>
+
+                </Grid>
+
+            </Grid>
+           
+                
+          
+            
+        </materialDesign:Card>
+
     </Grid>
 </Window>

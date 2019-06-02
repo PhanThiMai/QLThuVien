@@ -16,8 +16,10 @@ namespace QLThuVien.ViewModel
    public  class MainViewModel : BaseViewModel
     {
         public bool isLogin { get; set; }
+
         private string _UserName;
         public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
+
         private string _Password;
         public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
 

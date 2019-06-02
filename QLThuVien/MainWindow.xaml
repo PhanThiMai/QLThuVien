@@ -26,7 +26,11 @@
     <Grid>
         
         
-        <materialDesign:Card Grid.Row="1" Width="320" Height="350" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <materialDesign:Card Grid.Row="1" 
+                             Width="320"
+                             Height="350" 
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center">
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="Grid">
@@ -36,38 +40,56 @@
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition ></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="60" ></RowDefinition>
+                    <RowDefinition Height="35"></RowDefinition>
 
 
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
                              Text="{Binding UserName}"
+                            Margin="5 15"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 </Grid>
                 <Grid Grid.Row="1">
-                    <PasswordBox x:Name="FloatingPasswordBox"
+                    <StackPanel
+                        Orientation="Vertical">
+                        <PasswordBox
+                                     x:Name="FloatingPasswordBox"
+                                   
+                                    Margin="5 10"
                                  materialDesign:HintAssist.Hint="Mật khẩu"
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" >
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PasswordChanged">
-                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PasswordChanged">
+                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
                                    CommandParameter="{Binding ElementName=FloatingPasswordBox}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </PasswordBox>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+
+                        </PasswordBox>
+
+
+                        <CheckBox
+                                    Margin="5 5 5 5"
+                             FontSize="11"
+                            
+                            Height="15"
+                                    Style="{StaticResource MaterialDesignCheckBox}"
+                                    Command="{Binding HienThiMatKhau}"
+                                    >
+                            Hiển thị mật khẩu
+                        </CheckBox>
+                    </StackPanel>
                 </Grid>
                 <Grid Grid.Row="2" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                  
+                
                         <Button Grid.Column="0"
                                 Height="40"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Width="120"
-                                
+                              
                         ToolTip="Resource name: MaterialDesignRaisedButton" Content="Đăng Nhập" 
                                 Name="LoginEnter" 
                            Command="{Binding LoginCommand}" 
@@ -76,19 +98,23 @@
                         </Button>
 
                 </Grid>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="3"
+                      Margin="5"
+                      >
                     <Button
                         Foreground="Black"
                         FontFamily="Verdana"
-                        FontSize="11"
+                        FontSize="10"
                         Background="White"
-                       Content="Create new account"
+                       Content="Đăng ký tài khoản mới"
                         Command="{Binding SignUp}"
                         >
                     </Button>
                 </Grid>
             </Grid>
         </materialDesign:Card>  
+    
+    
     </Grid>
 
 </Window>
