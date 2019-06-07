@@ -61,11 +61,11 @@
                 <Fluent:RibbonTabItem Header="SÁCH" Background="LightGoldenrodYellow">
                     <Fluent:RibbonGroupBox >
                         <Fluent:Button   Background="DarkGray" Header="Danh sách" Width="100"
-                                     LargeIcon="../Resource/Icons/bookshelf.png"  Command="{Binding SachCommand}">
+                                     LargeIcon="../Resource/Icons/book.png"  Command="{Binding SachCommand}">
 
                         </Fluent:Button>
                         <Fluent:Button   Background="DarkGray" Header="Giỏ sách đã chọn" Width="100"
-                                     LargeIcon="../Resource/Icons/bookshelf.png" Command="{Binding GioSachCommand}"  >
+                                     LargeIcon="../Resource/Icons/cart.png" Command="{Binding GioSachCommand}"  >
 
 
                         </Fluent:Button>
@@ -78,11 +78,11 @@
                     <Fluent:RibbonGroupBox >
 
                         <Fluent:Button  Background="DarkGray" Header="Đang Mượn" Width="100"
-                                    LargeIcon="../Resource/Icons/bookshelf.png"  Command="{Binding DangMuonCommand}" >
+                                    LargeIcon="../Resource/Icons/borrowed.png"  Command="{Binding DangMuonCommand}" >
 
                         </Fluent:Button>
                         <Fluent:Button   Background="DarkGray" Header="Đã trả" Width="100"  
-                                     LargeIcon="../Resource/Icons/bookshelf.png" Command="{Binding DaTraCommand}" >
+                                     LargeIcon="../Resource/Icons/returned.png" Command="{Binding DaTraCommand}" >
 
                         </Fluent:Button>
 
@@ -96,6 +96,7 @@
         
         
         <Grid Grid.Row="1">
+            <!--  kho sach-->
             <Grid Visibility="{Binding Path=SachGrid, Converter={StaticResource Converter}}">
                 <Grid.Resources>
                     <Style TargetType="Grid">
@@ -186,22 +187,150 @@
             <Grid  Visibility="{Binding Path=TTDocGiaGrid, Converter={StaticResource Converter}}">
                 <Grid.Resources>
                     <Style TargetType="Grid">
-                        <Setter Property="Margin" Value="5 0 0 5"/>
+                        <Setter Property="Margin" Value="40 40 40 40"/>
+
                     </Style>
                 </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Content="{Binding TENDOCGIA}"  FontSize="20" FontStyle="Normal"
-                           HorizontalContentAlignment="Center" Background="CornflowerBlue">
 
-                    </Label>
-                </Grid>
-                <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"
+                                  
+                                  ></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Background="Azure">
+                    <StackPanel>
+                        <materialDesign:ColorZone
+                    Mode="PrimaryLight"
+                    VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon
+                      Kind="AccountCircle"
+                      Height="200"
+                      Width="140"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center" />
+                        </materialDesign:ColorZone>
+                        <Label Content="DG0001"  FontSize="20" 
+                           FontStyle="Normal"
+                           FontWeight="Bold"
+                           HorizontalContentAlignment="Center"
+                           Background="AliceBlue"
+                           Margin="0 20 0 0" Height="52"
+                           >
+
+                        </Label>
+
+
+                    </StackPanel>
+
 
                 </Grid>
+                <Grid Grid.Column="1"
+                  Background="Azure"
+                  Margin="0 20"
+                  >
+                    <StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Phan Hoàng Hải"  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="200"
+                          >
+                            </Label>
+                            <Label Content="Nữ"  FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="200"
+                          >
+                            </Label>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="CMND       : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="130"
+                          >
+                            </Label>
+                            <Label Content="123456789"  FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="290"
+                          >
+                            </Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Ngày sinh  : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="150"
+                          >
+                            </Label>
+                            <Label Content="10/10/1992"  FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="270"
+                          >
+                            </Label>
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="SĐT           : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="130"
+                          >
+                            </Label>
+                            <Label Content="  086952365425"  FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="285"
+                          >
+                            </Label>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Địa chỉ      : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="120"
+                          >
+                            </Label>
+                            <Label Content="Quận Thủ Đức"  FontSize="22" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="295"
+                          >
+                            </Label>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+
             </Grid>
 
 
@@ -210,46 +339,163 @@
             <Grid  Visibility="{Binding Path=SettingGrid, Converter={StaticResource Converter}}">
                 <Grid.Resources>
                     <Style TargetType="Grid">
-                        <Setter Property="Margin" Value="5 0 0 5"/>
+                        <Setter Property="Margin" Value="40 40 40 40"/>
+
                     </Style>
                 </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Content="SETTING"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
 
-                    </Label>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <ComboBox></ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập mã sản phẩm "
-                   Text=""></TextBox>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"
+                                  
+                                  ></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <Button
-                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                  Width="100" 
-                    Command="{Binding TimKiem}"
-                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
-                        </Button>
-                    </Grid>
+                <Grid Grid.Column="0" Background="Azure">
+                    <StackPanel>
+                        <materialDesign:ColorZone
+                    Mode="PrimaryLight"
+                    VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon
+                      Kind="AccountCircle"
+                      Height="200"
+                      Width="140"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center" />
+                        </materialDesign:ColorZone>
+                        <Label Content="DG0001"  FontSize="20" 
+                           FontStyle="Normal"
+                           FontWeight="Bold"
+                           HorizontalContentAlignment="Center"
+                           Background="AliceBlue"
+                           Margin="0 20 0 0"
+                           >
 
-                </Grid>
-                <Grid Grid.Row="2">
+                        </Label>
+
+
+                    </StackPanel>
+
 
                 </Grid>
+                <Grid Grid.Column="1"
+                  Background="Azure"
+                  Margin="0 20"
+                  >
+                    <StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label  
+                          Content="Họ và tên:"
+                                FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                          
+                           Width="124"
+                           
+                          >
+                            </Label>
+                            <TextBox  
+                              Foreground="Black"
+                            FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="294">
+                                Phan Hoàng Hải
+                            </TextBox>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="CMND     : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="117"
+                          >
+                            </Label>
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                                 Foreground="Black"
+
+                         Width="290"
+                          >
+                                123456789
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Ngày sinh: "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="123"
+                          >
+                            </Label>
+                            <TextBox   FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                                   Foreground="Black"
+
+                         Width="270"
+                          >
+                                10/10/1992
+                            </TextBox>
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="SĐT          : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="120"
+                          >
+                            </Label>
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                         Width="303"
+                          >
+                                086952365425
+                            </TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Địa chỉ     : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="120"
+                          >
+                            </Label>
+                            <TextBox  FontSize="22" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                                  Foreground="Black"
+                         Width="295"
+                          >
+                                Quận Thủ Đức
+                            </TextBox>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+
             </Grid>
 
             <!--  logout -->
@@ -489,6 +735,7 @@
                     </Grid>
 
                 </Grid>
+                
                 <Grid Grid.Row="2">
 
                 </Grid>
@@ -497,8 +744,6 @@
 
         </Grid>
       
-
-        <!-- sach -->
 
     </Grid>
 </Fluent:RibbonWindow>

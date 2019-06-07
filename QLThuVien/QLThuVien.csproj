@@ -128,8 +128,53 @@
     <Compile Include="NhanVien.xaml.cs">
       <DependentUpon>NhanVien.xaml</DependentUpon>
     </Compile>
+    <Compile Include="uc_dg_dangMuon.xaml.cs">
+      <DependentUpon>uc_dg_dangMuon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_dg_gioSach.xaml.cs">
+      <DependentUpon>uc_dg_gioSach.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_dg_Info.xaml.cs">
+      <DependentUpon>uc_dg_Info.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_dg_lichSuMuon.xaml.cs">
+      <DependentUpon>uc_dg_lichSuMuon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_dg_setting.xaml.cs">
+      <DependentUpon>uc_dg_setting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_khoSach.xaml.cs">
+      <DependentUpon>uc_khoSach.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_logOut.xaml.cs">
+      <DependentUpon>uc_logOut.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_nv_docGia.xaml.cs">
+      <DependentUpon>uc_nv_docGia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_nv_docGiaViPham.xaml.cs">
+      <DependentUpon>uc_nv_docGiaViPham.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_nv_lichSuMuon.xaml.cs">
+      <DependentUpon>uc_nv_lichSuMuon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_nv_dangMuon.xaml.cs">
+      <DependentUpon>uc_nv_dangMuon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_nv_infor.xaml.cs">
+      <DependentUpon>uc_nv_infor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SignUp.xaml.cs">
       <DependentUpon>SignUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_nv_nhapSach.xaml.cs">
+      <DependentUpon>uc_nv_nhapSach.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_nv_setting.xaml.cs">
+      <DependentUpon>uc_nv_setting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="uc_nv_ThanhLySach.xaml.cs">
+      <DependentUpon>uc_nv_ThanhLySach.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\BooleanToCollapsedConverter.cs" />
@@ -157,11 +202,71 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="uc_dg_dangMuon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_dg_gioSach.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_dg_Info.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_dg_lichSuMuon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_dg_setting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_khoSach.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_logOut.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_nv_docGia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_nv_docGiaViPham.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_nv_lichSuMuon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_nv_dangMuon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_nv_infor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resource\Dictionary1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SignUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_nv_nhapSach.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_nv_setting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="uc_nv_ThanhLySach.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,6 +316,14 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resource\Icons\reader.png" />
+    <Resource Include="Resource\Icons\dgvp.png" />
+    <Resource Include="Resource\Icons\input.png" />
+    <Resource Include="Resource\Icons\sell.png" />
+    <Resource Include="Resource\Icons\book.png" />
+    <Resource Include="Resource\Icons\borrowed.png" />
+    <Resource Include="Resource\Icons\cart.png" />
+    <Resource Include="Resource\Icons\returned.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resource\Icons\bookshelf.png" />

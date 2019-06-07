@@ -16,6 +16,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
+        
          Background="{DynamicResource MaterialDesignPaper}"
          FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
@@ -97,6 +98,7 @@
                                   x:Name="HoTenTextBox"
                                 Height="50"
                                 Margin="10 10"
+                                
                                   materialDesign:HintAssist.Hint="Họ và tên">
                                 <TextBox.Text>
                                     <Binding
@@ -280,6 +282,6 @@
           
             
         </materialDesign:Card>
-
+        
     </Grid>
 </Window>

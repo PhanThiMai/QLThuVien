@@ -1,0 +1,168 @@
+﻿<UserControl x:Class="QLThuVien.uc_dg_Info"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QLThuVien"
+             mc:Ignorable="d" 
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+         TextElement.FontWeight="Regular"
+         TextElement.FontSize="13"
+         TextOptions.TextFormattingMode="Ideal"
+         TextOptions.TextRenderingMode="Auto"
+         Background="{DynamicResource MaterialDesignPaper}"
+         FontFamily="{DynamicResource MaterialDesignFont}"
+             
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="AntiqueWhite">
+        <Grid >
+            <Grid.Resources>
+                <Style TargetType="Grid">
+                    <Setter Property="Margin" Value="40 40 40 40"/>
+
+                </Style>
+            </Grid.Resources>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"
+                                  
+                                  ></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Background="Azure">
+                <StackPanel>
+                    <materialDesign:ColorZone
+                    Mode="PrimaryLight"
+                    VerticalAlignment="Stretch">
+                        <materialDesign:PackIcon
+                      Kind="AccountCircle"
+                      Height="200"
+                      Width="140"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center" />
+                    </materialDesign:ColorZone>
+                    <Label Content="DG0001"  FontSize="20" 
+                           FontStyle="Normal"
+                           FontWeight="Bold"
+                           HorizontalContentAlignment="Center"
+                           Background="AliceBlue"
+                           Margin="0 20 0 0" Height="52"
+                           >
+
+                    </Label>
+      
+
+                </StackPanel>
+
+
+            </Grid>
+            <Grid Grid.Column="1"
+                  Background="Azure"
+                  Margin="0 20"
+                  >
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                        <Label Content="Phan Hoàng Hải"  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="200"
+                          >
+                        </Label>
+                        <Label Content="Nữ"  FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="200"
+                          >
+                        </Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                        <Label Content="CMND       : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="130"
+                          >
+                        </Label>
+                        <Label Content="123456789"  FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="290"
+                          >
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                        <Label Content="Ngày sinh  : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="150"
+                          >
+                        </Label>
+                        <Label Content="10/10/1992"  FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="270"
+                          >
+                        </Label>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                        <Label Content="SĐT           : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="130"
+                          >
+                        </Label>
+                        <Label Content="  086952365425"  FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="285"
+                          >
+                        </Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                        <Label Content="Địa chỉ      : "  FontSize="22" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="120"
+                          >
+                        </Label>
+                        <Label Content="Quận Thủ Đức"  FontSize="22" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="295"
+                          >
+                        </Label>
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</UserControl>

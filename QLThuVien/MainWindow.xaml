@@ -38,6 +38,7 @@
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
+                    
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="60" ></RowDefinition>
@@ -45,6 +46,7 @@
 
 
                 </Grid.RowDefinitions>
+                
                 <Grid Grid.Row="0">
                     <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
                              Text="{Binding UserName}"

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Mai\Desktop\TKPM\QLThuVien\QLThuVien\obj\Debug\
+C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\
 QLThuVien
 none
 false
 DEBUG;TRACE
-C:\Users\Mai\Desktop\TKPM\QLThuVien\QLThuVien\App.xaml
-5-390495558
+C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\App.xaml
+201084093018
 2-1556844510
-311472741687
-23-1075398026
-DocGia.xaml;MainWindow.xaml;NhanVien.xaml;Resource\Dictionary1.xaml;SignUp.xaml;
+46-1859977232
+231058173458
+DocGia.xaml;MainWindow.xaml;NhanVien.xaml;uc_dg_dangMuon.xaml;uc_dg_gioSach.xaml;uc_dg_Info.xaml;uc_dg_lichSuMuon.xaml;uc_dg_setting.xaml;uc_khoSach.xaml;uc_logOut.xaml;uc_nv_docGia.xaml;uc_nv_docGiaViPham.xaml;uc_nv_lichSuMuon.xaml;uc_nv_dangMuon.xaml;uc_nv_infor.xaml;Resource\Dictionary1.xaml;SignUp.xaml;uc_nv_nhapSach.xaml;uc_nv_setting.xaml;uc_nv_ThanhLySach.xaml;
 
 True
 

@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="QLThuVien.uc_logOut"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QLThuVien"
+             mc:Ignorable="d" 
+               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             
+             
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="AntiqueWhite" 
+          Width="400"
+          Height="150"
+          Margin="150 200 100 100"
+          >
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Label  
+                          Content="   Xác nhận đăng xuất khỏi hệ thống ?"
+                                FontSize="23" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                          
+                          >
+            </Label>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <StackPanel
+                Orientation="Horizontal"
+                Margin="70 0 20 20"
+                >
+                <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                    Margin="10 10 "
+                 
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Đăng Xuất
+                </Button>
+
+                <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                    Margin="10 10 "
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Hủy
+                </Button>
+                
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</UserControl>
