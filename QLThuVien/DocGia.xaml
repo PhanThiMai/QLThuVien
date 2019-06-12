@@ -621,7 +621,8 @@
 
 
                 <Grid Grid.Row="1">
-                    <ListView  ItemsSource="{Binding GIOSACHLIST}" SelectedItem="{Binding SelectedGioSach}">
+                    <ListView  ItemsSource="{Binding GIOSACHLIST}"
+                               SelectedItem="{Binding SelectedGioSach}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã Sách"  DisplayMemberBinding="{Binding MASACH}"></GridViewColumn>
@@ -664,61 +665,108 @@
                         <Setter Property="Margin" Value="5 0 0 5"/>
                     </Style>
                 </Grid.Resources>
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="50" ></RowDefinition>
+                    <RowDefinition Height="50" ></RowDefinition>
+
+                    <RowDefinition ></RowDefinition>
+
+                    <RowDefinition Height="50" ></RowDefinition>
                 </Grid.RowDefinitions>
+
                 <Grid Grid.Row="0">
-                    <Label Content="Dang Muon"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+                    <Label Content="ĐANG MƯỢN"  FontSize="20" 
+                       FontStyle="Normal" HorizontalContentAlignment="Center"
+                       Background="CornflowerBlue">
 
                     </Label>
                 </Grid>
+
                 <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                    <!-- MA PHIEU-->
+                    <Label Content="Mã phiếu :"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center" Margin="0,0,704,0"
+                          />
 
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <ComboBox Text="-- Loại Sách --" ItemsSource="{Binding LOAICBX}">
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <ComboBox Text="-- Năm SX --" ItemsSource="{Binding NAMSXCBX}">
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <ComboBox Text="-- Tác Giả --" ItemsSource="{Binding TACGIACBX}">
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="3">
-                        <ComboBox Text="-- Giá --" >
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="4">
+                    <Label Content="{Binding DMMaPhieuMuon}"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center" Margin="100,0,440,0" 
+                          />
 
-                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập thông tin "
-                   Text=""></TextBox>
-
-                    </Grid>
-                    <Grid Grid.Column="5">
-                        <Button
-                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                  Width="100" 
-                      Command="{Binding TIMKIEM}"
-                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
-                        </Button>
-                    </Grid>
 
                 </Grid>
+
                 <Grid Grid.Row="2">
+                    <!-- MA PHIEU-->
+                    <Label Content="Ngày mượn :"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center" Margin="0,0,853,0" 
+                          />
+
+                    <Label Content="{Binding DMNgayMuon}"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                   Margin="98,0,643,0" RenderTransformOrigin="0.5,0.5" 
+                          >
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+
+
+                    <Label Content="Ngày trả dự kiến :"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center" Margin="379,0,282,0" 
+                          />
+
+                    <Label Content="{Binding DMNgayTraDuKien}"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                   
+                   Margin="546,0,199,0" 
+                          />
+
 
                 </Grid>
+
+
+                <Grid Grid.Row="4">
+                    <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+            Command="{Binding DMTraSach}" Margin="640,6,10,7"
+                >Trả Sách
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <ListView  ItemsSource="{Binding DANGMUONLIST}"
+                             >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã Sách"  DisplayMemberBinding="{Binding MASACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Tên Sách"  DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Mã Loại"  DisplayMemberBinding="{Binding MALOAISACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Số Lượng"  DisplayMemberBinding="{Binding SOLUONG}" ></GridViewColumn>
+                                <GridViewColumn Header="Năm SX"  DisplayMemberBinding="{Binding NAMSX}" ></GridViewColumn>
+                                <GridViewColumn Header="Tác Giả"  DisplayMemberBinding="{Binding TACGIA}" ></GridViewColumn>
+                                <GridViewColumn Header="Giá"  DisplayMemberBinding="{Binding GIA}" ></GridViewColumn>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
+                
+                
             </Grid>
 
             <!-- Da tra-->
@@ -731,60 +779,34 @@
                 </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Label Content="DA TRA"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+                    <Label Content="LỊCH SỬ MƯỢN SÁCH"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
 
                     </Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                    <ListView  ItemsSource="{Binding DATRALIST}"
+                             >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã Sách"  DisplayMemberBinding="{Binding MAPHIEU}" ></GridViewColumn>
 
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <ComboBox Text="-- Loại Sách --" ItemsSource="{Binding LOAICBX}">
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <ComboBox Text="-- Năm SX --" ItemsSource="{Binding NAMSXCBX}">
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <ComboBox Text="-- Tác Giả --" ItemsSource="{Binding TACGIACBX}">
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="3">
-                        <ComboBox Text="-- Giá --" >
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="4">
+                                <GridViewColumn Header="Mã Sách"  DisplayMemberBinding="{Binding MASACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Tên Sách"  DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Mã Loại"  DisplayMemberBinding="{Binding MALOAISACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Số Lượng"  DisplayMemberBinding="{Binding SOLUONG}" ></GridViewColumn>
+                                <GridViewColumn Header="Năm SX"  DisplayMemberBinding="{Binding NAMSX}" ></GridViewColumn>
+                                <GridViewColumn Header="Tác Giả"  DisplayMemberBinding="{Binding TACGIA}" ></GridViewColumn>
+                                <GridViewColumn Header="Giá"  DisplayMemberBinding="{Binding GIA}" ></GridViewColumn>
 
-                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập thông tin "
-                   Text=""></TextBox>
-
-                    </Grid>
-                    <Grid Grid.Column="5">
-                        <Button
-                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                  Width="100" 
-                      Command="{Binding TIMKIEM}"
-                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
-                        </Button>
-                    </Grid>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
                 </Grid>
 
-                <Grid Grid.Row="2">
-
-                </Grid>
             </Grid>
 
 

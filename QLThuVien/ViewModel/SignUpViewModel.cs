@@ -126,10 +126,28 @@ namespace QLThuVien.ViewModel
         public ICommand SignUpCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
+      
 
+        private ObservableCollection<TAIKHOANDG> _TKDOCGIAList;
+        public ObservableCollection<TAIKHOANDG> TKDOCGIAList
+        {
+            get => _TKDOCGIAList;
+            set { _TKDOCGIAList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<TAIKHOANNV> _TKNHANVIENList;
+        public ObservableCollection<TAIKHOANNV> TKNHANVIENList
+        {
+            get => _TKNHANVIENList;
+            set { _TKNHANVIENList = value; OnPropertyChanged(); }
+        }
 
         public SignUpViewModel()
         {
+            // DOCGIAList = new ObservableCollection<DOCGIA>(DataProvider.Ins.DB.DOCGIAs);
+            TKDOCGIAList = new ObservableCollection<TAIKHOANDG>(DataProvider.Ins.DB.TAIKHOANDGs);
+            TKNHANVIENList = new ObservableCollection<TAIKHOANNV>(DataProvider.Ins.DB.TAIKHOANNVs);
+
             MatKhau = UserName = HoTen = DiaChi = CMND =ChonGioiTinh= TypeOfAccount= SoDienThoai="";
             NgaySinh = new DateTime(1980, 1, 1);
             ErrorHoTen = false;
@@ -169,6 +187,7 @@ namespace QLThuVien.ViewModel
 
             }
 
+            
             if (passEncode == "" )
             {
                 MessageBox.Show("Mật khẩu không hợp lệ ");
@@ -193,13 +212,16 @@ namespace QLThuVien.ViewModel
 
             else
             {
-                if(TypeOfAccount == "DocGia") {
-                    string maDocGia = "";
-                    int numDocGia = DataProvider.Ins.DB.DOCGIAs.Count();
-                    maDocGia = KhoiTaoMa("DG", numDocGia + 1);
+                if(TypeOfAccount == "DocGia" ) {
+                    if (CheckUserName(true))
+                    {
+                        string maDocGia = "";
+                        int numDocGia = DataProvider.Ins.DB.DOCGIAs.Count();
+                        maDocGia = KhoiTaoMa("DG", numDocGia + 1);
 
-                    try {
-                        var DG = new DOCGIA() {
+
+                        var DG = new DOCGIA()
+                        {
                             MADG = maDocGia,
                             TEN = HoTen,
                             GIOITINH = ChonGioiTinh,
@@ -213,23 +235,8 @@ namespace QLThuVien.ViewModel
                         DataProvider.Ins.DB.DOCGIAs.Add(DG);
                         DataProvider.Ins.DB.SaveChanges();
 
-
-                    }
-                    catch (DbEntityValidationException e) {
-                        foreach (var eve in e.EntityValidationErrors){
-                            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                            foreach (var ve in eve.ValidationErrors) {
-                                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                    ve.PropertyName, ve.ErrorMessage);
-                            }
-                        }
-                        throw e;
-                    }
-
-
-                    try {
-                        var tk = new TAIKHOANDG() {
+                        var tk = new TAIKHOANDG()
+                        {
                             TENTK = UserName,
                             MADG = maDocGia,
                             MATKHAU = MatKhau,
@@ -238,55 +245,55 @@ namespace QLThuVien.ViewModel
 
                         DataProvider.Ins.DB.TAIKHOANDGs.Add(tk);
                         DataProvider.Ins.DB.SaveChanges();
-
-
                     }
-                    catch (DbEntityValidationException e) {
-                        foreach (var eve in e.EntityValidationErrors){
-                            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                            foreach (var ve in eve.ValidationErrors)  {
-                                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                    ve.PropertyName, ve.ErrorMessage);
-                            }
-                        }
-                        throw e;
+                    else
+                    {
+                        MessageBox.Show("Username da ton tai");
                     }
-                  
                 
 
                 }
                 else if(TypeOfAccount == "NhanVien") {
-                    string maNhanVien = "";
-                    int numNhanVien = DataProvider.Ins.DB.NHANVIENs.Count();
-                    maNhanVien = KhoiTaoMa("NV", numNhanVien + 1);
+                    if (CheckUserName(false))
+                    {
+                        string maNhanVien = "";
+                        int numNhanVien = DataProvider.Ins.DB.NHANVIENs.Count();
+                        maNhanVien = KhoiTaoMa("NV", numNhanVien + 1);
 
-                    var NV = new NHANVIEN()  {
-                        MANV = maNhanVien,
-                        TEN = HoTen,
-                        GIOITINH = ChonGioiTinh,
-                        CMND = CMND,
-                        DIACHI = DiaChi,
-                        SODT = SoDienThoai,
-                        NGAYSINH = NgaySinh
+                        var NV = new NHANVIEN()
+                        {
+                            MANV = maNhanVien,
+                            TEN = HoTen,
+                            GIOITINH = ChonGioiTinh,
+                            CMND = CMND,
+                            DIACHI = DiaChi,
+                            SODT = SoDienThoai,
+                            NGAYSINH = NgaySinh
 
-                    };
+                        };
 
-                    DataProvider.Ins.DB.NHANVIENs.Add(NV);
-                    DataProvider.Ins.DB.SaveChanges();
+                        DataProvider.Ins.DB.NHANVIENs.Add(NV);
+                        DataProvider.Ins.DB.SaveChanges();
 
-                    var tk = new TAIKHOANNV() {
-                        TENTK = UserName,
-                        MANV = maNhanVien,
-                        MATKHAU = MatKhau,
-                        ENCODE = passEncode
-                    };
+                        var tk = new TAIKHOANNV()
+                        {
+                            TENTK = UserName,
+                            MANV = maNhanVien,
+                            MATKHAU = MatKhau,
+                            ENCODE = passEncode
+                        };
 
-                    DataProvider.Ins.DB.TAIKHOANNVs.Add(tk);
-                    DataProvider.Ins.DB.SaveChanges();
+                        DataProvider.Ins.DB.TAIKHOANNVs.Add(tk);
+                        DataProvider.Ins.DB.SaveChanges();
 
-                   
-                 
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ten tai khoan da ton tai");
+                    }
+
+
+
                 }
                 else
                 {
@@ -357,6 +364,25 @@ namespace QLThuVien.ViewModel
             return ma;
         }
 
-
+        bool CheckUserName(bool type)
+        {
+            if (type)
+            {
+                foreach(var item in TKDOCGIAList)
+                {
+                    if (item.TENTK == UserName)
+                        return false;
+                }
+            }
+            else
+            {
+                foreach (var item in TKNHANVIENList)
+                {
+                    if (item.TENTK == UserName)
+                        return false;
+                }
+            }
+            return true;
+        }
     }
 }

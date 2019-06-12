@@ -7,6 +7,7 @@
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
                      
    DataContext="{StaticResource nhanvienv}"
+                     Name="nhanvienwindow"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
          TextElement.FontWeight="Regular"
@@ -139,14 +140,12 @@
                     <RowDefinition Height="auto"></RowDefinition>
 
                     <RowDefinition ></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
-                    <Label Content="THƯ VIỆN SÁCH" 
-                           FontSize="20" 
-                           FontStyle="Normal"
-                           HorizontalContentAlignment="Center" 
-                           Background="CornflowerBlue">
+                    <Label Content="THƯ VIỆN SÁCH"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
 
                     </Label>
                 </Grid>
@@ -160,21 +159,21 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
-                        <ComboBox Text="--- Loại Sách ---"
-                                  ItemsSource="{Binding LOAICBX}"
-                                  IsEditable="True">
+                        <ComboBox Text="--- Loại Sách ---" ItemsSource="{Binding LOAICBX}"
+                                  SelectedItem="{Binding KSChonLoaiSach}"
+                                  IsEditable="True" Margin="0,0,93,0">
                         </ComboBox>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <ComboBox Text="--- Năm SX ---" 
-                                  ItemsSource="{Binding NAMSXCBX}"
-                                  IsEditable="True">
+                        <ComboBox Text="--- Năm SX ---" ItemsSource="{Binding NAMSXCBX}" IsEditable="True"
+                                  SelectedItem="{Binding KSChonNamSX}"
+                                  Margin="19,0,125,0">
                         </ComboBox>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <ComboBox Text="--- Tác Giả ---"
-                                  ItemsSource="{Binding TACGIACBX}"
-                                  IsEditable="True">
+                        <ComboBox Text="--- Tác Giả ---" ItemsSource="{Binding TACGIACBX}" 
+                                  SelectedItem="{Binding KSChonTacGia}"
+                                  IsEditable="True" Margin="0,0,68,0">
                         </ComboBox>
                     </Grid>
 
@@ -187,16 +186,18 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <TextBox Width="250" 
-                                 materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
-                       Text=""></TextBox>
+                        <TextBox Width="250"
+                             materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
+                       Text="{Binding KSThongTinTimKiem}"
+                             
+                             ></TextBox>
 
                     </Grid>
                     <Grid Grid.Column="1">
                         <Button
                      Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       Width="100" 
-                          Command="{Binding TIMKIEM}"
+                          Command="{Binding KSTimKiem}"
                       ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
                         </Button>
                     </Grid>
@@ -204,183 +205,178 @@
                 </Grid>
 
                 <Grid Grid.Row="3">
-                    <ListView ItemsSource="{Binding SACHLIST}">
+                    <ListView ItemsSource="{Binding SACHLIST}" SelectedItem="{Binding SelectedKhoSach}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã Sách" Width="100" x:Name="MASACH" DisplayMemberBinding="{Binding MASACH}"></GridViewColumn>
-                                <GridViewColumn Header="Tên Sách" Width="120" x:Name="TENSACH" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
-                                <GridViewColumn Header="Mã Loại" x:Name="MALOAISACH" DisplayMemberBinding="{Binding MALOAISACH}"></GridViewColumn>
-                                <GridViewColumn Header="Tác Giả" x:Name="TACGIA" DisplayMemberBinding="{Binding TACGIA}"></GridViewColumn>
-                                <GridViewColumn Header="Năm SX" x:Name="NAMSANXUAT" DisplayMemberBinding="{Binding NAMSANXUAT}"></GridViewColumn>
-                                <GridViewColumn Header="Giá Sách" x:Name="GIASACH" DisplayMemberBinding="{Binding GIASACH}"></GridViewColumn>
+                                <GridViewColumn Header="Mã Độc Giả" Width="120" x:Name="TENSACH" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Mã Loại" Width="120" x:Name="MALOAISACH" DisplayMemberBinding="{Binding MALOAISACH}"></GridViewColumn>
+                                <GridViewColumn Header="Tác Giả" Width="120" x:Name="TACGIA" DisplayMemberBinding="{Binding TACGIA}"></GridViewColumn>
+
+                                <GridViewColumn Header="Năm Sản Xuất"  DisplayMemberBinding="{Binding NAMSX}"></GridViewColumn>
+                                <GridViewColumn Header="Giá Tiền" x:Name="NAMSANXUAT" DisplayMemberBinding="{Binding GIASACH}"></GridViewColumn>
 
                             </GridView>
                         </ListView.View>
                     </ListView>
 
+
+                </Grid>
+                <Grid Grid.Row="4">
+                    
                 </Grid>
             </Grid>
 
 
 
             <!-- Thong tin -->
+            <Grid  Visibility="{Binding Path=TTDocGiaGrid, Converter={StaticResource Converter}}">
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="40 40 40 40"/>
 
-            <Grid Background="AntiqueWhite" 
-                  Visibility="{Binding Path=TTDocGiaGrid, Converter={StaticResource Converter}}"
-                  >
-                <Grid >
-                    <Grid.Resources>
-                        <Style TargetType="Grid">
-                            <Setter Property="Margin" Value="40 40 40 40"/>
+                    </Style>
+                </Grid.Resources>
 
-                        </Style>
-                    </Grid.Resources>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"
                                   
                                   ></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="0" Background="Azure">
-                        <StackPanel>
-                            <materialDesign:ColorZone
+                <Grid Grid.Column="0" Background="Azure">
+                    <StackPanel>
+                        <materialDesign:ColorZone
                     Mode="PrimaryLight"
                     VerticalAlignment="Stretch">
-                                <materialDesign:PackIcon
+                            <materialDesign:PackIcon
                       Kind="AccountCircle"
                       Height="200"
                       Width="140"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center" />
-                            </materialDesign:ColorZone>
-                            <Label Content="KT001"  FontSize="20" 
+                        </materialDesign:ColorZone>
+                        <Label Content="{Binding TTMaNHANVIEN}"  FontSize="20" 
                            FontStyle="Normal"
                            FontWeight="Bold"
                            HorizontalContentAlignment="Center"
                            Background="AliceBlue"
-                           Margin="0 20 0 0"
+                           Margin="0 20 0 0" Height="52"
                            >
 
-                            </Label>
-                            <Label Content="Kế Toán Trưởng"  FontSize="18" 
-                           FontStyle="Normal"
-                           HorizontalContentAlignment="Center"
-                          >
-
-                            </Label>
-
-                        </StackPanel>
+                        </Label>
 
 
-                    </Grid>
-                    <Grid Grid.Column="1"
+                    </StackPanel>
+
+
+                </Grid>
+                <Grid Grid.Column="1"
                   Background="Azure"
                   Margin="0 20"
                   >
-                        <StackPanel>
+                    <StackPanel>
 
-                            <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Height="60">
 
-                                <Label Content="Phan Hoàng Hải"  FontSize="22" 
+                            <Label Content="{Binding TTHoTen}"  FontSize="22" 
                            FontStyle="Normal"
                                VerticalContentAlignment="Center"
                            Width="200"
                           >
-                                </Label>
-                                <Label Content="Nữ"  FontSize="23" 
+                            </Label>
+                            <Label Content="{Binding TTGioiTinh}"  FontSize="23" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
 
                          Width="200"
                           >
-                                </Label>
-                            </StackPanel>
+                            </Label>
+                        </StackPanel>
 
-                            <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Height="60">
 
-                                <Label Content="CMND       : "  FontSize="22" 
+                            <Label Content="CMND       : "  FontSize="22" 
                            FontStyle="Normal"
                                VerticalContentAlignment="Center"
                            Width="130"
                           >
-                                </Label>
-                                <Label Content="123456789"  FontSize="23" 
+                            </Label>
+                            <Label Content="{Binding TTCMND}"  FontSize="23" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
 
                          Width="290"
                           >
-                                </Label>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal"
+                            </Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
                                 Height="60">
 
-                                <Label Content="Ngày sinh  : "  FontSize="22" 
+                            <Label Content="Ngày sinh  : "  FontSize="22" 
                            FontStyle="Normal"
                                VerticalContentAlignment="Center"
                            Width="150"
                           >
-                                </Label>
-                                <Label Content="10/10/1992"  FontSize="23" 
+                            </Label>
+                            <Label Content="{Binding TTNgaySinh}"  FontSize="23" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
 
                          Width="270"
                           >
-                                </Label>
-                            </StackPanel>
+                            </Label>
+                        </StackPanel>
 
 
-                            <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Height="60">
 
-                                <Label Content="SĐT           : "  FontSize="22" 
+                            <Label Content="SĐT           : "  FontSize="22" 
                            FontStyle="Normal"
                                VerticalContentAlignment="Center"
                            Width="130"
                           >
-                                </Label>
-                                <Label Content="  086952365425"  FontSize="23" 
+                            </Label>
+                            <Label Content="{Binding TTSoDT}"  FontSize="23" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
 
                          Width="285"
                           >
-                                </Label>
-                            </StackPanel>
+                            </Label>
+                        </StackPanel>
 
-                            <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                 Height="60">
 
-                                <Label Content="Địa chỉ      : "  FontSize="22" 
+                            <Label Content="Địa chỉ      : "  FontSize="22" 
                            FontStyle="Normal"
                                VerticalContentAlignment="Center"
                            Width="120"
                           >
-                                </Label>
-                                <Label Content="Quận Thủ Đức"  FontSize="22" 
+                            </Label>
+                            <Label Content="{Binding TTDiaChi}"  FontSize="22" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
 
                          Width="295"
                           >
-                                </Label>
-                            </StackPanel>
-
+                            </Label>
                         </StackPanel>
 
-                    </Grid>
+                    </StackPanel>
 
                 </Grid>
+
             </Grid>
 
 

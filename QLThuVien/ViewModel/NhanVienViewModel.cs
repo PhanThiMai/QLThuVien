@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace QLThuVien.ViewModel
@@ -28,6 +29,9 @@ namespace QLThuVien.ViewModel
         public ICommand DangXuatButton { get; set; }
 
         public ICommand DangXuatHuyButton { get; set; }
+
+        public ICommand KSTimKiem { get; set; }
+
 
         private bool _SachGrid;
         private bool _TTDocGiaGrid;
@@ -178,7 +182,6 @@ namespace QLThuVien.ViewModel
             {
                 _LOAICBX = value;
                 OnPropertyChanged();
-                LoadLoaiSach(_LOAICBX.ToString());
             }
         }
 
@@ -190,7 +193,7 @@ namespace QLThuVien.ViewModel
             {
                 _NAMSXCBX = value;
                 OnPropertyChanged();
-                LoadNam(_NAMSXCBX.ToString());
+               
             }
         }
 
@@ -202,39 +205,150 @@ namespace QLThuVien.ViewModel
             {
                 _TACGIACBX = value;
                 OnPropertyChanged();
-                LoadTacGia(_TACGIACBX.ToString());
+              
             }
         }
 
-        private ObservableCollection<string> _TENDOCGIA;
-        public ObservableCollection<string> TENDOCGIA
+        private ObservableCollection<string> _TENNHANVIEN;
+        public ObservableCollection<string> TENNHANVIEN
         {
-            get => _TENDOCGIA;
+            get => _TENNHANVIEN;
             set
             {
-                _TENDOCGIA = value;
+                _TENNHANVIEN = value;
                 OnPropertyChanged();
-                LoadTacGia(_TENDOCGIA.ToString());
+              
             }
         }
 
 
-        public ICommand TIMKIEM { get; set; }
-        private string _TimKiem;
-        public string TimKiem { get => _TimKiem; set { _TimKiem = value; OnPropertyChanged(); } }
+        private ObservableCollection<NHANVIEN> _NHANVIENList;
+        public ObservableCollection<NHANVIEN> NHANVIENList
+        {
+            get => _NHANVIENList;
+            set { _NHANVIENList = value; OnPropertyChanged(); }
+        }
+
+
+        private ObservableCollection<TAIKHOANNV> _TAIKHOANNVList;
+        public ObservableCollection<TAIKHOANNV> TAIKHOANNVList
+        {
+            get => _TAIKHOANNVList;
+            set { _TAIKHOANNVList = value; OnPropertyChanged(); }
+        }
+
 
         private string passUserName;
+        //KSChonLoaiSach
+        private string _KSChonLoaiSach;
+        public string KSChonLoaiSach
+        {
+            get => _KSChonLoaiSach;
+            set
+            {
+                _KSChonLoaiSach = value;
+                OnPropertyChanged();
+                if (_KSChonLoaiSach != null || _KSChonLoaiSach != "ALL")
+                {
+                    string maloai = "";
+                    foreach (var item in LOAISACHLIST)
+                    {
+                        if (item.TENLOAISACH == _KSChonLoaiSach)
+                            maloai = item.MALOAISACH;
+                    }
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes.Where(x => x.MALOAISACH == maloai));
+
+                }
+                if (_KSChonLoaiSach == "ALL")
+                {
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
+
+                }
+            }
+        }
+
+        private string _KSChonNamSX;
+        public string KSChonNamSX
+        {
+            get => _KSChonNamSX;
+            set
+            {
+                _KSChonNamSX = value;
+                OnPropertyChanged();
+
+                if (_KSChonNamSX != null || _KSChonNamSX != "ALL")
+                {
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes.Where(x => x.NAMSX.ToString() == _KSChonNamSX));
+
+                }
+                if (_KSChonNamSX == "ALL")
+                {
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
+
+                }
+            }
+        }
+
+        private string _KSChonTacGia;
+        public string KSChonTacGia
+        {
+            get => _KSChonTacGia;
+            set
+            {
+                _KSChonTacGia = value;
+                OnPropertyChanged();
+
+                if (_KSChonTacGia != null || _KSChonTacGia != "ALL")
+                {
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes.Where(x => x.TACGIA == _KSChonTacGia));
+
+                }
+                if (_KSChonTacGia == "ALL")
+                {
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
+
+                }
+            }
+        }
+
+        private string _KSThongTinTimKiem;
+        public string KSThongTinTimKiem { get => _KSThongTinTimKiem; set { _KSThongTinTimKiem = value; OnPropertyChanged(); } }
+
+        private string _TTMaNHANVIEN;
+        public string TTMaNHANVIEN { get => _TTMaNHANVIEN; set { _TTMaNHANVIEN = value; OnPropertyChanged(); } }
+
+        private string _TTHoTen;
+        public string TTHoTen { get => _TTHoTen; set { _TTHoTen = value; OnPropertyChanged(); } }
+
+        private string _TTGioiTinh;
+        public string TTGioiTinh { get => _TTGioiTinh; set { _TTGioiTinh = value; OnPropertyChanged(); } }
+
+        private string _TTCMND;
+        public string TTCMND { get => _TTCMND; set { _TTCMND = value; OnPropertyChanged(); } }
+
+        private DateTime _TTNgaySinh;
+        public DateTime TTNgaySinh { get => _TTNgaySinh; set { _TTNgaySinh = value; OnPropertyChanged(); } }
+
+        private string _TTSoDT;
+        public string TTSoDT { get => _TTSoDT; set { _TTSoDT = value; OnPropertyChanged(); } }
+
+        private string _TTDiaChi;
+        public string TTDiaChi { get => _TTDiaChi; set { _TTDiaChi = value; OnPropertyChanged(); } }
+
+     
+
 
         public NhanVienViewModel()
         {
             SettingGrid = SachGrid = DangMuonGrid = DaTraGrid
-                = TTDocGiaGrid = NhapSachGrid = LogOutGrid =SachDaHuyGrid=SachThanhLyGrid=ViPhamGrid=DocGiaGrid= false;
+                = TTDocGiaGrid = NhapSachGrid = LogOutGrid =SachDaHuyGrid=
+                SachThanhLyGrid=ViPhamGrid=DocGiaGrid= false;
 
 
             SettingCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 SettingGrid = true;
-
-                SachGrid =ViPhamGrid=DocGiaGrid=SachDaHuyGrid=SachThanhLyGrid= TTDocGiaGrid = LogOutGrid = NhapSachGrid = DangMuonGrid = DaTraGrid = false;
+                SachGrid =ViPhamGrid=DocGiaGrid=SachDaHuyGrid=SachThanhLyGrid=
+                TTDocGiaGrid = LogOutGrid = NhapSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
             SachCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
@@ -244,7 +358,6 @@ namespace QLThuVien.ViewModel
 
             });
             DangXuatCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
-
                 LogOutGrid = true;
                 SachGrid = TTDocGiaGrid =SachThanhLyGrid=SachDaHuyGrid=DocGiaGrid=ViPhamGrid= SettingGrid = NhapSachGrid = DangMuonGrid = DaTraGrid = false;
 
@@ -300,12 +413,16 @@ namespace QLThuVien.ViewModel
 
             SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
             LOAISACHLIST = new ObservableCollection<LOAISACH>(DataProvider.Ins.DB.LOAISACHes);
+            NHANVIENList = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
+            TAIKHOANNVList = new ObservableCollection<TAIKHOANNV>(DataProvider.Ins.DB.TAIKHOANNVs);
+
 
             LOAICBX = new ObservableCollection<string>();
             NAMSXCBX = new ObservableCollection<string>();
             TACGIACBX = new ObservableCollection<string>();
 
 
+            LOAICBX.Add("ALL");
             foreach (var item in LOAISACHLIST)
             {
                 LOAICBX.Add(item.TENLOAISACH);
@@ -313,6 +430,10 @@ namespace QLThuVien.ViewModel
 
             string temp_nam = "";
             string temp_tg = "";
+
+            TACGIACBX.Add("ALL");
+            NAMSXCBX.Add("ALL");
+
             foreach (var item in SACHLIST)
             {
                 if (item.TACGIA != temp_tg)
@@ -326,51 +447,51 @@ namespace QLThuVien.ViewModel
             }
 
 
-            TIMKIEM = new RelayCommand<object>((p) =>
-            {
-                return true;
-
-            }, (p) =>
-            {
-                TimKiem = "";
-            });
 
         }
 
-       
+
 
         public NhanVienViewModel(string passUserName) : this()
         {
 
             this.passUserName = passUserName;
+            LoadTTNhanVien();
         }
 
-        public void LoadData()
+        void LoadTTNhanVien()
         {
-
-        }
-        public void LoadLoaiSach(string loai)
-        {
-
-            SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
-            LOAISACHLIST = new ObservableCollection<LOAISACH>(DataProvider.Ins.DB.LOAISACHes);
-            foreach (var item in LOAISACHLIST)
+            string temp = "";
+            foreach (var temp1 in TAIKHOANNVList)
             {
-                if (item.TENLOAISACH == loai)
+                if (temp1.TENTK == passUserName)
                 {
-                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes.Where(x => x.MALOAISACH == item.MALOAISACH));
-
+                    temp = temp1.MANV;
+                    break;
                 }
             }
 
-        }
-        public void LoadTacGia(string tacgia)
-        {
+            if (temp != "")
+            {
+                foreach (var temp1 in NHANVIENList)
+                {
+                    if (temp1.MANV == temp)
+                    {
+                       TTMaNHANVIEN = temp1.MANV;
+                        TTHoTen = temp1.TEN;
+                        TTGioiTinh = temp1.GIOITINH;
+                        TTNgaySinh = (DateTime)temp1.NGAYSINH;
+                        TTDiaChi = temp1.DIACHI;
+                        TTCMND = temp1.CMND;
+                        TTSoDT = temp1.SODT;
+
+                    }
+                }
+            }
+
 
         }
-        public void LoadNam(string nam)
-        {
 
-        }
+     
     }
 }

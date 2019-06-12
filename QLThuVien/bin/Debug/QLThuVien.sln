@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "QLThuVien", "QLThuVien.exe", "{CB037436-2AC9-488B-A48B-4677FFDE2CEF}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		PortSupplier = 00000000-0000-0000-0000-000000000000
+		Executable = C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\bin\Debug\QLThuVien.exe
+		RemoteMachine = LAPTOP-S2H4E83U
+		StartingDirectory = C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\bin\Debug
+		Environment = Default
+		LaunchingEngine = 00000000-0000-0000-0000-000000000000
+		UseLegacyDebugEngines = No
+		LaunchSQLEngine = No
+		AttachLaunchAction = No
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB037436-2AC9-488B-A48B-4677FFDE2CEF}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C2EAA89-8347-4380-86ED-53595DACE2BA}
+	EndGlobalSection
+EndGlobal

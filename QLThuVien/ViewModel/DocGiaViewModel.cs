@@ -32,7 +32,7 @@ namespace QLThuVien.ViewModel
 
         public ICommand KSTimKiem { get; set; }
         public ICommand KSThemVaoGio { get; set; }
-
+        public ICommand DMTraSach { get; set; }
         private bool _SachGrid;
         private bool _TTDocGiaGrid;
         private bool _LogOutGrid;
@@ -130,6 +130,28 @@ namespace QLThuVien.ViewModel
             set { _GIOSACHList = value; OnPropertyChanged(); }
         }
 
+        private ObservableCollection<PHIEUSACH> _PHIEUSACHList;
+        public ObservableCollection<PHIEUSACH> PHIEUSACHLIST
+        {
+            get => _PHIEUSACHList;
+            set { _PHIEUSACHList = value; OnPropertyChanged(); }
+        }
+
+        //DANGMUONLIST
+        private ObservableCollection<GIOHANG> _DANGMUONList;
+        public ObservableCollection<GIOHANG> DANGMUONLIST
+        {
+            get => _DANGMUONList;
+            set { _DANGMUONList = value; OnPropertyChanged(); }
+        }
+        //DATRALIST
+        private ObservableCollection<DATRA> _DATRAList;
+        public ObservableCollection<DATRA> DATRALIST
+        {
+            get => _DATRAList;
+            set { _DATRAList = value; OnPropertyChanged(); }
+        }
+
         //PHIEUGIAODICH
         private ObservableCollection<PHIEUGIAODICH> _PHIEUDDList;
         public ObservableCollection<PHIEUGIAODICH> PHIEUDDLIST
@@ -173,7 +195,7 @@ namespace QLThuVien.ViewModel
             {
                 _LOAICBX = value;
                 OnPropertyChanged();
-                LoadLoaiSach(_LOAICBX.ToString());
+              
             }
         }
 
@@ -182,7 +204,6 @@ namespace QLThuVien.ViewModel
             set {
                 _NAMSXCBX = value;
                 OnPropertyChanged();
-                LoadNam(_NAMSXCBX.ToString());
             } }
 
         private ObservableCollection<string> _TACGIACBX;
@@ -190,7 +211,7 @@ namespace QLThuVien.ViewModel
             get => _TACGIACBX;
             set { _TACGIACBX = value;
                 OnPropertyChanged();
-                LoadTacGia(_TACGIACBX.ToString());
+               
             } }
 
        
@@ -226,7 +247,20 @@ namespace QLThuVien.ViewModel
         private string _TTMaDocGia;
         public string TTMaDocGia { get => _TTMaDocGia; set { _TTMaDocGia = value; OnPropertyChanged(); } }
 
-         bool SelectedGS = false;
+        //DMMaPhieuMuon
+
+        private string _DMMaPhieuMuon;
+        public string DMMaPhieuMuon { get => _DMMaPhieuMuon; set { _DMMaPhieuMuon = value; OnPropertyChanged(); } }
+        //DMNgayMuon
+        private DateTime _DMNgayMuon;
+        public DateTime DMNgayMuon { get => _DMNgayMuon; set { _DMNgayMuon = value; OnPropertyChanged(); } }
+
+
+        private DateTime _DMNgayTraDuKien;
+        public DateTime DMNgayTraDuKien { get => _DMNgayTraDuKien; set { _DMNgayTraDuKien = value; OnPropertyChanged(); } }
+
+
+        bool SelectedGS = false;
         private GIOHANG _SelectedGioSach;
         public GIOHANG SelectedGioSach
         {
@@ -318,18 +352,19 @@ namespace QLThuVien.ViewModel
             }
         }
 
-        
+        //SelectedDangMuon
+
         public DocGiaViewModel()
         {
             SelectedGS = false;
-            SettingGrid = SachGrid = DangMuonGrid = DaTraGrid 
+            SettingGrid = SachGrid = DangMuonGrid = DaTraGrid
                 = TTDocGiaGrid = GioSachGrid = LogOutGrid = false;
 
             LODangXuat = new RelayCommand<Window>((p) => {
                 return true;
             },
            (p) => {
-               
+
                MainWindow main = new MainWindow();
                main.Show();
                p.Close();
@@ -359,14 +394,14 @@ namespace QLThuVien.ViewModel
 
             DangXuatCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 LogOutGrid = true;
-                SachGrid = TTDocGiaGrid = SettingGrid 
+                SachGrid = TTDocGiaGrid = SettingGrid
                 = GioSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
 
             ThongTinDocGiaCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 TTDocGiaGrid = true;
-                SachGrid = SettingGrid = LogOutGrid 
+                SachGrid = SettingGrid = LogOutGrid
                 = GioSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
@@ -374,25 +409,46 @@ namespace QLThuVien.ViewModel
             GioSachCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
 
                 GioSachGrid = true;
-                SachGrid = TTDocGiaGrid = LogOutGrid 
+                SachGrid = TTDocGiaGrid = LogOutGrid
                 = SettingGrid = DangMuonGrid = DaTraGrid = false;
 
             });
             DangMuonCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
 
                 DangMuonGrid = true;
-                SachGrid = TTDocGiaGrid = LogOutGrid 
+                SachGrid = TTDocGiaGrid = LogOutGrid
                 = GioSachGrid = SettingGrid = DaTraGrid = false;
+
+
+                var phieu = DataProvider.Ins.DB.PHIEUGIAODICHes.Where(x => x.MADG == TTMaDocGia && x.NGAYTRA > DateTime.Today).SingleOrDefault();
+                if (phieu != null)
+                {
+                    foreach (var item in PHIEUSACHLIST)
+                    {
+                        if (item.MAPHIEU == phieu.MAPHIEU)
+                        {
+                            var sach_phieu = DataProvider.Ins.DB.SACHes.Where(x => x.MASACH == item.MASACH).SingleOrDefault();
+                            GIOHANG temp = new GIOHANG(sach_phieu, (int)item.SOLUONG);
+                            DANGMUONLIST.Add(temp);
+
+                        }
+                    }
+                    DMMaPhieuMuon = phieu.MAPHIEU;
+                    DMNgayMuon = (DateTime)phieu.NGAYMUON;
+                    DMNgayTraDuKien = (DateTime)phieu.NGAYTRA;
+                }
+
+              
 
             });
             DaTraCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 DaTraGrid = true;
-                SachGrid = TTDocGiaGrid = LogOutGrid 
+                SachGrid = TTDocGiaGrid = LogOutGrid
                 = GioSachGrid = DangMuonGrid = SettingGrid = false;
-
+                LoadLichSuMuonSach();
             });
 
-           
+
             STHuy = new RelayCommand<object>((p) => { return true; }, (p) => {
                 LoadTTDocGia();
             });
@@ -408,8 +464,12 @@ namespace QLThuVien.ViewModel
             TAIKHOANDGList = new ObservableCollection<TAIKHOANDG>(DataProvider.Ins.DB.TAIKHOANDGs);
             PHIEUDDLIST = new ObservableCollection<PHIEUGIAODICH>(DataProvider.Ins.DB.PHIEUGIAODICHes);
             PHATLIST = new ObservableCollection<PHAT>(DataProvider.Ins.DB.PHATs);
-
+            PHIEUSACHLIST = new ObservableCollection<PHIEUSACH>(DataProvider.Ins.DB.PHIEUSACHes);
             GIOSACHLIST = new ObservableCollection<GIOHANG>();
+            DANGMUONLIST = new ObservableCollection<GIOHANG>();
+            DATRALIST = new ObservableCollection<DATRA>();
+
+         
 
             LOAICBX = new ObservableCollection<string>();
             NAMSXCBX = new ObservableCollection<string>();
@@ -426,28 +486,29 @@ namespace QLThuVien.ViewModel
             TACGIACBX.Add("ALL");
             NAMSXCBX.Add("ALL");
 
-            foreach (var item in SACHLIST){
-               if(item.TACGIA != temp_tg)
+            foreach (var item in SACHLIST) {
+                if (item.TACGIA != temp_tg)
                     TACGIACBX.Add(item.TACGIA);
                 if (item.NAMSX.ToString() != temp_nam)
                     NAMSXCBX.Add(item.NAMSX.ToString());
-           
+
                 temp_nam = item.NAMSX.ToString();
                 temp_tg = item.TACGIA;
 
             }
 
-         
-          
 
-            GSHuy = new RelayCommand<object>((p) =>  {
+
+
+            GSHuy = new RelayCommand<object>((p) => {
                 if (GIOSACHLIST.Count == 0)
                     return false;
                 if (SelectedGS)
                     return true;
-                 return false;
-                
-            }, (p) =>
+                return false;
+
+            },
+            (p) =>
             {
                 if (SelectedGioSach.SOLUONG == 1)
                     GIOSACHLIST.Remove(SelectedGioSach);
@@ -456,14 +517,14 @@ namespace QLThuVien.ViewModel
             });
 
             GSTienHanhMuon = new RelayCommand<object>((p) => {
-                if(GIOSACHLIST.Count >0)
+                if (GIOSACHLIST.Count > 0)
                     return true;
                 return false;
             },
             (p) => {
                 bool muon = true;
-                foreach(var temp in PHATLIST){
-                    if(temp.MADG == TTMaDocGia) {
+                foreach (var temp in PHATLIST) {
+                    if (temp.MADG == TTMaDocGia) {
                         MessageBox.Show("Bạn hiện đang vi phạm nội quy của thư viện nên hiện không thể mượn sách");
                         muon = false;
                         break;
@@ -472,7 +533,7 @@ namespace QLThuVien.ViewModel
 
                 if (muon) {
                     foreach (var temp in PHIEUDDLIST) {
-                        if (temp.MADG == TTMaDocGia && temp.NGAYTRA > DateTime.Today)  {
+                        if (temp.MADG == TTMaDocGia && temp.NGAYTRA > DateTime.Today) {
 
                             MessageBox.Show("Bạn chưa thể mượn thêm sách khi chưa trả sách đã mượn");
                             muon = false;
@@ -482,7 +543,7 @@ namespace QLThuVien.ViewModel
                     }
                 }
 
-                if(muon) {
+                if (muon) {
                     int numOfPDD = DataProvider.Ins.DB.PHIEUGIAODICHes.Count();
                     string maPhieuDD = KhoiTaoMaPhieuGiaoDich(numOfPDD + 1);
                     var muonSach = new PHIEUGIAODICH() {
@@ -498,9 +559,23 @@ namespace QLThuVien.ViewModel
                     DataProvider.Ins.DB.SaveChanges();
                     MessageBox.Show("Mượn sách thành công");
 
+                    foreach (var item in GIOSACHLIST)
+                    {
+                        var GSSach = new PHIEUSACH()
+                        {
+                            MAPHIEU = maPhieuDD,
+                            MASACH = item.MASACH,
+                            SOLUONG = item.SOLUONG,
+
+                        };
+                        PHIEUSACHLIST.Add(GSSach);
+                        DataProvider.Ins.DB.PHIEUSACHes.Add(GSSach);
+                        DataProvider.Ins.DB.SaveChanges();
+                    }
+
                     GIOSACHLIST = new ObservableCollection<GIOHANG>();
                 }
-                
+
             });
 
             int num = 0;
@@ -510,51 +585,67 @@ namespace QLThuVien.ViewModel
                 }
                 return false;
             },
-             (p) =>{
-                        var sach = DataProvider.Ins.DB.SACHes.Where(x => x.MASACH == SelectedKhoSach.MASACH).SingleOrDefault();
-              
-                        if (num >= 5){
-                            MessageBox.Show("Số lượng sách tối đa trong một lần mượn là 5 ");
-                        }
-                     
-                        else {
-                             if(GIOSACHLIST.Count == 0)
-                             {
-                                 var temp = new GIOHANG(sach.MASACH, sach.TENSACH, sach.MALOAISACH, sach.TACGIA, (int)sach.NAMSX,
-                                                                      (decimal)sach.GIASACH, 1);
-                                 GIOSACHLIST.Add(temp);
+             (p) => {
+                 var sach = DataProvider.Ins.DB.SACHes.Where(x => x.MASACH == SelectedKhoSach.MASACH).SingleOrDefault();
+
+                 if (num >= 5) {
+                     MessageBox.Show("Số lượng sách tối đa trong một lần mượn là 5 ");
+                 }
+
+                 else {
+                     if (GIOSACHLIST.Count == 0)
+                     {
+                         var temp = new GIOHANG(sach.MASACH, sach.TENSACH, sach.MALOAISACH, sach.TACGIA, (int)sach.NAMSX,
+                                                              (decimal)sach.GIASACH, 1);
+                         GIOSACHLIST.Add(temp);
                          num++;
-                             }
-                             else
+                     }
+                     else
+                     {
+                         bool dathem = false;
+                         foreach (var item in GIOSACHLIST)
+                         {
+                             if (item.MASACH == SelectedKhoSach.MASACH)
                              {
-                                 bool dathem = false;
-                                 foreach (var item in GIOSACHLIST)
-                                 {
-                                     if (item.MASACH == SelectedKhoSach.MASACH)
-                                     {
-                                         item.SOLUONG++;
+                                 item.SOLUONG++;
                                  num++;
-                                         dathem = true;
-                                     }
-                             
-                                 }
-                                 if (!dathem)
-                                 {
-                                     var temp = new GIOHANG(sach.MASACH, sach.TENSACH, sach.MALOAISACH, sach.TACGIA, (int)sach.NAMSX,
-                                                                       (decimal)sach.GIASACH, 1);
-                                     GIOSACHLIST.Add(temp);
-                             num++;
-                                 }
-
-
+                                 dathem = true;
                              }
-                        
 
-                         
+                         }
+                         if (!dathem)
+                         {
+                             var temp = new GIOHANG(sach.MASACH, sach.TENSACH, sach.MALOAISACH, sach.TACGIA, (int)sach.NAMSX,
+                                                               (decimal)sach.GIASACH, 1);
+                             GIOSACHLIST.Add(temp);
+                             num++;
+                         }
 
-                        }
-              }
+
+                     }
+
+
+
+
+                 }
+             }
              );
+
+            DMTraSach = new RelayCommand<object>((p) => {return true; },
+            (p)=>{
+                var phieudd = DataProvider.Ins.DB.PHIEUGIAODICHes.Where(x => x.MAPHIEU == DMMaPhieuMuon).SingleOrDefault();
+                phieudd.NGAYTRA = DateTime.Today;
+                DataProvider.Ins.DB.SaveChanges();
+                
+                DANGMUONLIST = new ObservableCollection<GIOHANG>();
+                LoadLichSuMuonSach();
+
+                DMMaPhieuMuon = "";
+                DMNgayMuon = DMNgayTraDuKien = DateTime.Today;
+
+
+            }
+            );
         }
 
         public DocGiaViewModel(string passUserName) : this()
@@ -565,29 +656,7 @@ namespace QLThuVien.ViewModel
 
         }
 
-
-        public void LoadLoaiSach(string loai)  {
-            SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
-            LOAISACHLIST = new ObservableCollection<LOAISACH>(DataProvider.Ins.DB.LOAISACHes);
-            foreach(var item in LOAISACHLIST) {
-                if(item.TENLOAISACH == loai) {
-                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes.Where(x => x.MALOAISACH == item.MALOAISACH));
-
-                }
-            }
-
-        }
-
-        public void LoadTacGia(string tacgia)
-        {
-
-        }
-
-        public void LoadNam(string nam)
-        {
-
-        }
-
+        
         void LoadTTDocGia()
         {
             string temp = "";
@@ -662,7 +731,7 @@ namespace QLThuVien.ViewModel
 
 
 
-        public static string KhoiTaoMaPhieuGiaoDich(int num) {
+         string KhoiTaoMaPhieuGiaoDich(int num) {
             string ma = "";
           
                 if (num < 10) {
@@ -677,6 +746,31 @@ namespace QLThuVien.ViewModel
             return ma;
         }
 
+
+        void LoadLichSuMuonSach() {
+
+            DATRALIST = new ObservableCollection<DATRA>();
+            
+          foreach(var item in PHIEUDDLIST) {
+                if(item.MADG == TTMaDocGia)  {
+                    foreach (var item1 in PHIEUSACHLIST) {
+                        if (item1.MAPHIEU == item.MAPHIEU){
+                            var sachtra = DataProvider.Ins.DB.SACHes.Where(x => x.MASACH == item1.MASACH).SingleOrDefault();
+                            if (sachtra != null){
+                                var datra = new GIOHANG(sachtra, (int)item1.SOLUONG);
+                                DATRALIST.Add(new DATRA(datra, item.MAPHIEU));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        bool CheckLichSuMuon(string maphieu, string masach)
+        {
+            
+            return true;
+        }
     }
 }
 

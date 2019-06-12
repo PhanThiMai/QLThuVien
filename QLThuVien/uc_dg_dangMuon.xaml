@@ -26,6 +26,9 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="50" ></RowDefinition>
+            <RowDefinition Height="50" ></RowDefinition>
+
             <RowDefinition ></RowDefinition>
 
             <RowDefinition Height="50" ></RowDefinition>
@@ -39,20 +42,76 @@
             </Label>
         </Grid>
 
-        <Grid Grid.Row="2">
-           
+        <Grid Grid.Row="1">
+            <!-- MA PHIEU-->
+            <Label Content="Mã phiếu :"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center" Margin="0,0,704,0"
+                          />
+
+            <Label Content="{Binding DMMaPhieuMuon}"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center" Margin="100,0,440,0" 
+                          />
+          
+
         </Grid>
 
-        <Grid Grid.Row="1">
-            <ListView >
+        <Grid Grid.Row="2">
+            <!-- MA PHIEU-->
+            <Label Content="Ngày mượn :"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center" Margin="0,0,692,0" 
+                          />
+
+            <Label Content="{Binding DMNgayMuon}"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                   Margin="98,0,475,0" RenderTransformOrigin="0.5,0.5" 
+                          >
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+
+
+            <Label Content="Ngày trả dự kiến :"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center" Margin="379,0,282,0" 
+                          />
+
+            <Label Content="{Binding DMNgayTraDuKien}"  FontSize="15" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                   
+                   Margin="500,0,106,0" 
+                          />
+
+
+        </Grid>
+
+
+        <Grid Grid.Row="4">
+            <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+            Command="{Binding DMTraSach}" Margin="640,6,10,7"
+                >Trả Sách
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <ListView  ItemsSource="{Binding DANGMUONLIST}"
+                               SelectedItem="{Binding SelectedDangMuon}" >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Mã Phiếu" Width="100"   ></GridViewColumn>
 
-                        <GridViewColumn Header="Mã Sách"   ></GridViewColumn>
-                        <GridViewColumn Header="Mã Loại"  ></GridViewColumn>
-                        <GridViewColumn Header="Ngày Mượn" Width="110" ></GridViewColumn>
-                        <GridViewColumn Header="Ngày Trả" Width="100" ></GridViewColumn>
+                        <GridViewColumn Header="Mã Sách"  DisplayMemberBinding="{Binding MASACH}" ></GridViewColumn>
 
                     </GridView>
                 </ListView.View>
