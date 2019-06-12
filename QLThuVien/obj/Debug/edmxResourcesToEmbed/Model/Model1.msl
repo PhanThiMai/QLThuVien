@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="QLTHUVIENModelStoreContainer" CdmEntityContainer="QLTHUVIENEntities">
+  <EntityContainerMapping StorageEntityContainer="quanlythuvienModelStoreContainer" CdmEntityContainer="quanlythuvienEntities1">
     <EntitySetMapping Name="DOCGIAs">
-      <EntityTypeMapping TypeName="QLTHUVIENModel.DOCGIA">
+      <EntityTypeMapping TypeName="quanlythuvienModel.DOCGIA">
         <MappingFragment StoreEntitySet="DOCGIA">
           <ScalarProperty Name="MADG" ColumnName="MADG" />
           <ScalarProperty Name="TEN" ColumnName="TEN" />
@@ -14,8 +14,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="KHOes">
+      <EntityTypeMapping TypeName="quanlythuvienModel.KHO">
+        <MappingFragment StoreEntitySet="KHO">
+          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="LOAISACHes">
-      <EntityTypeMapping TypeName="QLTHUVIENModel.LOAISACH">
+      <EntityTypeMapping TypeName="quanlythuvienModel.LOAISACH">
         <MappingFragment StoreEntitySet="LOAISACH">
           <ScalarProperty Name="MALOAISACH" ColumnName="MALOAISACH" />
           <ScalarProperty Name="TENLOAISACH" ColumnName="TENLOAISACH" />
@@ -23,11 +31,10 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="NHANVIENs">
-      <EntityTypeMapping TypeName="QLTHUVIENModel.NHANVIEN">
+      <EntityTypeMapping TypeName="quanlythuvienModel.NHANVIEN">
         <MappingFragment StoreEntitySet="NHANVIEN">
           <ScalarProperty Name="MANV" ColumnName="MANV" />
           <ScalarProperty Name="TEN" ColumnName="TEN" />
-          <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
           <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
           <ScalarProperty Name="SODT" ColumnName="SODT" />
           <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
@@ -36,8 +43,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PHATs">
+      <EntityTypeMapping TypeName="quanlythuvienModel.PHAT">
+        <MappingFragment StoreEntitySet="PHAT">
+          <ScalarProperty Name="MADG" ColumnName="MADG" />
+          <ScalarProperty Name="NGAY" ColumnName="NGAY" />
+          <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="PHIEUGIAODICHes">
-      <EntityTypeMapping TypeName="QLTHUVIENModel.PHIEUGIAODICH">
+      <EntityTypeMapping TypeName="quanlythuvienModel.PHIEUGIAODICH">
         <MappingFragment StoreEntitySet="PHIEUGIAODICH">
           <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
           <ScalarProperty Name="MADG" ColumnName="MADG" />
@@ -49,7 +65,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PHIEUSACHes">
-      <EntityTypeMapping TypeName="QLTHUVIENModel.PHIEUSACH">
+      <EntityTypeMapping TypeName="quanlythuvienModel.PHIEUSACH">
         <MappingFragment StoreEntitySet="PHIEUSACH">
           <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
           <ScalarProperty Name="MASACH" ColumnName="MASACH" />
@@ -58,7 +74,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SACHes">
-      <EntityTypeMapping TypeName="QLTHUVIENModel.SACH">
+      <EntityTypeMapping TypeName="quanlythuvienModel.SACH">
         <MappingFragment StoreEntitySet="SACH">
           <ScalarProperty Name="MASACH" ColumnName="MASACH" />
           <ScalarProperty Name="TENSACH" ColumnName="TENSACH" />
@@ -70,7 +86,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TAIKHOANDGs">
-      <EntityTypeMapping TypeName="QLTHUVIENModel.TAIKHOANDG">
+      <EntityTypeMapping TypeName="quanlythuvienModel.TAIKHOANDG">
         <MappingFragment StoreEntitySet="TAIKHOANDG">
           <ScalarProperty Name="TENTK" ColumnName="TENTK" />
           <ScalarProperty Name="MADG" ColumnName="MADG" />
@@ -80,7 +96,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TAIKHOANNVs">
-      <EntityTypeMapping TypeName="QLTHUVIENModel.TAIKHOANNV">
+      <EntityTypeMapping TypeName="quanlythuvienModel.TAIKHOANNV">
         <MappingFragment StoreEntitySet="TAIKHOANNV">
           <ScalarProperty Name="TENTK" ColumnName="TENTK" />
           <ScalarProperty Name="MANV" ColumnName="MANV" />
@@ -90,7 +106,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="THANHLYHUYs">
-      <EntityTypeMapping TypeName="QLTHUVIENModel.THANHLYHUY">
+      <EntityTypeMapping TypeName="quanlythuvienModel.THANHLYHUY">
         <MappingFragment StoreEntitySet="THANHLYHUY">
           <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
           <ScalarProperty Name="MASACH" ColumnName="MASACH" />

@@ -29,6 +29,7 @@ namespace QLThuVien.Model
         public string SODT { get; set; }
         public Nullable<System.DateTime> NGAYSINH { get; set; }
     
+        public virtual PHAT PHAT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEUGIAODICH> PHIEUGIAODICHes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

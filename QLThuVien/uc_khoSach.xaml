@@ -17,8 +17,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="AntiqueWhite">
 
-          <Grid Visibility="{Binding Path=SachGrid, Converter={StaticResource Converter}}"> 
-    
+        <Grid Visibility="{Binding Path=SachGrid, Converter={StaticResource Converter}}">
+
 
             <Grid.Resources>
                 <Style TargetType="Grid">
@@ -32,6 +32,8 @@
                 <RowDefinition Height="auto"></RowDefinition>
 
                 <RowDefinition ></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -49,15 +51,15 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
-                    <ComboBox Text="--- Loại Sách ---" ItemsSource="{Binding LOAICBX}" IsEditable="True">
+                    <ComboBox Text="--- Loại Sách ---" ItemsSource="{Binding LOAICBX}" IsEditable="True" Margin="0,0,93,0">
                     </ComboBox>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <ComboBox Text="--- Năm SX ---" ItemsSource="{Binding NAMSXCBX}" IsEditable="True">
+                    <ComboBox Text="--- Năm SX ---" ItemsSource="{Binding NAMSXCBX}" IsEditable="True" Margin="19,0,125,0">
                     </ComboBox>
                 </Grid>
                 <Grid Grid.Column="2">
-                    <ComboBox Text="--- Tác Giả ---" ItemsSource="{Binding TACGIACBX}" IsEditable="True">
+                    <ComboBox Text="--- Tác Giả ---" ItemsSource="{Binding TACGIACBX}" IsEditable="True" Margin="0,0,68,0">
                     </ComboBox>
                 </Grid>
 
@@ -70,15 +72,18 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <TextBox Width="250" materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
-                       Text=""></TextBox>
+                    <TextBox
+                             materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
+                       Text="{Binding KSThongTinTimKiem}" Margin="238,0,-89,0"
+                             
+                             />
 
                 </Grid>
                 <Grid Grid.Column="1">
                     <Button
                      Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       Width="100" 
-                          Command="{Binding TIMKIEM}"
+                          Command="{Binding KSTimKiem}"
                       ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
                     </Button>
                 </Grid>
@@ -99,12 +104,21 @@
                     </ListView.View>
                 </ListView>
 
+
+            </Grid>
+            <Grid Grid.Row="4">
+                <Button
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                          Command="{Binding KSThemVaoGio}"
+                    
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Margin="619,6,10,7">_Thêm vào giỏ
+                </Button>
             </Grid>
         </Grid>
-        
-        
+
+
 
     </Grid>
-    
-    
+
+
 </UserControl>

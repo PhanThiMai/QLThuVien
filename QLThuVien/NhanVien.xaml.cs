@@ -20,9 +20,13 @@ namespace QLThuVien
     /// </summary>
     public partial class NhanVien : RibbonWindow
     {
+        private string userName;
+
         public NhanVien()
         {
             InitializeComponent();
         }
+
+     
     }
 }

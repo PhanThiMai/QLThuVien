@@ -24,6 +24,11 @@ namespace QLThuVien.ViewModel
         public ICommand DanhSachDocGiaCommand { get; set; }
         public ICommand DocGiaViPhamCommand { get; set; }
 
+
+        public ICommand DangXuatButton { get; set; }
+
+        public ICommand DangXuatHuyButton { get; set; }
+
         private bool _SachGrid;
         private bool _TTDocGiaGrid;
         private bool _LogOutGrid;
@@ -218,6 +223,7 @@ namespace QLThuVien.ViewModel
         private string _TimKiem;
         public string TimKiem { get => _TimKiem; set { _TimKiem = value; OnPropertyChanged(); } }
 
+        private string passUserName;
 
         public NhanVienViewModel()
         {
@@ -331,6 +337,13 @@ namespace QLThuVien.ViewModel
 
         }
 
+       
+
+        public NhanVienViewModel(string passUserName) : this()
+        {
+
+            this.passUserName = passUserName;
+        }
 
         public void LoadData()
         {

@@ -13,10 +13,10 @@ namespace QLThuVien.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QLTHUVIENEntities : DbContext
+    public partial class quanlythuvienEntities1 : DbContext
     {
-        public QLTHUVIENEntities()
-            : base("name=QLTHUVIENEntities")
+        public quanlythuvienEntities1()
+            : base("name=quanlythuvienEntities1")
         {
         }
     
@@ -26,8 +26,10 @@ namespace QLThuVien.Model
         }
     
         public virtual DbSet<DOCGIA> DOCGIAs { get; set; }
+        public virtual DbSet<KHO> KHOes { get; set; }
         public virtual DbSet<LOAISACH> LOAISACHes { get; set; }
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
+        public virtual DbSet<PHAT> PHATs { get; set; }
         public virtual DbSet<PHIEUGIAODICH> PHIEUGIAODICHes { get; set; }
         public virtual DbSet<PHIEUSACH> PHIEUSACHes { get; set; }
         public virtual DbSet<SACH> SACHes { get; set; }

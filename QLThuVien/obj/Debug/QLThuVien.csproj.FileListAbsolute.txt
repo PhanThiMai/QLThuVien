@@ -93,7 +93,6 @@ C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\QLThuVien.csproj.
 C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\QLThuVien.csproj.CopyComplete
 C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\QLThuVien.exe
 C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\QLThuVien.pdb
-C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\QLThuVien.csprojAssemblyReference.cache
 C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_nv_nhapSach.g.cs
 C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_Info.g.cs
 C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_nv_ThanhLySach.g.cs
@@ -102,3 +101,10 @@ C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_Info.baml
 C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_nv_ThanhLySach.baml
 C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_setting.g.cs
 C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_setting.baml
+C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_dangMuon.g.cs
+C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_gioSach.g.cs
+C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_lichSuMuon.g.cs
+C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_dangMuon.baml
+C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_gioSach.baml
+C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\uc_dg_lichSuMuon.baml
+C:\Users\Mai\Desktop\TKPM\GitHub\QLThuVien\QLThuVien\obj\Debug\QLThuVien.csprojAssemblyReference.cache

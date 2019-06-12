@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLThuVien"
         mc:Ignorable="d"
-        DataContext="{StaticResource signupvm}"
+        DataContext="{StaticResource signupvm }"
                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 
 
@@ -22,8 +22,8 @@
         WindowStartupLocation="CenterScreen"
         
         Title="Đăng ký" Height="500" Width="800">
-    
-    
+
+
     <Grid>
 
         <materialDesign:Card Grid.Row="1" Width="700" Height="450" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -38,7 +38,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" ></RowDefinition>
                     <RowDefinition></RowDefinition>
-         
+
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition Height="15"></RowDefinition>
 
@@ -58,31 +58,32 @@
 
 
                             <RadioButton
-                                  Margin="16 4 16 0"
+                                  Margin="60 4 46 0"
                                   Style="{DynamicResource MaterialDesignUserForegroundRadioButton}"
-                                Command="{Binding DocGiaRadioButton}"
+                              Content="Độc giả"
+           IsChecked="{Binding TypeOfAccount,
+                                        Converter={StaticResource  ResourceKey=genderConverterKey},
+                                        ConverterParameter=DocGia}"
                                 >
-                                Độc giả
-                            </RadioButton>
-                            <RadioButton
-                                   Margin="30 4 30 0"
-                                   Command="{Binding ThuThuRadioButton}"
 
-                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
-                                Thủ thư
                             </RadioButton>
                             <RadioButton
-                                  Margin="30 4 0 0"
-                                Command="{Binding KiemToanRadioButton}"
+                                   Margin="30 4 10 0"
+ Content="Nhân viên thư viện"
+           IsChecked="{Binding TypeOfAccount,
+                                        Converter={StaticResource  ResourceKey=genderConverterKey},
+                                        ConverterParameter=NhanVien}"
+                                
                                   Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
-                                Kiểm toán
+
                             </RadioButton>
+
 
                         </WrapPanel>
                     </materialDesign:Card>
 
                 </Grid>
-                
+
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -91,8 +92,8 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
-                      
-                 
+
+
                         <StackPanel>
                             <TextBox
                                   x:Name="HoTenTextBox"
@@ -108,9 +109,13 @@
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
+
+
+
+
                             </TextBox>
 
-                            
+
 
                             <TextBox
                                   x:Name="UserNameTextBox"
@@ -144,59 +149,32 @@
 
 
                                 </PasswordBox>
-                               
-                                
+
+
                                 <CheckBox
                                     Margin="5 5 5 5"
                                     Style="{StaticResource MaterialDesignCheckBox}"
                                     Command="{Binding HienThiMatKhau}"
                                     >
-                                  Hiển thị
+                                    Hiển thị
                                 </CheckBox>
                             </StackPanel>
-                           
-                            <materialDesign:Card
-                                Height="50"
-                                Margin="8 25 "
-                               
-                          Background="{DynamicResource PrimaryHueDarkBrush}"
-                          Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-       
-                          Padding="5">
-                                <StackPanel
-                                    Margin="5"
-                                    Orientation="Horizontal"
-                                    >
-                                    <RadioButton
-                                   Margin="20 4 10 0"
-                                        Command="{Binding NamRadioButton}"
-                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
-                                        Nam
-                                    </RadioButton>
-                                    <RadioButton
-                                   Margin="30 4 10 0"
-                                        Command="{Binding NuRadioButton}"
 
-                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
-                                        Nữ
-                                    </RadioButton>
-                                    <RadioButton
-                                  Margin="30 4 0 0"
-                                 Command="{Binding GioiTinhKhacRadioButton}"
+                            <ComboBox Height="39" 
+                                     SelectedItem="{Binding ChonGioiTinh}"
+                                      Name="GioiTinh" Margin="10,30,81,0">
+                                <ComboBoxItem Content="Nam"/>
+                                <ComboBoxItem Content="Nữ"/>
+                                <ComboBoxItem Content="Khác"/>
+                            </ComboBox>
 
-                                  Style="{DynamicResource MaterialDesignUserForegroundRadioButton}">
-                                        Khác
-                                    </RadioButton>
 
-                                </StackPanel>
-                            </materialDesign:Card>
 
-                            
                         </StackPanel>
-                        
+
                     </Grid>
                     <Grid Grid.Column="1">
-                        
+
 
                         <StackPanel>
 
@@ -204,9 +182,9 @@
                                   Height="50"
                                  Margin="10 10"
                                   materialDesign:HintAssist.Hint="Ngày sinh"
-                                
+                                SelectedDate="{Binding NgaySinh}"
                                   Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                            
+
                             <TextBox
                                   x:Name="SoDTTextBox"
                                 Height="50"
@@ -270,18 +248,18 @@
                         ToolTip="Resource name: MaterialDesignRaisedButton" Content="Đăng Ký" 
                                 Name="LoginEnter" 
                            Command="{Binding SignUpCommand}" 
-                                CommandParameter="{Binding ElementName=signupwindow}"  >
+                           CommandParameter="{Binding ElementName=signupwindow}"  >
 
                     </Button>
 
                 </Grid>
 
             </Grid>
-           
-                
-          
-            
+
+
+
+
         </materialDesign:Card>
-        
+
     </Grid>
 </Window>

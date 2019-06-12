@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLThuVien"
         mc:Ignorable="d"
-                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 
         DataContext="{StaticResource mainvm}"
 
@@ -49,7 +50,7 @@
                 
                 <Grid Grid.Row="0">
                     <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
-                             Text="{Binding UserName}"
+                              Text="{Binding UserName}"
                             Margin="5 15"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 </Grid>
@@ -58,9 +59,9 @@
                         Orientation="Vertical">
                         <PasswordBox
                                      x:Name="FloatingPasswordBox"
-                                   
                                     Margin="5 10"
                                  materialDesign:HintAssist.Hint="Mật khẩu"
+                            
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" >
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="PasswordChanged">
@@ -76,7 +77,7 @@
                         <CheckBox
                                     Margin="5 5 5 5"
                              FontSize="11"
-                            
+                            x:Name="ShowPassWord"
                             Height="15"
                                     Style="{StaticResource MaterialDesignCheckBox}"
                                     Command="{Binding HienThiMatKhau}"

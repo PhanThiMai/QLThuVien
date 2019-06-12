@@ -25,9 +25,10 @@ namespace QLThuVien.Model
         public string TENSACH { get; set; }
         public string MALOAISACH { get; set; }
         public string TACGIA { get; set; }
-        public Nullable<System.TimeSpan> NAMSX { get; set; }
+        public Nullable<int> NAMSX { get; set; }
         public Nullable<decimal> GIASACH { get; set; }
     
+        public virtual KHO KHO { get; set; }
         public virtual LOAISACH LOAISACH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEUSACH> PHIEUSACHes { get; set; }

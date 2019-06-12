@@ -21,9 +21,17 @@ namespace QLThuVien.ViewModel
         public ICommand GioSachCommand { get; set; }
         public ICommand DangMuonCommand { get; set; }
         public ICommand DaTraCommand { get; set; }
-      //  public ICommand SachTab { get; set; }
+        public ICommand STSetting { get; set; }
+        public ICommand STHuy { get; set; }
 
+        public ICommand LODangXuat { get; set; }
+        public ICommand LOHuy { get; set; }
 
+        public ICommand GSHuy { get; set; }
+        public ICommand GSTienHanhMuon { get; set; }
+
+        public ICommand KSTimKiem { get; set; }
+        public ICommand KSThemVaoGio { get; set; }
 
         private bool _SachGrid;
         private bool _TTDocGiaGrid;
@@ -114,12 +122,50 @@ namespace QLThuVien.ViewModel
             set { _SACHList = value; OnPropertyChanged(); }
         }
 
+        //GIOSACHLIST
+        private ObservableCollection<GIOHANG> _GIOSACHList;
+        public ObservableCollection<GIOHANG> GIOSACHLIST
+        {
+            get => _GIOSACHList;
+            set { _GIOSACHList = value; OnPropertyChanged(); }
+        }
+
+        //PHIEUGIAODICH
+        private ObservableCollection<PHIEUGIAODICH> _PHIEUDDList;
+        public ObservableCollection<PHIEUGIAODICH> PHIEUDDLIST
+        {
+            get => _PHIEUDDList;
+            set { _PHIEUDDList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<PHAT> _PHATList;
+        public ObservableCollection<PHAT> PHATLIST
+        {
+            get => _PHATList;
+            set { _PHATList = value; OnPropertyChanged(); }
+        }
+
         private ObservableCollection<LOAISACH> _LOAISACHList;
         public ObservableCollection<LOAISACH> LOAISACHLIST
         {
             get => _LOAISACHList;
             set { _LOAISACHList = value; OnPropertyChanged(); }
         }
+
+        private ObservableCollection<DOCGIA> _DOCGIAList;
+        public ObservableCollection<DOCGIA> DOCGIAList
+        {
+            get => _DOCGIAList;
+            set { _DOCGIAList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<TAIKHOANDG> _TAIKHOANDGList;
+        public ObservableCollection<TAIKHOANDG> TAIKHOANDGList
+        {
+            get => _TAIKHOANDGList;
+            set { _TAIKHOANDGList = value; OnPropertyChanged(); }
+        }
+
 
         private ObservableCollection<string> _LOAICBX;
         public ObservableCollection<string> LOAICBX { get => _LOAICBX;
@@ -147,141 +193,490 @@ namespace QLThuVien.ViewModel
                 LoadTacGia(_TACGIACBX.ToString());
             } }
 
-        private ObservableCollection<string> _TENDOCGIA;
-        public ObservableCollection<string> TENDOCGIA
+       
+        /*
+        public ICommand TIMKIEM { get; set; }
+        private string _TimKiem;
+        public string TimKiem { get => _TimKiem; set { _TimKiem = value; OnPropertyChanged(); } }
+        */
+        private string _KSThongTinTimKiem;
+        public string KSThongTinTimKiem { get => _KSThongTinTimKiem; set { _KSThongTinTimKiem = value; OnPropertyChanged(); } }
+
+
+        private string passUserName;
+
+        private string _TTHoTen;
+        public string TTHoTen { get => _TTHoTen; set { _TTHoTen = value; OnPropertyChanged(); } }
+
+        private string _TTGioiTinh;
+        public string TTGioiTinh { get => _TTGioiTinh; set { _TTGioiTinh = value; OnPropertyChanged(); } }
+
+        private string _TTCMND;
+        public string TTCMND { get => _TTCMND; set { _TTCMND = value; OnPropertyChanged(); } }
+
+        private DateTime _TTNgaySinh;
+        public DateTime TTNgaySinh { get => _TTNgaySinh; set { _TTNgaySinh = value; OnPropertyChanged(); } }
+
+        private string _TTSoDT;
+        public string TTSoDT { get => _TTSoDT; set { _TTSoDT = value; OnPropertyChanged(); } }
+
+        private string _TTDiaChi;
+        public string TTDiaChi { get => _TTDiaChi; set { _TTDiaChi = value; OnPropertyChanged(); } }
+
+        private string _TTMaDocGia;
+        public string TTMaDocGia { get => _TTMaDocGia; set { _TTMaDocGia = value; OnPropertyChanged(); } }
+
+         bool SelectedGS = false;
+        private GIOHANG _SelectedGioSach;
+        public GIOHANG SelectedGioSach
         {
-            get => _TENDOCGIA;
-            set
-            {
-                _TENDOCGIA = value;
+            get => _SelectedGioSach;
+            set {
+
+                _SelectedGioSach = value;
                 OnPropertyChanged();
-                LoadTacGia(_TENDOCGIA.ToString());
+                if (SelectedGioSach != null)
+                {
+                    SelectedGS = true;
+                }
             }
         }
 
 
-        public ICommand TIMKIEM { get; set; }
-        private string _TimKiem;
-        public string TimKiem { get => _TimKiem; set { _TimKiem = value; OnPropertyChanged(); } }
+        public bool SelectedKS = false;
+        private SACH _SelectedKhoSach;
+        public SACH SelectedKhoSach{
+            get => _SelectedKhoSach;
+            set {
+                _SelectedKhoSach = value;
+                OnPropertyChanged();
+                if (SelectedKhoSach != null)  {
+                    SelectedKS = true;
+                }
+            }
+        }
 
 
+        private string _KSChonLoaiSach;
+        public string KSChonLoaiSach {
+            get => _KSChonLoaiSach;
+            set {
+                _KSChonLoaiSach = value;
+                OnPropertyChanged();
+                if (_KSChonLoaiSach != null || _KSChonLoaiSach != "ALL") {
+                    string maloai = "";
+                  foreach(var item in LOAISACHLIST)
+                    {
+                        if (item.TENLOAISACH == _KSChonLoaiSach)
+                            maloai = item.MALOAISACH;
+                    }
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes.Where(x => x.MALOAISACH == maloai));
+
+                }
+                if (_KSChonLoaiSach == "ALL"){
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
+
+                }
+            }
+        }
+
+
+        private string _KSChonTacGia;
+        public string KSChonTacGia  {
+            get => _KSChonTacGia;
+            set {
+                _KSChonTacGia = value;
+                OnPropertyChanged();
+
+                if (_KSChonTacGia != null || _KSChonTacGia != "ALL")  {
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes.Where(x => x.TACGIA == _KSChonTacGia));
+
+                }
+                if (_KSChonTacGia == "ALL") {
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
+
+                }
+            }
+        }
+
+        private string _KSChonNamSX;
+        public string KSChonNamSX
+        {
+            get => _KSChonNamSX;
+            set {
+                _KSChonNamSX = value;
+                OnPropertyChanged();
+
+                if (_KSChonNamSX != null || _KSChonNamSX != "ALL") {
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes.Where(x => x.NAMSX.ToString() == _KSChonNamSX));
+
+                }
+                if (_KSChonNamSX == "ALL"){
+                    SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
+
+                }
+            }
+        }
+
+        
         public DocGiaViewModel()
         {
+            SelectedGS = false;
             SettingGrid = SachGrid = DangMuonGrid = DaTraGrid 
                 = TTDocGiaGrid = GioSachGrid = LogOutGrid = false;
 
-              
+            LODangXuat = new RelayCommand<Window>((p) => {
+                return true;
+            },
+           (p) => {
+               
+               MainWindow main = new MainWindow();
+               main.Show();
+               p.Close();
+           });
+
+            STSetting = new RelayCommand<object>((p) => {
+                return true;
+            },
+          (p) => {
+
+              Setting();
+          });
+
             SettingCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 SettingGrid = true;
-
                 SachGrid = TTDocGiaGrid = LogOutGrid = GioSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
+
             SachCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 _SachGrid = true;
                 SachGrid = true;
-                SettingGrid = TTDocGiaGrid = LogOutGrid = GioSachGrid = DangMuonGrid = DaTraGrid = false;
+                SettingGrid = TTDocGiaGrid = LogOutGrid
+                = GioSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
+
             DangXuatCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
-
                 LogOutGrid = true;
-                SachGrid = TTDocGiaGrid = SettingGrid = GioSachGrid = DangMuonGrid = DaTraGrid = false;
+                SachGrid = TTDocGiaGrid = SettingGrid 
+                = GioSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
+
             ThongTinDocGiaCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 TTDocGiaGrid = true;
-                SachGrid = SettingGrid = LogOutGrid = GioSachGrid = DangMuonGrid = DaTraGrid = false;
+                SachGrid = SettingGrid = LogOutGrid 
+                = GioSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
 
             GioSachCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
 
                 GioSachGrid = true;
-                SachGrid = TTDocGiaGrid = LogOutGrid = SettingGrid = DangMuonGrid = DaTraGrid = false;
+                SachGrid = TTDocGiaGrid = LogOutGrid 
+                = SettingGrid = DangMuonGrid = DaTraGrid = false;
 
             });
             DangMuonCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
 
                 DangMuonGrid = true;
-                SachGrid = TTDocGiaGrid = LogOutGrid = GioSachGrid = SettingGrid = DaTraGrid = false;
+                SachGrid = TTDocGiaGrid = LogOutGrid 
+                = GioSachGrid = SettingGrid = DaTraGrid = false;
 
             });
             DaTraCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 DaTraGrid = true;
-                SachGrid = TTDocGiaGrid = LogOutGrid = GioSachGrid = DangMuonGrid = SettingGrid = false;
+                SachGrid = TTDocGiaGrid = LogOutGrid 
+                = GioSachGrid = DangMuonGrid = SettingGrid = false;
 
             });
 
-        
+           
+            STHuy = new RelayCommand<object>((p) => { return true; }, (p) => {
+                LoadTTDocGia();
+            });
+
+            LOHuy = new RelayCommand<object>((p) => { return true; }, (p) => {
+                LogOutGrid = false;
+            });
+
 
             SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
             LOAISACHLIST = new ObservableCollection<LOAISACH>(DataProvider.Ins.DB.LOAISACHes);
+            DOCGIAList = new ObservableCollection<DOCGIA>(DataProvider.Ins.DB.DOCGIAs);
+            TAIKHOANDGList = new ObservableCollection<TAIKHOANDG>(DataProvider.Ins.DB.TAIKHOANDGs);
+            PHIEUDDLIST = new ObservableCollection<PHIEUGIAODICH>(DataProvider.Ins.DB.PHIEUGIAODICHes);
+            PHATLIST = new ObservableCollection<PHAT>(DataProvider.Ins.DB.PHATs);
+
+            GIOSACHLIST = new ObservableCollection<GIOHANG>();
 
             LOAICBX = new ObservableCollection<string>();
-
             NAMSXCBX = new ObservableCollection<string>();
             TACGIACBX = new ObservableCollection<string>();
 
-          
-            foreach (var item in LOAISACHLIST)
-            {
+            LOAICBX.Add("ALL");
+            foreach (var item in LOAISACHLIST) {
                 LOAICBX.Add(item.TENLOAISACH);
             }
 
             string temp_nam = "";
             string temp_tg = "";
-            foreach (var item in SACHLIST)
-            {
+
+            TACGIACBX.Add("ALL");
+            NAMSXCBX.Add("ALL");
+
+            foreach (var item in SACHLIST){
                if(item.TACGIA != temp_tg)
                     TACGIACBX.Add(item.TACGIA);
-               if(item.NAMSX.ToString() != temp_nam)
+                if (item.NAMSX.ToString() != temp_nam)
                     NAMSXCBX.Add(item.NAMSX.ToString());
-               
+           
                 temp_nam = item.NAMSX.ToString();
                 temp_tg = item.TACGIA;
 
             }
 
-            
-            TIMKIEM = new RelayCommand<object>((p) =>
-            {
-                return true;
+         
+          
 
+            GSHuy = new RelayCommand<object>((p) =>  {
+                if (GIOSACHLIST.Count == 0)
+                    return false;
+                if (SelectedGS)
+                    return true;
+                 return false;
+                
             }, (p) =>
             {
-                TimKiem = "";
+                if (SelectedGioSach.SOLUONG == 1)
+                    GIOSACHLIST.Remove(SelectedGioSach);
+                else
+                    SelectedGioSach.SOLUONG--;
             });
 
+            GSTienHanhMuon = new RelayCommand<object>((p) => {
+                if(GIOSACHLIST.Count >0)
+                    return true;
+                return false;
+            },
+            (p) => {
+                bool muon = true;
+                foreach(var temp in PHATLIST){
+                    if(temp.MADG == TTMaDocGia) {
+                        MessageBox.Show("Bạn hiện đang vi phạm nội quy của thư viện nên hiện không thể mượn sách");
+                        muon = false;
+                        break;
+                    }
+                }
+
+                if (muon) {
+                    foreach (var temp in PHIEUDDLIST) {
+                        if (temp.MADG == TTMaDocGia && temp.NGAYTRA > DateTime.Today)  {
+
+                            MessageBox.Show("Bạn chưa thể mượn thêm sách khi chưa trả sách đã mượn");
+                            muon = false;
+                            break;
+                        }
+
+                    }
+                }
+
+                if(muon) {
+                    int numOfPDD = DataProvider.Ins.DB.PHIEUGIAODICHes.Count();
+                    string maPhieuDD = KhoiTaoMaPhieuGiaoDich(numOfPDD + 1);
+                    var muonSach = new PHIEUGIAODICH() {
+                        MAPHIEU = maPhieuDD,
+                        MADG = TTMaDocGia,
+                        LOAIPHIEU = "Mượn",
+                        NGAYMUON = DateTime.Today,
+                        NGAYTRA = DateTime.Today.AddDays(15),
+                        PHIPHATSINH = 0,
+                    };
+
+                    DataProvider.Ins.DB.PHIEUGIAODICHes.Add(muonSach);
+                    DataProvider.Ins.DB.SaveChanges();
+                    MessageBox.Show("Mượn sách thành công");
+
+                    GIOSACHLIST = new ObservableCollection<GIOHANG>();
+                }
+                
+            });
+
+            int num = 0;
+            KSThemVaoGio = new RelayCommand<object>((p) => {
+                if (SelectedKS) {
+                    return true;
+                }
+                return false;
+            },
+             (p) =>{
+                        var sach = DataProvider.Ins.DB.SACHes.Where(x => x.MASACH == SelectedKhoSach.MASACH).SingleOrDefault();
+              
+                        if (num >= 5){
+                            MessageBox.Show("Số lượng sách tối đa trong một lần mượn là 5 ");
+                        }
+                     
+                        else {
+                             if(GIOSACHLIST.Count == 0)
+                             {
+                                 var temp = new GIOHANG(sach.MASACH, sach.TENSACH, sach.MALOAISACH, sach.TACGIA, (int)sach.NAMSX,
+                                                                      (decimal)sach.GIASACH, 1);
+                                 GIOSACHLIST.Add(temp);
+                         num++;
+                             }
+                             else
+                             {
+                                 bool dathem = false;
+                                 foreach (var item in GIOSACHLIST)
+                                 {
+                                     if (item.MASACH == SelectedKhoSach.MASACH)
+                                     {
+                                         item.SOLUONG++;
+                                 num++;
+                                         dathem = true;
+                                     }
+                             
+                                 }
+                                 if (!dathem)
+                                 {
+                                     var temp = new GIOHANG(sach.MASACH, sach.TENSACH, sach.MALOAISACH, sach.TACGIA, (int)sach.NAMSX,
+                                                                       (decimal)sach.GIASACH, 1);
+                                     GIOSACHLIST.Add(temp);
+                             num++;
+                                 }
+
+
+                             }
+                        
+
+                         
+
+                        }
+              }
+             );
         }
 
-        public void LoadData()
+        public DocGiaViewModel(string passUserName) : this()
         {
+            this.passUserName = passUserName;
+
+            LoadTTDocGia();
 
         }
-        public void LoadLoaiSach(string loai)
-        {
 
+
+        public void LoadLoaiSach(string loai)  {
             SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
             LOAISACHLIST = new ObservableCollection<LOAISACH>(DataProvider.Ins.DB.LOAISACHes);
-            foreach(var item in LOAISACHLIST)
-            {
-                if(item.TENLOAISACH == loai)
-                {
+            foreach(var item in LOAISACHLIST) {
+                if(item.TENLOAISACH == loai) {
                     SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes.Where(x => x.MALOAISACH == item.MALOAISACH));
 
                 }
             }
 
         }
+
         public void LoadTacGia(string tacgia)
         {
 
         }
+
         public void LoadNam(string nam)
         {
 
         }
+
+        void LoadTTDocGia()
+        {
+            string temp = "";
+            foreach( var temp1 in TAIKHOANDGList)
+            {
+                if (temp1.TENTK == passUserName)
+                {
+                    temp = temp1.MADG;
+                    break;
+                }
+            }
+
+            if(temp != "")
+            {
+                foreach(var temp1 in DOCGIAList)
+                {
+                    if(temp1.MADG == temp)
+                    {
+                        TTMaDocGia = temp1.MADG;
+                        TTHoTen = temp1.TEN;
+                        TTGioiTinh = temp1.GIOITINH;
+                        TTNgaySinh = (DateTime)temp1.NGAYSINH;
+                        TTDiaChi = temp1.DIACHI;
+                        TTCMND = temp1.CMND;
+                        TTSoDT = temp1.SODT;
+
+                    }
+                }
+            }
+
+
+        }
+
+        void Setting() {
+            if (checkDataSetting()) {
+                var temp = DataProvider.Ins.DB.DOCGIAs.Where(x => x.MADG == TTMaDocGia).SingleOrDefault();
+
+                temp.TEN = TTHoTen;
+                temp.SODT = TTSoDT;
+                temp.GIOITINH = TTGioiTinh;
+                temp.DIACHI = TTDiaChi;
+                temp.NGAYSINH = TTNgaySinh;
+                DataProvider.Ins.DB.SaveChanges();
+
+                MessageBox.Show("Lưu thành công");
+            }
+            else {
+                MessageBox.Show("Thông tin nhập vào không hợp lệ");
+            }
+            
+        }
+        
+        bool checkDataSetting() {
+            foreach(var c in TTSoDT) {
+                if (c < 48 || c > 47)
+                    return false;
+            }
+
+            foreach (var c in TTCMND){
+                if (c < 48 || c > 47)
+                    return false;
+            }
+
+            if (TTGioiTinh.Trim() != "Nam" && TTGioiTinh.Trim() != "Nữ" && TTGioiTinh.Trim() != "Khác")
+                return false;
+
+            if ((DateTime.Today.Year - TTNgaySinh.Year) < 3 || (DateTime.Today.Year - TTNgaySinh.Year) > 130)
+                return false;
+
+            return true;
+        }
+
+
+
+        public static string KhoiTaoMaPhieuGiaoDich(int num) {
+            string ma = "";
+          
+                if (num < 10) {
+                    ma = "MAPHIEU00" + num.ToString();
+                }
+                else if (num < 100 ) {
+                    ma = "MAPHIEUNV0" + num.ToString();
+                }
+                else ma = "MAPHIEU " + num.ToString();
+
+           
+            return ma;
+        }
+
     }
 }
 

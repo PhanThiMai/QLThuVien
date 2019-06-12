@@ -68,7 +68,7 @@
                 <StackPanel>
 
                     <StackPanel Orientation="Horizontal"
-                                Height="60">
+                                Height="50">
 
                         <Label  
                           Content="Họ và tên:"
@@ -94,7 +94,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"
-                                Height="60">
+                                Height="50">
 
                         <Label Content="CMND     : "  FontSize="22" 
                            FontStyle="Normal"
@@ -114,7 +114,7 @@
                         </TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
-                                Height="60">
+                                Height="50">
 
                         <Label Content="Ngày sinh: "  FontSize="22" 
                            FontStyle="Normal"
@@ -136,7 +136,7 @@
 
 
                     <StackPanel Orientation="Horizontal"
-                                Height="60">
+                                Height="50">
 
                         <Label Content="SĐT          : "  FontSize="22" 
                            FontStyle="Normal"
@@ -156,7 +156,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"
-                                Height="60">
+                                Height="50">
 
                         <Label Content="Địa chỉ     : "  FontSize="22" 
                            FontStyle="Normal"
@@ -174,6 +174,29 @@
                             Quận Thủ Đức
                         </TextBox>
                     </StackPanel>
+
+
+                   
+                        <StackPanel
+                Orientation="Horizontal"
+                Margin="0 30 0 0"
+                >
+                            <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                   Margin="80  0 60 0 "
+                 
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Đăng Xuất
+                            </Button>
+
+                            <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                   
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Hủy
+                            </Button>
+
+                        </StackPanel>
 
                 </StackPanel>
 

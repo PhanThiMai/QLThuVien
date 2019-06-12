@@ -22,7 +22,6 @@ namespace QLThuVien.Model
     
         public string MANV { get; set; }
         public string TEN { get; set; }
-        public string CHUCVU { get; set; }
         public string DIACHI { get; set; }
         public string SODT { get; set; }
         public string GIOITINH { get; set; }

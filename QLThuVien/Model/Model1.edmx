@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QLTHUVIENModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="quanlythuvienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DOCGIA">
           <Key>
             <PropertyRef Name="MADG" />
@@ -17,12 +17,13 @@
           <Property Name="SODT" Type="varchar" MaxLength="15" />
           <Property Name="NGAYSINH" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'QLTHUVIEN.dbo.KHO' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="KHO">
-          <Property Name="MASACH" Type="varchar" MaxLength="30" />
+          <Key>
+            <PropertyRef Name="MASACH" />
+          </Key>
+          <Property Name="MASACH" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="SOLUONG" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="LOAISACH">
           <Key>
             <PropertyRef Name="MALOAISACH" />
@@ -36,21 +37,20 @@ warning 6013: The table/view 'QLTHUVIEN.dbo.KHO' does not have a primary key def
           </Key>
           <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="TEN" Type="nvarchar" MaxLength="50" />
-          <Property Name="CHUCVU" Type="nvarchar" MaxLength="50" />
           <Property Name="DIACHI" Type="nvarchar" MaxLength="50" />
           <Property Name="SODT" Type="varchar" MaxLength="15" />
           <Property Name="GIOITINH" Type="nvarchar" MaxLength="10" />
           <Property Name="NGAYSINH" Type="date" />
           <Property Name="CMND" Type="varchar" MaxLength="20" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'QLTHUVIEN.dbo.PHAT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="PHAT">
-          <Property Name="MADG" Type="varchar" MaxLength="30" />
-          <Property Name="MASACH" Type="varchar" MaxLength="30" />
+          <Key>
+            <PropertyRef Name="MADG" />
+          </Key>
+          <Property Name="MADG" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="NGAY" Type="date" />
           <Property Name="GHICHU" Type="nvarchar" MaxLength="200" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="PHIEUGIAODICH">
           <Key>
             <PropertyRef Name="MAPHIEU" />
@@ -79,7 +79,7 @@ warning 6013: The table/view 'QLTHUVIEN.dbo.PHAT' does not have a primary key de
           <Property Name="TENSACH" Type="nvarchar" MaxLength="50" />
           <Property Name="MALOAISACH" Type="varchar" MaxLength="30" />
           <Property Name="TACGIA" Type="nvarchar" MaxLength="50" />
-          <Property Name="NAMSX" Type="time" Precision="7" />
+          <Property Name="NAMSX" Type="int" />
           <Property Name="GIASACH" Type="money" />
         </EntityType>
         <EntityType Name="TAIKHOANDG">
@@ -111,15 +111,30 @@ warning 6013: The table/view 'QLTHUVIEN.dbo.PHAT' does not have a primary key de
           <Property Name="TIEN" Type="money" />
           <Property Name="GHICHU" Type="nvarchar" MaxLength="200" />
         </EntityType>
-        <!--Errors Found During Generation:
-error 6004: The table 'QLTHUVIEN.dbo.KHO' is referenced by a relationship, but cannot be found.
-        <Association Name="fk_KHO_MASACH" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but cannot be found.
-        <Association Name="fk_PHAT_MADG" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but cannot be found.
-        <Association Name="fk_PHAT_MASACH" />-->
+        <Association Name="fk_KHO_MASACH">
+          <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
+          <End Role="KHO" Type="Self.KHO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SACH">
+              <PropertyRef Name="MASACH" />
+            </Principal>
+            <Dependent Role="KHO">
+              <PropertyRef Name="MASACH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PHAT_MADG">
+          <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="1" />
+          <End Role="PHAT" Type="Self.PHAT" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DOCGIA">
+              <PropertyRef Name="MADG" />
+            </Principal>
+            <Dependent Role="PHAT">
+              <PropertyRef Name="MADG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_PHIEUGD_MADG">
           <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="0..1" />
           <End Role="PHIEUGIAODICH" Type="Self.PHIEUGIAODICH" Multiplicity="*" />
@@ -204,16 +219,26 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QLTHUVIENModelStoreContainer">
+        <EntityContainer Name="quanlythuvienModelStoreContainer">
           <EntitySet Name="DOCGIA" EntityType="Self.DOCGIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KHO" EntityType="Self.KHO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAISACH" EntityType="Self.LOAISACH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHAT" EntityType="Self.PHAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PHIEUGIAODICH" EntityType="Self.PHIEUGIAODICH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PHIEUSACH" EntityType="Self.PHIEUSACH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SACH" EntityType="Self.SACH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAIKHOANDG" EntityType="Self.TAIKHOANDG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAIKHOANNV" EntityType="Self.TAIKHOANNV" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="THANHLYHUY" EntityType="Self.THANHLYHUY" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_KHO_MASACH" Association="Self.fk_KHO_MASACH">
+            <End Role="SACH" EntitySet="SACH" />
+            <End Role="KHO" EntitySet="KHO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PHAT_MADG" Association="Self.fk_PHAT_MADG">
+            <End Role="DOCGIA" EntitySet="DOCGIA" />
+            <End Role="PHAT" EntitySet="PHAT" />
+          </AssociationSet>
           <AssociationSet Name="fk_PHIEUGD_MADG" Association="Self.fk_PHIEUGD_MADG">
             <End Role="DOCGIA" EntitySet="DOCGIA" />
             <End Role="PHIEUGIAODICH" EntitySet="PHIEUGIAODICH" />
@@ -247,7 +272,7 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="QLTHUVIENModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="quanlythuvienModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="DOCGIA">
           <Key>
             <PropertyRef Name="MADG" />
@@ -259,8 +284,17 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
           <Property Name="DIACHI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SODT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="PHAT" Relationship="Self.fk_PHAT_MADG" FromRole="DOCGIA" ToRole="PHAT" />
           <NavigationProperty Name="PHIEUGIAODICHes" Relationship="Self.fk_PHIEUGD_MADG" FromRole="DOCGIA" ToRole="PHIEUGIAODICH" />
           <NavigationProperty Name="TAIKHOANDGs" Relationship="Self.fk_TK_MADG" FromRole="DOCGIA" ToRole="TAIKHOANDG" />
+        </EntityType>
+        <EntityType Name="KHO">
+          <Key>
+            <PropertyRef Name="MASACH" />
+          </Key>
+          <Property Name="MASACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <NavigationProperty Name="SACH" Relationship="Self.fk_KHO_MASACH" FromRole="KHO" ToRole="SACH" />
         </EntityType>
         <EntityType Name="LOAISACH">
           <Key>
@@ -276,13 +310,21 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
           </Key>
           <Property Name="MANV" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CHUCVU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DIACHI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SODT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="GIOITINH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
           <Property Name="CMND" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TAIKHOANNVs" Relationship="Self.FK_TK_MANV" FromRole="NHANVIEN" ToRole="TAIKHOANNV" />
+        </EntityType>
+        <EntityType Name="PHAT">
+          <Key>
+            <PropertyRef Name="MADG" />
+          </Key>
+          <Property Name="MADG" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NGAY" Type="DateTime" Precision="0" />
+          <Property Name="GHICHU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DOCGIA" Relationship="Self.fk_PHAT_MADG" FromRole="PHAT" ToRole="DOCGIA" />
         </EntityType>
         <EntityType Name="PHIEUGIAODICH">
           <Key>
@@ -316,8 +358,9 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
           <Property Name="TENSACH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MALOAISACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="TACGIA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NAMSX" Type="Time" Precision="7" />
+          <Property Name="NAMSX" Type="Int32" />
           <Property Name="GIASACH" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="KHO" Relationship="Self.fk_KHO_MASACH" FromRole="SACH" ToRole="KHO" />
           <NavigationProperty Name="LOAISACH" Relationship="Self.fk_SACH_MALOAISACH" FromRole="SACH" ToRole="LOAISACH" />
           <NavigationProperty Name="PHIEUSACHes" Relationship="Self.fk_PHIEUSACH_MASACH" FromRole="SACH" ToRole="PHIEUSACH" />
           <NavigationProperty Name="THANHLYHUYs" Relationship="Self.fk_THANHLYHUY_MASACH" FromRole="SACH" ToRole="THANHLYHUY" />
@@ -354,6 +397,18 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
           <Property Name="GHICHU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SACH" Relationship="Self.fk_THANHLYHUY_MASACH" FromRole="THANHLYHUY" ToRole="SACH" />
         </EntityType>
+        <Association Name="fk_PHAT_MADG">
+          <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="1" />
+          <End Role="PHAT" Type="Self.PHAT" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DOCGIA">
+              <PropertyRef Name="MADG" />
+            </Principal>
+            <Dependent Role="PHAT">
+              <PropertyRef Name="MADG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_PHIEUGD_MADG">
           <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="0..1" />
           <End Role="PHIEUGIAODICH" Type="Self.PHIEUGIAODICH" Multiplicity="*" />
@@ -375,6 +430,18 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
             </Principal>
             <Dependent Role="TAIKHOANDG">
               <PropertyRef Name="MADG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_KHO_MASACH">
+          <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
+          <End Role="KHO" Type="Self.KHO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SACH">
+              <PropertyRef Name="MASACH" />
+            </Principal>
+            <Dependent Role="KHO">
+              <PropertyRef Name="MASACH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -438,16 +505,22 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QLTHUVIENEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="quanlythuvienEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DOCGIAs" EntityType="Self.DOCGIA" />
+          <EntitySet Name="KHOes" EntityType="Self.KHO" />
           <EntitySet Name="LOAISACHes" EntityType="Self.LOAISACH" />
           <EntitySet Name="NHANVIENs" EntityType="Self.NHANVIEN" />
+          <EntitySet Name="PHATs" EntityType="Self.PHAT" />
           <EntitySet Name="PHIEUGIAODICHes" EntityType="Self.PHIEUGIAODICH" />
           <EntitySet Name="PHIEUSACHes" EntityType="Self.PHIEUSACH" />
           <EntitySet Name="SACHes" EntityType="Self.SACH" />
           <EntitySet Name="TAIKHOANDGs" EntityType="Self.TAIKHOANDG" />
           <EntitySet Name="TAIKHOANNVs" EntityType="Self.TAIKHOANNV" />
           <EntitySet Name="THANHLYHUYs" EntityType="Self.THANHLYHUY" />
+          <AssociationSet Name="fk_PHAT_MADG" Association="Self.fk_PHAT_MADG">
+            <End Role="DOCGIA" EntitySet="DOCGIAs" />
+            <End Role="PHAT" EntitySet="PHATs" />
+          </AssociationSet>
           <AssociationSet Name="fk_PHIEUGD_MADG" Association="Self.fk_PHIEUGD_MADG">
             <End Role="DOCGIA" EntitySet="DOCGIAs" />
             <End Role="PHIEUGIAODICH" EntitySet="PHIEUGIAODICHes" />
@@ -455,6 +528,10 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
           <AssociationSet Name="fk_TK_MADG" Association="Self.fk_TK_MADG">
             <End Role="DOCGIA" EntitySet="DOCGIAs" />
             <End Role="TAIKHOANDG" EntitySet="TAIKHOANDGs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KHO_MASACH" Association="Self.fk_KHO_MASACH">
+            <End Role="SACH" EntitySet="SACHes" />
+            <End Role="KHO" EntitySet="KHOes" />
           </AssociationSet>
           <AssociationSet Name="fk_SACH_MALOAISACH" Association="Self.fk_SACH_MALOAISACH">
             <End Role="LOAISACH" EntitySet="LOAISACHes" />
@@ -482,9 +559,9 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QLTHUVIENModelStoreContainer" CdmEntityContainer="QLTHUVIENEntities">
+        <EntityContainerMapping StorageEntityContainer="quanlythuvienModelStoreContainer" CdmEntityContainer="quanlythuvienEntities1">
           <EntitySetMapping Name="DOCGIAs">
-            <EntityTypeMapping TypeName="QLTHUVIENModel.DOCGIA">
+            <EntityTypeMapping TypeName="quanlythuvienModel.DOCGIA">
               <MappingFragment StoreEntitySet="DOCGIA">
                 <ScalarProperty Name="MADG" ColumnName="MADG" />
                 <ScalarProperty Name="TEN" ColumnName="TEN" />
@@ -496,8 +573,16 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="KHOes">
+            <EntityTypeMapping TypeName="quanlythuvienModel.KHO">
+              <MappingFragment StoreEntitySet="KHO">
+                <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LOAISACHes">
-            <EntityTypeMapping TypeName="QLTHUVIENModel.LOAISACH">
+            <EntityTypeMapping TypeName="quanlythuvienModel.LOAISACH">
               <MappingFragment StoreEntitySet="LOAISACH">
                 <ScalarProperty Name="MALOAISACH" ColumnName="MALOAISACH" />
                 <ScalarProperty Name="TENLOAISACH" ColumnName="TENLOAISACH" />
@@ -505,11 +590,10 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NHANVIENs">
-            <EntityTypeMapping TypeName="QLTHUVIENModel.NHANVIEN">
+            <EntityTypeMapping TypeName="quanlythuvienModel.NHANVIEN">
               <MappingFragment StoreEntitySet="NHANVIEN">
                 <ScalarProperty Name="MANV" ColumnName="MANV" />
                 <ScalarProperty Name="TEN" ColumnName="TEN" />
-                <ScalarProperty Name="CHUCVU" ColumnName="CHUCVU" />
                 <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
                 <ScalarProperty Name="SODT" ColumnName="SODT" />
                 <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
@@ -518,8 +602,17 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PHATs">
+            <EntityTypeMapping TypeName="quanlythuvienModel.PHAT">
+              <MappingFragment StoreEntitySet="PHAT">
+                <ScalarProperty Name="MADG" ColumnName="MADG" />
+                <ScalarProperty Name="NGAY" ColumnName="NGAY" />
+                <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PHIEUGIAODICHes">
-            <EntityTypeMapping TypeName="QLTHUVIENModel.PHIEUGIAODICH">
+            <EntityTypeMapping TypeName="quanlythuvienModel.PHIEUGIAODICH">
               <MappingFragment StoreEntitySet="PHIEUGIAODICH">
                 <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
                 <ScalarProperty Name="MADG" ColumnName="MADG" />
@@ -531,7 +624,7 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PHIEUSACHes">
-            <EntityTypeMapping TypeName="QLTHUVIENModel.PHIEUSACH">
+            <EntityTypeMapping TypeName="quanlythuvienModel.PHIEUSACH">
               <MappingFragment StoreEntitySet="PHIEUSACH">
                 <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
                 <ScalarProperty Name="MASACH" ColumnName="MASACH" />
@@ -540,7 +633,7 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SACHes">
-            <EntityTypeMapping TypeName="QLTHUVIENModel.SACH">
+            <EntityTypeMapping TypeName="quanlythuvienModel.SACH">
               <MappingFragment StoreEntitySet="SACH">
                 <ScalarProperty Name="MASACH" ColumnName="MASACH" />
                 <ScalarProperty Name="TENSACH" ColumnName="TENSACH" />
@@ -552,7 +645,7 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TAIKHOANDGs">
-            <EntityTypeMapping TypeName="QLTHUVIENModel.TAIKHOANDG">
+            <EntityTypeMapping TypeName="quanlythuvienModel.TAIKHOANDG">
               <MappingFragment StoreEntitySet="TAIKHOANDG">
                 <ScalarProperty Name="TENTK" ColumnName="TENTK" />
                 <ScalarProperty Name="MADG" ColumnName="MADG" />
@@ -562,7 +655,7 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TAIKHOANNVs">
-            <EntityTypeMapping TypeName="QLTHUVIENModel.TAIKHOANNV">
+            <EntityTypeMapping TypeName="quanlythuvienModel.TAIKHOANNV">
               <MappingFragment StoreEntitySet="TAIKHOANNV">
                 <ScalarProperty Name="TENTK" ColumnName="TENTK" />
                 <ScalarProperty Name="MANV" ColumnName="MANV" />
@@ -572,7 +665,7 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="THANHLYHUYs">
-            <EntityTypeMapping TypeName="QLTHUVIENModel.THANHLYHUY">
+            <EntityTypeMapping TypeName="quanlythuvienModel.THANHLYHUY">
               <MappingFragment StoreEntitySet="THANHLYHUY">
                 <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
                 <ScalarProperty Name="MASACH" ColumnName="MASACH" />

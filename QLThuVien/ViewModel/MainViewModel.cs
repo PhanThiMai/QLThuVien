@@ -15,27 +15,36 @@ namespace QLThuVien.ViewModel
 {
    public  class MainViewModel : BaseViewModel
     {
+        
+
         public bool isLogin { get; set; }
+        public bool isShowPass { get; set; }
+
 
         private string _UserName;
         public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
 
         private string _Password;
+      //  private object FloatingPasswordBox;
+
         public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
 
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
         public ICommand SignUp { get; set; }
+        public ICommand HienThiMatKhau { get; set; }
 
-        
-       
+
+
         public MainViewModel()
         {
            
             isLogin = false;
             Password = "";
             UserName = "";
+            isShowPass = false;
+
 
             LoginCommand = new RelayCommand<Window>((p) => {
                 return true;
@@ -45,6 +54,24 @@ namespace QLThuVien.ViewModel
 
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => {
                 Password = p.Password; });
+
+
+            HienThiMatKhau = new RelayCommand<Window>(
+                (p) => 
+            { return true;
+            },(p) => {
+                if (!isShowPass)
+                {
+                   
+                  
+                    isShowPass = true;
+                }
+                else
+                {
+                    isShowPass = false;
+                }
+              
+            });
 
 
             SignUp = new RelayCommand<Window>((p) => {
@@ -57,20 +84,14 @@ namespace QLThuVien.ViewModel
 
         }
 
+        
         void Login(Window p)
         {
             if (p == null)
                 return;
          
             string passEncode = MD5Hash(Base64Encode(Password));
-            /*
-            TextWriter tsw = new StreamWriter(@"pass.txt", true);
-            tsw.WriteLine(UserName + " AND " +  passEncode);
-
-            //Close the file.
-            tsw.Close();
-            */
-
+        
             var accCountDG = DataProvider.Ins.DB.TAIKHOANDGs.Where(x => x.TENTK == UserName && x.ENCODE == passEncode).Count();
             var accCountNV = DataProvider.Ins.DB.TAIKHOANNVs.Where(x => x.TENTK == UserName && x.ENCODE == passEncode).Count();
 
@@ -79,13 +100,17 @@ namespace QLThuVien.ViewModel
             {
                 isLogin = true;
                 DocGia docgia = new DocGia();
-                p.Close();
+                docgia.DataContext = new DocGiaViewModel(UserName);
                 docgia.Show();
+                p.Close();
+                
             }
             else if(accCountNV > 0)
             {
                 isLogin = true;
                 NhanVien nhanvien = new NhanVien();
+                nhanvien.DataContext = new NhanVienViewModel(UserName);
+                
                 p.Close();
                 nhanvien.Show();
             }
@@ -101,9 +126,7 @@ namespace QLThuVien.ViewModel
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
-
-
-
+        
         public static string MD5Hash(string input)
         {
             StringBuilder hash = new StringBuilder();
@@ -117,8 +140,8 @@ namespace QLThuVien.ViewModel
             return hash.ToString();
         }
 
+       
 
-      
     }
 }
 

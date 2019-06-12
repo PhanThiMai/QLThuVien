@@ -7,5 +7,10 @@
     <viewmodel:MainViewModel x:Key="mainvm"></viewmodel:MainViewModel>
     <viewmodel:SignUpViewModel x:Key="signupvm"></viewmodel:SignUpViewModel>
     <viewmodel:NhanVienViewModel x:Key="nhanvienv"></viewmodel:NhanVienViewModel>
+    <viewmodel:GenderConverter x:Key="genderConverterKey"></viewmodel:GenderConverter>
+    <viewmodel:ColorConverter x:Key="colorConverterKey"></viewmodel:ColorConverter>
+
     <viewmodel:BooleanToCollapsedConverter x:Key="Converter"></viewmodel:BooleanToCollapsedConverter>
+
+
 </ResourceDictionary>

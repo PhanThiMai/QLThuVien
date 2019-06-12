@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="QLTHUVIENModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="quanlythuvienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="DOCGIA">
     <Key>
       <PropertyRef Name="MADG" />
@@ -12,12 +12,13 @@
     <Property Name="SODT" Type="varchar" MaxLength="15" />
     <Property Name="NGAYSINH" Type="date" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'QLTHUVIEN.dbo.KHO' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="KHO">
-          <Property Name="MASACH" Type="varchar" MaxLength="30" />
-          <Property Name="SOLUONG" Type="int" />
-        </EntityType>-->
+  <EntityType Name="KHO">
+    <Key>
+      <PropertyRef Name="MASACH" />
+    </Key>
+    <Property Name="MASACH" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="SOLUONG" Type="int" />
+  </EntityType>
   <EntityType Name="LOAISACH">
     <Key>
       <PropertyRef Name="MALOAISACH" />
@@ -31,21 +32,20 @@ warning 6013: The table/view 'QLTHUVIEN.dbo.KHO' does not have a primary key def
     </Key>
     <Property Name="MANV" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="TEN" Type="nvarchar" MaxLength="50" />
-    <Property Name="CHUCVU" Type="nvarchar" MaxLength="50" />
     <Property Name="DIACHI" Type="nvarchar" MaxLength="50" />
     <Property Name="SODT" Type="varchar" MaxLength="15" />
     <Property Name="GIOITINH" Type="nvarchar" MaxLength="10" />
     <Property Name="NGAYSINH" Type="date" />
     <Property Name="CMND" Type="varchar" MaxLength="20" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'QLTHUVIEN.dbo.PHAT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="PHAT">
-          <Property Name="MADG" Type="varchar" MaxLength="30" />
-          <Property Name="MASACH" Type="varchar" MaxLength="30" />
-          <Property Name="NGAY" Type="date" />
-          <Property Name="GHICHU" Type="nvarchar" MaxLength="200" />
-        </EntityType>-->
+  <EntityType Name="PHAT">
+    <Key>
+      <PropertyRef Name="MADG" />
+    </Key>
+    <Property Name="MADG" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="NGAY" Type="date" />
+    <Property Name="GHICHU" Type="nvarchar" MaxLength="200" />
+  </EntityType>
   <EntityType Name="PHIEUGIAODICH">
     <Key>
       <PropertyRef Name="MAPHIEU" />
@@ -74,7 +74,7 @@ warning 6013: The table/view 'QLTHUVIEN.dbo.PHAT' does not have a primary key de
     <Property Name="TENSACH" Type="nvarchar" MaxLength="50" />
     <Property Name="MALOAISACH" Type="varchar" MaxLength="30" />
     <Property Name="TACGIA" Type="nvarchar" MaxLength="50" />
-    <Property Name="NAMSX" Type="time" Precision="7" />
+    <Property Name="NAMSX" Type="int" />
     <Property Name="GIASACH" Type="money" />
   </EntityType>
   <EntityType Name="TAIKHOANDG">
@@ -106,15 +106,30 @@ warning 6013: The table/view 'QLTHUVIEN.dbo.PHAT' does not have a primary key de
     <Property Name="TIEN" Type="money" />
     <Property Name="GHICHU" Type="nvarchar" MaxLength="200" />
   </EntityType>
-  <!--Errors Found During Generation:
-error 6004: The table 'QLTHUVIEN.dbo.KHO' is referenced by a relationship, but cannot be found.
-        <Association Name="fk_KHO_MASACH" />-->
-  <!--Errors Found During Generation:
-error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but cannot be found.
-        <Association Name="fk_PHAT_MADG" />-->
-  <!--Errors Found During Generation:
-error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but cannot be found.
-        <Association Name="fk_PHAT_MASACH" />-->
+  <Association Name="fk_KHO_MASACH">
+    <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
+    <End Role="KHO" Type="Self.KHO" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="SACH">
+        <PropertyRef Name="MASACH" />
+      </Principal>
+      <Dependent Role="KHO">
+        <PropertyRef Name="MASACH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PHAT_MADG">
+    <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="1" />
+    <End Role="PHAT" Type="Self.PHAT" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DOCGIA">
+        <PropertyRef Name="MADG" />
+      </Principal>
+      <Dependent Role="PHAT">
+        <PropertyRef Name="MADG" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_PHIEUGD_MADG">
     <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="0..1" />
     <End Role="PHIEUGIAODICH" Type="Self.PHIEUGIAODICH" Multiplicity="*" />
@@ -199,16 +214,26 @@ error 6004: The table 'QLTHUVIEN.dbo.PHAT' is referenced by a relationship, but 
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="QLTHUVIENModelStoreContainer">
+  <EntityContainer Name="quanlythuvienModelStoreContainer">
     <EntitySet Name="DOCGIA" EntityType="Self.DOCGIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KHO" EntityType="Self.KHO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOAISACH" EntityType="Self.LOAISACH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PHAT" EntityType="Self.PHAT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHIEUGIAODICH" EntityType="Self.PHIEUGIAODICH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHIEUSACH" EntityType="Self.PHIEUSACH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SACH" EntityType="Self.SACH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TAIKHOANDG" EntityType="Self.TAIKHOANDG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TAIKHOANNV" EntityType="Self.TAIKHOANNV" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="THANHLYHUY" EntityType="Self.THANHLYHUY" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_KHO_MASACH" Association="Self.fk_KHO_MASACH">
+      <End Role="SACH" EntitySet="SACH" />
+      <End Role="KHO" EntitySet="KHO" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PHAT_MADG" Association="Self.fk_PHAT_MADG">
+      <End Role="DOCGIA" EntitySet="DOCGIA" />
+      <End Role="PHAT" EntitySet="PHAT" />
+    </AssociationSet>
     <AssociationSet Name="fk_PHIEUGD_MADG" Association="Self.fk_PHIEUGD_MADG">
       <End Role="DOCGIA" EntitySet="DOCGIA" />
       <End Role="PHIEUGIAODICH" EntitySet="PHIEUGIAODICH" />

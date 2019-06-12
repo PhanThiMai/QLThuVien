@@ -589,7 +589,7 @@
                  Style="{StaticResource MaterialDesignRaisedDarkButton}"
                   Width="100" 
                     Margin="10 10 "
-                 
+                 Command="{Binding DangXuatButton}"
                   ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Đăng Xuất
                     </Button>
 
@@ -597,6 +597,7 @@
                  Style="{StaticResource MaterialDesignRaisedDarkButton}"
                   Width="100" 
                     Margin="10 10 "
+                        Command="{Binding DangXuatHuyButton}"
                   ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Hủy
                     </Button>
 

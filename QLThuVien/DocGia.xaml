@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:QLThuVien"
         mc:Ignorable="d"
                   
-     
+     Name="docgiawindow"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
@@ -18,7 +18,7 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
     DataContext="{StaticResource docgiavm}"
                      WindowStartupLocation="CenterScreen"
-        Title="ĐỘC GIẢ" Height="450" Width="800" >
+        Title="ĐỘC GIẢ" Height="650" Width="980" >
 
 
     <Grid>
@@ -34,150 +34,173 @@
         </Grid.RowDefinitions>
 
         <Fluent:Ribbon Grid.Row="0">
-        
-                <!--Tabs-->
-            
-                <Fluent:RibbonTabItem Header="HOME" Background="LightGoldenrodYellow" >
-                    <Fluent:RibbonGroupBox >
-                        <Fluent:Button   Background="DarkGray" Header="Infor" Width="100"
+
+            <!--Tabs-->
+
+            <Fluent:RibbonTabItem Header="HOME" Background="LightGoldenrodYellow" >
+                <Fluent:RibbonGroupBox >
+                    <Fluent:Button   Background="DarkGray" Header="Infor" Width="100"
                                      LargeIcon="../Resource/Icons/profile.png" Command="{Binding ThongTinDocGiaCommand}">
 
-                        </Fluent:Button>
-                        <Fluent:Button   Background="DarkGray" Header="Setting" Width="100"
+                    </Fluent:Button>
+                    <Fluent:Button   Background="DarkGray" Header="Setting" Width="100"
                                      LargeIcon="../Resource/Icons/setting.png" Command="{Binding SettingCommand}" >
 
 
-                        </Fluent:Button>
-                        <Fluent:Button   Background="DarkGray" Header="Logout" Width="100"
+                    </Fluent:Button>
+                    <Fluent:Button   Background="DarkGray" Header="Logout" Width="100"
                                      LargeIcon="../Resource/Icons/logout.png" Command="{Binding DangXuatCommand}">
 
 
-                        </Fluent:Button>
+                    </Fluent:Button>
 
-                    </Fluent:RibbonGroupBox>
+                </Fluent:RibbonGroupBox>
 
-                </Fluent:RibbonTabItem>
+            </Fluent:RibbonTabItem>
 
-                <Fluent:RibbonTabItem Header="SÁCH" Background="LightGoldenrodYellow">
-                    <Fluent:RibbonGroupBox >
-                        <Fluent:Button   Background="DarkGray" Header="Danh sách" Width="100"
+            <Fluent:RibbonTabItem Header="SÁCH" Background="LightGoldenrodYellow">
+                <Fluent:RibbonGroupBox >
+                    <Fluent:Button   Background="DarkGray" Header="Danh sách" Width="100"
                                      LargeIcon="../Resource/Icons/book.png"  Command="{Binding SachCommand}">
 
-                        </Fluent:Button>
-                        <Fluent:Button   Background="DarkGray" Header="Giỏ sách đã chọn" Width="100"
+                    </Fluent:Button>
+                    <Fluent:Button   Background="DarkGray" Header="Giỏ sách đã chọn" Width="100"
                                      LargeIcon="../Resource/Icons/cart.png" Command="{Binding GioSachCommand}"  >
 
 
-                        </Fluent:Button>
+                    </Fluent:Button>
 
-                    </Fluent:RibbonGroupBox>
+                </Fluent:RibbonGroupBox>
 
-                </Fluent:RibbonTabItem>
+            </Fluent:RibbonTabItem>
 
-                <Fluent:RibbonTabItem Header="GIAO DỊCH" Background="LightGoldenrodYellow" >
-                    <Fluent:RibbonGroupBox >
+            <Fluent:RibbonTabItem Header="GIAO DỊCH" Background="LightGoldenrodYellow" >
+                <Fluent:RibbonGroupBox >
 
-                        <Fluent:Button  Background="DarkGray" Header="Đang Mượn" Width="100"
+                    <Fluent:Button  Background="DarkGray" Header="Đang Mượn" Width="100"
                                     LargeIcon="../Resource/Icons/borrowed.png"  Command="{Binding DangMuonCommand}" >
 
-                        </Fluent:Button>
-                        <Fluent:Button   Background="DarkGray" Header="Đã trả" Width="100"  
+                    </Fluent:Button>
+                    <Fluent:Button   Background="DarkGray" Header="Đã trả" Width="100"  
                                      LargeIcon="../Resource/Icons/returned.png" Command="{Binding DaTraCommand}" >
 
-                        </Fluent:Button>
+                    </Fluent:Button>
 
 
-                    </Fluent:RibbonGroupBox>
+                </Fluent:RibbonGroupBox>
 
-                </Fluent:RibbonTabItem>
+            </Fluent:RibbonTabItem>
 
         </Fluent:Ribbon>
-        
-        
-        
+
+
+
         <Grid Grid.Row="1">
             <!--  kho sach-->
             <Grid Visibility="{Binding Path=SachGrid, Converter={StaticResource Converter}}">
+
+
                 <Grid.Resources>
                     <Style TargetType="Grid">
                         <Setter Property="Margin" Value="5 0 0 5"/>
                     </Style>
                 </Grid.Resources>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
 
                     <RowDefinition ></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+
                 </Grid.RowDefinitions>
-                
+
                 <Grid Grid.Row="0">
-                    <Label Content="SACH"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+                    <Label Content="THƯ VIỆN SÁCH"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
 
                     </Label>
                 </Grid>
-                
+
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
-                        
+
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid Grid.Column="0">
-                        <ComboBox Text="--- Loại Sách ---" ItemsSource="{Binding LOAICBX}" IsEditable="True">
+                        <ComboBox Text="--- Loại Sách ---" ItemsSource="{Binding LOAICBX}"
+                                  SelectedItem="{Binding KSChonLoaiSach}"
+                                  IsEditable="True" Margin="0,0,93,0">
                         </ComboBox>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <ComboBox Text="--- Năm SX ---" ItemsSource="{Binding NAMSXCBX}" IsEditable="True">
+                        <ComboBox Text="--- Năm SX ---" ItemsSource="{Binding NAMSXCBX}" IsEditable="True"
+                                  SelectedItem="{Binding KSChonNamSX}"
+                                  Margin="19,0,125,0">
                         </ComboBox>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <ComboBox Text="--- Tác Giả ---" ItemsSource="{Binding TACGIACBX}" IsEditable="True">
+                        <ComboBox Text="--- Tác Giả ---" ItemsSource="{Binding TACGIACBX}" 
+                                  SelectedItem="{Binding KSChonTacGia}"
+                                  IsEditable="True" Margin="0,0,68,0">
                         </ComboBox>
                     </Grid>
-                  
-                    
+
+
                 </Grid>
-                
+
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                            <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập thông tin "
-                       Text=""></TextBox>
+                        <TextBox Width="250"
+                             materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
+                       Text="{Binding KSThongTinTimKiem}"
+                             
+                             ></TextBox>
 
                     </Grid>
                     <Grid Grid.Column="1">
-                            <Button
+                        <Button
                      Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       Width="100" 
-                          Command="{Binding TIMKIEM}"
+                          Command="{Binding KSTimKiem}"
                       ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
-                            </Button>
+                        </Button>
                     </Grid>
 
                 </Grid>
-                
+
                 <Grid Grid.Row="3">
-                    <ListView ItemsSource="{Binding SACHLIST}">
+                    <ListView ItemsSource="{Binding SACHLIST}" SelectedItem="{Binding SelectedKhoSach}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã Sách" Width="100" x:Name="MASACH" DisplayMemberBinding="{Binding MASACH}"></GridViewColumn>
-                                <GridViewColumn Header="Tên Sách" Width="120" x:Name="TENSACH" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
-                                <GridViewColumn Header="Mã Loại" x:Name="MALOAISACH" DisplayMemberBinding="{Binding MALOAISACH}"></GridViewColumn>
-                                <GridViewColumn Header="Tác Giả" x:Name="TACGIA" DisplayMemberBinding="{Binding TACGIA}"></GridViewColumn>
-                                <GridViewColumn Header="Năm SX" x:Name="NAMSANXUAT" DisplayMemberBinding="{Binding NAMSANXUAT}"></GridViewColumn>
-                                <GridViewColumn Header="Giá Sách" x:Name="GIASACH" DisplayMemberBinding="{Binding GIASACH}"></GridViewColumn>
+                                <GridViewColumn Header="Mã Độc Giả" Width="120" x:Name="TENSACH" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Mã Loại" Width="120" x:Name="MALOAISACH" DisplayMemberBinding="{Binding MALOAISACH}"></GridViewColumn>
+                                <GridViewColumn Header="Tác Giả" Width="120" x:Name="TACGIA" DisplayMemberBinding="{Binding TACGIA}"></GridViewColumn>
+
+                                <GridViewColumn Header="Năm Sản Xuất"  DisplayMemberBinding="{Binding NAMSX}"></GridViewColumn>
+                                <GridViewColumn Header="Giá Tiền" x:Name="NAMSANXUAT" DisplayMemberBinding="{Binding GIASACH}"></GridViewColumn>
 
                             </GridView>
                         </ListView.View>
                     </ListView>
 
+
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Button
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                          Command="{Binding KSThemVaoGio}"
+                    
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Margin="716,6,10,7">_Thêm vào giỏ
+                    </Button>
                 </Grid>
             </Grid>
 
@@ -211,7 +234,7 @@
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center" />
                         </materialDesign:ColorZone>
-                        <Label Content="DG0001"  FontSize="20" 
+                        <Label Content="{Binding TTMaDocGia}"  FontSize="20" 
                            FontStyle="Normal"
                            FontWeight="Bold"
                            HorizontalContentAlignment="Center"
@@ -235,13 +258,13 @@
                         <StackPanel Orientation="Horizontal"
                                 Height="60">
 
-                            <Label Content="Phan Hoàng Hải"  FontSize="22" 
+                            <Label Content="{Binding TTHoTen}"  FontSize="22" 
                            FontStyle="Normal"
                                VerticalContentAlignment="Center"
                            Width="200"
                           >
                             </Label>
-                            <Label Content="Nữ"  FontSize="23" 
+                            <Label Content="{Binding TTGioiTinh}"  FontSize="23" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
@@ -260,7 +283,7 @@
                            Width="130"
                           >
                             </Label>
-                            <Label Content="123456789"  FontSize="23" 
+                            <Label Content="{Binding TTCMND}"  FontSize="23" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
@@ -278,7 +301,7 @@
                            Width="150"
                           >
                             </Label>
-                            <Label Content="10/10/1992"  FontSize="23" 
+                            <Label Content="{Binding TTNgaySinh}"  FontSize="23" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
@@ -298,7 +321,7 @@
                            Width="130"
                           >
                             </Label>
-                            <Label Content="  086952365425"  FontSize="23" 
+                            <Label Content="{Binding TTSoDT}"  FontSize="23" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
@@ -317,7 +340,7 @@
                            Width="120"
                           >
                             </Label>
-                            <Label Content="Quận Thủ Đức"  FontSize="22" 
+                            <Label Content="{Binding TTDiaChi}"  FontSize="22" 
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
@@ -363,7 +386,7 @@
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center" />
                         </materialDesign:ColorZone>
-                        <Label Content="DG0001"  FontSize="20" 
+                        <Label Content="{Binding TTMaDocGia}"  FontSize="20" 
                            FontStyle="Normal"
                            FontWeight="Bold"
                            HorizontalContentAlignment="Center"
@@ -403,9 +426,9 @@
                            FontStyle="Normal"
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
-
+                                Text="{Binding TTHoTen}"
                          Width="294">
-                                Phan Hoàng Hải
+                                
                             </TextBox>
 
                         </StackPanel>
@@ -424,12 +447,12 @@
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
                                  Foreground="Black"
-
+                                     Text="{Binding TTCMND}"
                          Width="290"
                           >
-                                123456789
                             </TextBox>
                         </StackPanel>
+                      
                         <StackPanel Orientation="Horizontal"
                                 Height="60">
 
@@ -444,10 +467,11 @@
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
                                    Foreground="Black"
+                                      
+                                       Text="{Binding TTNgaySinh}"
 
-                         Width="270"
+                         Width="296"
                           >
-                                10/10/1992
                             </TextBox>
                         </StackPanel>
 
@@ -466,9 +490,9 @@
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
                                Foreground="Black"
+                                     Text="{Binding TTSoDT}"
                          Width="303"
                           >
-                                086952365425
                             </TextBox>
                         </StackPanel>
 
@@ -486,12 +510,34 @@
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
                                   Foreground="Black"
+                                      Text="{Binding TTDiaChi}"
                          Width="295"
                           >
-                                Quận Thủ Đức
                             </TextBox>
                         </StackPanel>
 
+                        <StackPanel
+                        Orientation="Horizontal"
+                        Margin="0 30 0 0"
+                        >
+                                    <Button
+                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                          Width="100" 
+                           Margin="80  0 60 0 "
+                         Command="{Binding STSetting}"
+                       
+                          ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Lưu
+                                    </Button>
+
+                            <Button
+                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                          Width="100" 
+                           Command="{Binding STHuy}"
+                                 
+                          ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Hủy
+                                    </Button>
+
+                          </StackPanel>
                     </StackPanel>
 
                 </Grid>
@@ -500,48 +546,54 @@
 
             <!--  logout -->
 
-            <Grid Visibility="{Binding Path=LogOutGrid, Converter={StaticResource Converter}}">
-                <Grid.Resources>
-                    <Style TargetType="Grid">
-                        <Setter Property="Margin" Value="5 0 0 5"/>
-                    </Style>
-                </Grid.Resources>
+            <Grid
+                Background="AntiqueWhite"
+          Margin="184,128,217,189"
+                Visibility="{Binding Path=LogOutGrid, Converter={StaticResource Converter}}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Content="LogOut"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
 
+                <Grid Grid.Row="0" Height="100" >
+                    <Label  
+                          Content="   Xác nhận đăng xuất khỏi hệ thống ?"
+                                FontSize="23" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center" Margin="74,0,0,0" 
+                          >
                     </Label>
                 </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <ComboBox></ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập mã sản phẩm "
-                   Text=""></TextBox>
 
-                    </Grid>
-                    <Grid Grid.Column="2">
+                <Grid
+                     >
+                    <StackPanel
+                Orientation="Horizontal"
+                 Margin="152,79,20,-66"
+                >
                         <Button
                  Style="{StaticResource MaterialDesignRaisedDarkButton}"
                   Width="100" 
-                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
+                    Margin="10 10 "
+                 Command="{Binding LODangXuat}"
+                 CommandParameter="{Binding ElementName=docgiawindow}" 
+                            
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Đăng Xuất
                         </Button>
-                    </Grid>
+
+                        <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  Width="100" 
+                    Margin="10 10 "
+                            Command="{Binding LOHuy}"
+                             CommandParameter="{Binding ElementName=docgiawindow}" 
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Hủy
+                        </Button>
+
+                    </StackPanel>
 
                 </Grid>
-                <Grid Grid.Row="2">
 
-                </Grid>
             </Grid>
 
             <!-- Gio sach-->
@@ -551,62 +603,56 @@
                         <Setter Property="Margin" Value="5 0 0 5"/>
                     </Style>
                 </Grid.Resources>
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+
+                    <RowDefinition Height="50" ></RowDefinition>
                 </Grid.RowDefinitions>
+
                 <Grid Grid.Row="0">
-                    <Label Content="GioSach"  FontSize="20" FontStyle="Normal" HorizontalContentAlignment="Center" Background="CornflowerBlue">
+                    <Label Content="GIỎ SÁCH"  FontSize="20" 
+                       FontStyle="Normal" HorizontalContentAlignment="Center"
+                       Background="CornflowerBlue">
 
                     </Label>
                 </Grid>
+
+
                 <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                    <ListView  ItemsSource="{Binding GIOSACHLIST}" SelectedItem="{Binding SelectedGioSach}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã Sách"  DisplayMemberBinding="{Binding MASACH}"></GridViewColumn>
+                                <GridViewColumn Header="Mã Loại" DisplayMemberBinding="{Binding MALOAISACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Tên Sách" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Tác Giả" DisplayMemberBinding="{Binding TACGIA}"></GridViewColumn>
+                                <GridViewColumn Header="Năm SX" DisplayMemberBinding="{Binding NAMSX}" ></GridViewColumn>
+                                <GridViewColumn Header="Giá Sách" DisplayMemberBinding="{Binding GIASACH}" ></GridViewColumn>
+                                <GridViewColumn Header="SL" DisplayMemberBinding="{Binding SOLUONG}" ></GridViewColumn>
 
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <ComboBox Text="-- Loại Sách --" ItemsSource="{Binding LOAICBX}">
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <ComboBox Text="-- Năm SX --" ItemsSource="{Binding NAMSXCBX}">
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <ComboBox Text="-- Tác Giả --" ItemsSource="{Binding TACGIACBX}">
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="3">
-                        <ComboBox Text="-- Giá --" >
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Column="4">
-
-                        <TextBox Width="150" materialDesign:HintAssist.Hint="Nhập thông tin "
-                   Text=""></TextBox>
-
-                    </Grid>
-                    <Grid Grid.Column="5">
-                        <Button
-                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                  Width="100" 
-                      Command="{Binding TIMKIEM}"
-                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
-                        </Button>
-                    </Grid>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
                 </Grid>
+
                 <Grid Grid.Row="2">
+                    <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                     
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                         Command="{Binding GSTienHanhMuon}"
+                        Margin="776,10,22,3">_Tiến Hành Mượn
+                    </Button>
 
-
-
+                    <Button
+                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Margin="568,6,266,7"
+            Command="{Binding GSHuy}"
+                >_Hủy
+                    </Button>
                 </Grid>
             </Grid>
 
@@ -735,7 +781,7 @@
                     </Grid>
 
                 </Grid>
-                
+
                 <Grid Grid.Row="2">
 
                 </Grid>
@@ -743,7 +789,7 @@
 
 
         </Grid>
-      
+
 
     </Grid>
 </Fluent:RibbonWindow>
