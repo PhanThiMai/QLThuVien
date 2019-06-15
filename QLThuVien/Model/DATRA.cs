@@ -33,8 +33,8 @@ namespace QLThuVien.Model
         public string TENSACH { get; set; }
         public string MALOAISACH { get; set; }
         public string TACGIA { get; set; }
-        int NAMSX { get; set; }
-        decimal GIASACH { get; set; }
+        public  int NAMSX { get; set; }
+        public decimal GIASACH { get; set; }
         public int SOLUONG { get; set; }
     }
 }

@@ -95,7 +95,7 @@
 
 
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Background="AntiqueWhite">
             <!--  kho sach-->
             <Grid Visibility="{Binding Path=SachGrid, Converter={StaticResource Converter}}">
 
@@ -131,7 +131,8 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
-                        <ComboBox Text="--- Loại Sách ---" ItemsSource="{Binding LOAICBX}"
+                        <ComboBox Text="--- Loại Sách ---" 
+                                  ItemsSource="{Binding LOAICBX}"
                                   SelectedItem="{Binding KSChonLoaiSach}"
                                   IsEditable="True" Margin="0,0,93,0">
                         </ComboBox>
@@ -548,7 +549,7 @@
 
             <Grid
                 Background="AntiqueWhite"
-          Margin="184,128,217,189"
+                 Margin="184,128,217,189"
                 Visibility="{Binding Path=LogOutGrid, Converter={StaticResource Converter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>

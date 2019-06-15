@@ -710,13 +710,13 @@ namespace QLThuVien.ViewModel
         }
         
         bool checkDataSetting() {
-            foreach(var c in TTSoDT) {
-                if (c < 48 || c > 47)
+            foreach(var c in TTSoDT.Trim()) {
+                if (c < 48 || c > 57)
                     return false;
             }
 
-            foreach (var c in TTCMND){
-                if (c < 48 || c > 47)
+            foreach (var c in TTCMND.Trim()){
+                if (c < 48 || c > 57)
                     return false;
             }
 
@@ -738,7 +738,7 @@ namespace QLThuVien.ViewModel
                     ma = "MAPHIEU00" + num.ToString();
                 }
                 else if (num < 100 ) {
-                    ma = "MAPHIEUNV0" + num.ToString();
+                    ma = "MAPHIEU0" + num.ToString();
                 }
                 else ma = "MAPHIEU " + num.ToString();
 

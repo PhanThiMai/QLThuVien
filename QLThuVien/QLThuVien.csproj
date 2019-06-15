@@ -112,6 +112,7 @@
     <Compile Include="Model\NHANVIEN.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\NV_DANGMUON.cs" />
     <Compile Include="Model\PHAT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
