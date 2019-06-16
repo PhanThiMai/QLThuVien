@@ -527,6 +527,21 @@ namespace QLThuVien.ViewModel
             get => _KHOLIST;
             set { _KHOLIST = value; OnPropertyChanged(); }
         }
+        //DGLIST VPLIST
+        private ObservableCollection<DOCGIA> _DGLIST;
+        public ObservableCollection<DOCGIA> DGLIST
+        {
+            get => _DGLIST;
+            set { _DGLIST = value; OnPropertyChanged(); }
+        }
+
+
+        private ObservableCollection<PHAT> _VPLIST;
+        public ObservableCollection<PHAT> VPLIST
+        {
+            get => _VPLIST;
+            set { _VPLIST = value; OnPropertyChanged(); }
+        }
 
 
         private string passUserName;
@@ -1163,7 +1178,8 @@ namespace QLThuVien.ViewModel
             THANHLYLIST = new ObservableCollection<THANHLYHUY>(DataProvider.Ins.DB.THANHLYHUYs);
             NHAPSACHLIST = new ObservableCollection<NHAPSACH>(DataProvider.Ins.DB.NHAPSACHes);
             KHOLIST = new ObservableCollection<KHO>(DataProvider.Ins.DB.KHOes);
-
+            DGLIST = new ObservableCollection<DOCGIA>(DataProvider.Ins.DB.DOCGIAs);
+            VPLIST = new ObservableCollection<PHAT>(DataProvider.Ins.DB.PHATs);
 
             DANGMUONLIST = new ObservableCollection<NV_DANGMUON>();
             DATRALIST = new ObservableCollection<NV_DANGMUON>();

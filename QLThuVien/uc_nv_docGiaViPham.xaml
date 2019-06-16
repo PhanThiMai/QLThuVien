@@ -112,6 +112,8 @@
                 </StackPanel>
             </Grid>
         </Grid>
+        
+        
         <!-- thêm-->
         <Grid Background="AntiqueWhite"  Visibility="Hidden" >
             <StackPanel>
