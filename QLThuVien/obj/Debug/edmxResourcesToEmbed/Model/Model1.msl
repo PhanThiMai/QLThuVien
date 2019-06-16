@@ -43,6 +43,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="NHAPSACHes">
+      <EntityTypeMapping TypeName="quanlythuvienModel.NHAPSACH">
+        <MappingFragment StoreEntitySet="NHAPSACH">
+          <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
+          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+          <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
+          <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="PHATs">
       <EntityTypeMapping TypeName="quanlythuvienModel.PHAT">
         <MappingFragment StoreEntitySet="PHAT">

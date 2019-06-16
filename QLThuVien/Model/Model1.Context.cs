@@ -29,6 +29,7 @@ namespace QLThuVien.Model
         public virtual DbSet<KHO> KHOes { get; set; }
         public virtual DbSet<LOAISACH> LOAISACHes { get; set; }
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
+        public virtual DbSet<NHAPSACH> NHAPSACHes { get; set; }
         public virtual DbSet<PHAT> PHATs { get; set; }
         public virtual DbSet<PHIEUGIAODICH> PHIEUGIAODICHes { get; set; }
         public virtual DbSet<PHIEUSACH> PHIEUSACHes { get; set; }

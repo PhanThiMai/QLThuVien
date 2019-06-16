@@ -38,6 +38,16 @@
     <Property Name="NGAYSINH" Type="date" />
     <Property Name="CMND" Type="varchar" MaxLength="20" />
   </EntityType>
+  <EntityType Name="NHAPSACH">
+    <Key>
+      <PropertyRef Name="MAPHIEU" />
+    </Key>
+    <Property Name="MAPHIEU" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MASACH" Type="varchar" MaxLength="30" />
+    <Property Name="SOLUONG" Type="int" />
+    <Property Name="NGAYNHAP" Type="datetime" />
+    <Property Name="TONGTIEN" Type="money" />
+  </EntityType>
   <EntityType Name="PHAT">
     <Key>
       <PropertyRef Name="MADG" />
@@ -114,6 +124,18 @@
         <PropertyRef Name="MASACH" />
       </Principal>
       <Dependent Role="KHO">
+        <PropertyRef Name="MASACH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_NHAPSACH_SACH">
+    <End Role="SACH" Type="Self.SACH" Multiplicity="0..1" />
+    <End Role="NHAPSACH" Type="Self.NHAPSACH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SACH">
+        <PropertyRef Name="MASACH" />
+      </Principal>
+      <Dependent Role="NHAPSACH">
         <PropertyRef Name="MASACH" />
       </Dependent>
     </ReferentialConstraint>
@@ -219,6 +241,7 @@
     <EntitySet Name="KHO" EntityType="Self.KHO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOAISACH" EntityType="Self.LOAISACH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NHAPSACH" EntityType="Self.NHAPSACH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHAT" EntityType="Self.PHAT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHIEUGIAODICH" EntityType="Self.PHIEUGIAODICH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHIEUSACH" EntityType="Self.PHIEUSACH" Schema="dbo" store:Type="Tables" />
@@ -229,6 +252,10 @@
     <AssociationSet Name="fk_KHO_MASACH" Association="Self.fk_KHO_MASACH">
       <End Role="SACH" EntitySet="SACH" />
       <End Role="KHO" EntitySet="KHO" />
+    </AssociationSet>
+    <AssociationSet Name="fk_NHAPSACH_SACH" Association="Self.fk_NHAPSACH_SACH">
+      <End Role="SACH" EntitySet="SACH" />
+      <End Role="NHAPSACH" EntitySet="NHAPSACH" />
     </AssociationSet>
     <AssociationSet Name="fk_PHAT_MADG" Association="Self.fk_PHAT_MADG">
       <End Role="DOCGIA" EntitySet="DOCGIA" />

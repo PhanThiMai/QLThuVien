@@ -18,7 +18,7 @@
          FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="Kế Toán - Thủ Thư " Height="650" Width="880" >
+        Title="Nhân Viên Thư Viện" Height="650" Width="880" >
 
     <Grid>
 
@@ -1098,6 +1098,422 @@ Text="{Binding TTHoTen}"
                 </StackPanel>
             </Grid>
 
+            <!-- nhap sach -->
+
+            <Grid Background="AntiqueWhite"
+         Visibility="{Binding Path=NhapSachGrid, 
+                Converter={StaticResource Converter}}"
+          >
+
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="5 0 0 5"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+
+                    <RowDefinition ></RowDefinition>
+
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Label Content="BẢNG SỐ LIỆU NHẬP SÁCH"  FontSize="20" 
+                       FontStyle="Normal" HorizontalContentAlignment="Center"
+                       Background="CornflowerBlue">
+
+                    </Label>
+                </Grid>
+
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <ComboBox 
+                        Text="-- Chọn Tháng --"
+                            ItemsSource="{Binding NSTHANGCBX}"
+                            SelectedItem="{Binding NSChonThang}"
+                            IsEditable="True"
+                            Margin="84,0,44,0"
+                        >
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <ComboBox  Text="-- Chọn Năm --"
+                                   ItemsSource="{Binding NSNAMCBX}"
+                                   SelectedItem="{Binding NSChonNam}"
+                                   IsEditable="True"
+                                   Margin="122,0,36,0" 
+                           >
+                        </ComboBox>
+
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBox Width="250"
+                             materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
+                      
+                                 Text=""></TextBox>
+
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                      Width="100" 
+                       Command="{Binding NSTimKiem}" 
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <ListView  ItemsSource="{Binding NSLIST}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã Phiếu" DisplayMemberBinding="{Binding MAPHIEU}" ></GridViewColumn>
+                                <GridViewColumn Header="Mã Loại" DisplayMemberBinding="{Binding MALOAISACH}"  ></GridViewColumn>
+                                <GridViewColumn Header="Mã Sách" DisplayMemberBinding="{Binding MASACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Tên Sách" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
+
+                                <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding NGAYNHAP}"></GridViewColumn>
+                                <GridViewColumn Header="Số Lượng" DisplayMemberBinding="{Binding SOLUONG}"></GridViewColumn>
+                                <GridViewColumn Header="Thành Tiền" DisplayMemberBinding="{Binding TONGTIEN}" ></GridViewColumn>
+
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
+
+                <Grid Grid.Row="4"
+                  >
+                    <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Right"
+                            >
+                        <Button
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                      Width="100" 
+                        Margin="0 0 20 0"
+                            Command="{Binding NSNhap}"
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Nhập
+                        </Button>
+
+                    </StackPanel>
+                </Grid>
+                    
+                    
+            </Grid>
+
+           
+            <!-- them nhap sach-->
+
+            <Grid  Margin="30,0,0,0" Visibility="{Binding Path=ThemNhapSachGrid,
+                Converter={StaticResource Converter}}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition>
+
+                    </ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+
+                    <StackPanel Margin="-28,10,0,27" HorizontalAlignment="Left" Width="420">
+
+                        <Label Content="Nhập Sách"
+                       Margin="10,0,78,0"
+                       FontSize="20" 
+                       FontStyle="Normal" HorizontalContentAlignment="Center"
+                       Background="CornflowerBlue" Height="42"/>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Mã Loại  : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="117"
+                          />
+
+                            <ComboBox 
+                              VerticalContentAlignment="Center"
+                              Margin="0,10" Height="40"
+                                  ItemsSource="{Binding NSMALOAICBX}"
+                                  SelectedItem="{Binding NSChonMaLoai}"
+                                  IsEditable="True"
+                                  Text="-- Chon ma loai--" Width="155"
+                                  >
+                            </ComboBox>
+
+
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Mã Sách : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="123"
+                          />
+                            <ComboBox 
+                              VerticalContentAlignment="Center"
+                              Margin="0,10" Height="40" Width="148"
+                                  ItemsSource="{Binding NSMASACHCBX}"
+                            SelectedItem="{Binding NSChonMaSach}"
+                            IsEditable="True"
+                            Text="-- Chon ma sach"
+                                  >
+
+                            </ComboBox>
+
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Ngày      : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="124"
+                          />
+
+
+                            <DatePicker Margin="0,10,0,0"
+                                    Width="210"
+                                    Height="50"
+                                    SelectedDate="{Binding NSNgayNhap}"
+                                    >
+
+                            </DatePicker>
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Số Lượng: "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="120"
+                          />
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                                 Text="{Binding NSSoLuong}"
+                         Width="210"
+                          />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Tổng Tiền     : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="120"
+                          />
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                                 Text="{Binding NSTongTien}"
+                         Width="210"
+                          />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Height="78" Margin="30,0,116,0">
+
+                            <Button
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                      Width="109" 
+                      Command="{Binding NSThem}"
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Content="_Thêm" Margin="10 0"/>
+                            <Button
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                      Width="118" 
+                         Margin="20,14"
+                            Command="{Binding NSHuy}"
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Content="_Hủy"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+                <Grid Grid.Column="1" Visibility="{Binding Path=NhapSachMoi , 
+            Converter={StaticResource Converter}}">
+                    <StackPanel Margin="0,0,26,0" >
+
+                        <Label Content="Nhập Sách Mới"
+                       Margin="10,0,0,0"
+                       FontSize="20" 
+                       FontStyle="Normal" HorizontalContentAlignment="Center"
+                       Background="CornflowerBlue" Height="42"/>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Mã Loại Sách : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="160"
+                          />
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                                 Text="{Binding NSNhapMaLoai}"
+                         Width="190"
+                          />
+
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Tên Loại Sách : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="160"
+                          />
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                                 Text="{Binding NSNhapTenLoai}"
+                         Width="190"
+                          />
+
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Mã Sách : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="156"
+                          />
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                                 Text="{Binding NSNhapMaSach}"
+                         Width="194"
+                          />
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Tên Sách : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="156"
+                          />
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                                 Text="{Binding NSNhapTenSach}"
+                         Width="196"
+                          />
+
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Tác Giả : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="156"
+                          />
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                                 Text="{Binding NSNhapTacGia}"
+                         Width="194"
+                          />
+
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Năm SX  : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="156"
+                          />
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                                 Text="{Binding NSNhapNamSX}"
+                         Width="192"
+                          />
+
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Giá  : "  FontSize="20" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="156"
+                          />
+                            <TextBox FontSize="23" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+                               Foreground="Black"
+                                 Text="{Binding NSNhapGia}"
+                         Width="196"
+                          />
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+
+
+            </Grid>
 
 
         </Grid>
