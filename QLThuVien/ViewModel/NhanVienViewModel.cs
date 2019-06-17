@@ -244,6 +244,13 @@ namespace QLThuVien.ViewModel
             set { _SACHList = value; OnPropertyChanged(); }
         }
 
+        private ObservableCollection<KHOSACH> _KHOSACHList;
+        public ObservableCollection<KHOSACH> KHOSACHLIST
+        {
+            get => _KHOSACHList;
+            set { _KHOSACHList = value; OnPropertyChanged(); }
+        }
+
         private ObservableCollection<LOAISACH> _LOAISACHList;
         public ObservableCollection<LOAISACH> LOAISACHLIST
         {
@@ -1311,7 +1318,7 @@ namespace QLThuVien.ViewModel
             DANGMUONLIST = new ObservableCollection<NV_DANGMUON>();
             DATRALIST = new ObservableCollection<NV_DANGMUON>();
             NSLIST = new ObservableCollection<NV_NHAP>();
-
+            KHOSACHLIST = new ObservableCollection<KHOSACH>();
 
             LOAICBX = new ObservableCollection<string>();
             NAMSXCBX = new ObservableCollection<string>();
@@ -1456,7 +1463,10 @@ namespace QLThuVien.ViewModel
                     NAMSXCBX.Add(item.NAMSX.ToString());
                 if (CkeckCombobox(item.MALOAISACH, NSMALOAICBX))
                     NSMALOAICBX.Add(item.MALOAISACH);
-            
+
+                var item1 = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == item.MASACH).SingleOrDefault();
+                KHOSACHLIST.Add(new KHOSACH(item, (int)item1.SOLUONG));
+
             }
 
             foreach(var item in DGLIST) {
@@ -1509,7 +1519,7 @@ namespace QLThuVien.ViewModel
                 {
                     int count = DataProvider.Ins.DB.THANHLYHUYs.Count();
                     string maPhieuThanhLy = KhoiTaoMaPhieu(count + 1);
-                  
+                 
                     
                     var thanhLy = new THANHLYHUY() {
                         MAPHIEU = maPhieuThanhLy,
@@ -1524,6 +1534,7 @@ namespace QLThuVien.ViewModel
                     DataProvider.Ins.DB.THANHLYHUYs.Add(thanhLy);
                     DataProvider.Ins.DB.SaveChanges();
 
+                    
                     var sachKho = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == thanhLy.MASACH).SingleOrDefault();
                     sachKho.SOLUONG -= thanhLy.SOLUONG;
 
@@ -1560,11 +1571,8 @@ namespace QLThuVien.ViewModel
             NSThem = new RelayCommand<object>(
                (p) => { return true; },
                (p) => {
-
-                   // public NV_NHAP(NHAPSACH nhap, string maloai, string tensach, string maphieu)
                    string ma = "";
                    ma = KhoiTaoMaPhieu(DataProvider.Ins.DB.NHAPSACHes.Count() + 1);
-
                    if (NSChonMaLoai != "Nhập mã mới" && NSChonMaSach != "Nhập mã mới")// nhap sach da co san
                    {
                        var nhapsach = new NHAPSACH()
@@ -1587,10 +1595,8 @@ namespace QLThuVien.ViewModel
                    }
                    else
                    {
-                           if (NSChonMaLoai == "Nhập mã mới")
-                           {
-                               var loai = new LOAISACH()
-                               {
+                           if (NSChonMaLoai == "Nhập mã mới")  {
+                               var loai = new LOAISACH() {
                                    MALOAISACH = NSNhapMaLoai,
                                    TENLOAISACH = NSNhapTenLoai,
                                };
@@ -1600,8 +1606,7 @@ namespace QLThuVien.ViewModel
                            
                            }
 
-                           var sach = new SACH()
-                           {
+                           var sach = new SACH() {
                                MASACH = NSNhapMaSach,
                                MALOAISACH = NSNhapMaLoai,
                                TENSACH = NSNhapTenSach,
@@ -1631,22 +1636,14 @@ namespace QLThuVien.ViewModel
                            DataProvider.Ins.DB.NHAPSACHes.Add(nhapsach);
                            DataProvider.Ins.DB.SaveChanges();
 
-                       var sachKho = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == sach.MASACH).SingleOrDefault();
-                       if(sachKho != null)
+                       var sachKhoMoi = new KHO()
                        {
-                           sachKho.SOLUONG += nhapsach.SOLUONG;
-                           DataProvider.Ins.DB.SaveChanges();
-                       }
-                       else
-                       {
-                           var sachKhoMoi = new KHO()
-                           {
-                               MASACH = sach.MASACH,
-                               SOLUONG = nhapsach.SOLUONG
-                           };
-                           DataProvider.Ins.DB.KHOes.Add(sachKhoMoi);
-                           DataProvider.Ins.DB.SaveChanges();
-                       }
+                           MASACH = sach.MASACH,
+                           SOLUONG = nhapsach.SOLUONG
+                       };
+                       DataProvider.Ins.DB.KHOes.Add(sachKhoMoi);
+                       DataProvider.Ins.DB.SaveChanges();
+                       
                    }
 
 
@@ -1726,20 +1723,29 @@ namespace QLThuVien.ViewModel
               (p) => {
                   if (KSThongTinTimKiem != "")
                   {
-                      SACHLIST = new ObservableCollection<SACH>();
+                      var KSTemp = new ObservableCollection<KHOSACH>();
+                      KSTemp = KHOSACHLIST;
+
+                      KHOSACHLIST = new ObservableCollection<KHOSACH>();
                       KSThongTinTimKiem = KSThongTinTimKiem.ToLower();
                       KSThongTinTimKiem = ConvertToUnSign(KSThongTinTimKiem);
-                      foreach (var item in DataProvider.Ins.DB.SACHes)
+                      foreach (var item in KSTemp)
                       {
                           string temp = item.TENSACH.ToLower();
                           temp = ConvertToUnSign(temp);
                           if (temp.Contains(KSThongTinTimKiem))
-                              SACHLIST.Add(item);
+                              KHOSACHLIST.Add(item);
                       }
                   }
                   else
                   {
-                      SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
+                      KHOSACHLIST = new ObservableCollection<KHOSACH>();
+                      foreach(var item in SACHLIST)
+                      {
+                          var kho = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == item.MASACH).SingleOrDefault();
+                          KHOSACHLIST.Add(new KHOSACH(item, (int)kho.SOLUONG));
+                      }
+
                   }
 
               }

@@ -206,14 +206,14 @@
                 </Grid>
 
                 <Grid Grid.Row="3">
-                    <ListView ItemsSource="{Binding SACHLIST}" SelectedItem="{Binding SelectedKhoSach}">
+                    <ListView ItemsSource="{Binding KHOSACHLIST}" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã Sách" Width="100" x:Name="MASACH" DisplayMemberBinding="{Binding MASACH}"></GridViewColumn>
                                 <GridViewColumn Header="Mã Độc Giả" Width="120" x:Name="TENSACH" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
                                 <GridViewColumn Header="Mã Loại" Width="120" x:Name="MALOAISACH" DisplayMemberBinding="{Binding MALOAISACH}"></GridViewColumn>
                                 <GridViewColumn Header="Tác Giả" Width="120" x:Name="TACGIA" DisplayMemberBinding="{Binding TACGIA}"></GridViewColumn>
-
+                                <GridViewColumn Header="Số Lượng"  DisplayMemberBinding="{Binding SOLUONG}"></GridViewColumn>
                                 <GridViewColumn Header="Năm Sản Xuất"  DisplayMemberBinding="{Binding NAMSX}"></GridViewColumn>
                                 <GridViewColumn Header="Giá Tiền" x:Name="NAMSANXUAT" DisplayMemberBinding="{Binding GIASACH}"></GridViewColumn>
 

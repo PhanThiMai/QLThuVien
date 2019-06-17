@@ -91,6 +91,7 @@
     <Compile Include="Model\KHO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\KHOSACH.cs" />
     <Compile Include="Model\LOAISACH.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

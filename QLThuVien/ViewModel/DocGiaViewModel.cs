@@ -536,7 +536,6 @@ namespace QLThuVien.ViewModel
                 if (muon) {
                     foreach (var temp in PHIEUDDLIST) {
                         if (temp.MADG == TTMaDocGia && temp.NGAYTRA > DateTime.Today) {
-
                             MessageBox.Show("Bạn chưa thể mượn thêm sách khi chưa trả sách đã mượn");
                             muon = false;
                             break;
@@ -546,6 +545,20 @@ namespace QLThuVien.ViewModel
                 }
 
                 if (muon) {
+                    foreach (var item in GIOSACHLIST) {
+                        var temp = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == item.MASACH).SingleOrDefault();
+                        if (temp.SOLUONG < item.SOLUONG){
+                            muon = false;
+                            MessageBox.Show(" Số lượng sách tên  " + item.TENSACH + " trong kho hiện không đủ !!! ");
+                            break;
+                        }
+
+                    }
+
+                }
+                
+                if (muon) {
+                   
                     int numOfPDD = DataProvider.Ins.DB.PHIEUGIAODICHes.Count();
                     string maPhieuDD = KhoiTaoMaPhieuGiaoDich(numOfPDD + 1);
                     var muonSach = new PHIEUGIAODICH() {
@@ -572,8 +585,13 @@ namespace QLThuVien.ViewModel
                         PHIEUSACHLIST.Add(GSSach);
                         DataProvider.Ins.DB.PHIEUSACHes.Add(GSSach);
                         DataProvider.Ins.DB.SaveChanges();
-                    }
 
+                        var temp = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == item.MASACH).SingleOrDefault();
+                        temp.SOLUONG -= item.SOLUONG;
+                        DataProvider.Ins.DB.SaveChanges();
+
+                    }
+                    
                     GIOSACHLIST = new ObservableCollection<GIOHANG>();
                 }
 
@@ -640,9 +658,20 @@ namespace QLThuVien.ViewModel
 
             },
             (p)=>{
+
+                foreach(var item in DANGMUONLIST)
+                {
+                    var temp = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == item.MASACH).SingleOrDefault();
+                    temp.SOLUONG += item.SOLUONG;
+                    DataProvider.Ins.DB.SaveChanges();
+
+                }
                 var phieudd = DataProvider.Ins.DB.PHIEUGIAODICHes.Where(x => x.MAPHIEU == DMMaPhieuMuon).SingleOrDefault();
                 phieudd.NGAYTRA = DateTime.Today;
                 DataProvider.Ins.DB.SaveChanges();
+
+                
+
                 
                 DANGMUONLIST = new ObservableCollection<GIOHANG>();
                 LoadLichSuMuonSach();
