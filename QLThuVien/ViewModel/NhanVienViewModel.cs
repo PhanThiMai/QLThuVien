@@ -49,7 +49,7 @@ namespace QLThuVien.ViewModel
         public ICommand LSTimKiem { get; set; }
         public ICommand NSTimKiem { get; set; }
         public ICommand DGTimKiem { get; set; }
-
+        public ICommand NSThemVaoGio { get; set; }
 
         private bool _SachGrid;
         private bool _TTDocGiaGrid;
@@ -543,7 +543,14 @@ namespace QLThuVien.ViewModel
             get => _NSLIST;
             set { _NSLIST = value; OnPropertyChanged(); }
         }
+        //NSTHEMLIST
 
+        private ObservableCollection<NV_NHAP> _NSTHEMLIST;
+        public ObservableCollection<NV_NHAP> NSTHEMLIST
+        {
+            get => _NSTHEMLIST;
+            set { _NSTHEMLIST = value; OnPropertyChanged(); }
+        }
 
         private ObservableCollection<NHAPSACH> _NHAPSACHLIST;
         public ObservableCollection<NHAPSACH> NHAPSACHLIST
@@ -552,6 +559,12 @@ namespace QLThuVien.ViewModel
             set { _NHAPSACHLIST = value; OnPropertyChanged(); }
         }
 
+        private ObservableCollection<CHITIETNHAP> _CHITIETNHAPLIST;
+        public ObservableCollection<CHITIETNHAP> CHITIETNHAPLIST
+        {
+            get => _CHITIETNHAPLIST;
+            set { _CHITIETNHAPLIST = value; OnPropertyChanged(); }
+        }
 
         private ObservableCollection<KHO> _KHOLIST;
         public ObservableCollection<KHO> KHOLIST
@@ -842,11 +855,11 @@ namespace QLThuVien.ViewModel
                     {
                         if(nhap.NGAYNHAP.Value.Month.ToString() == _NSChonThang)
                         {
-                            foreach (var item in SACHLIST)
-                            {
-                                if (item.MASACH == nhap.MASACH)
-                                {
-                                    NV_NHAP nhapSach = new NV_NHAP(nhap, item.MALOAISACH, item.TENSACH);
+                            foreach (var item in CHITIETNHAPLIST) {
+                                if (item.MAPHIEU == nhap.MAPHIEU) {
+                                    NV_NHAP nhapSach = new NV_NHAP(item.MASACH, item.MAPHIEU, item.MASACH, (int)item.SOLUONG,
+                                       (DateTime)nhap.NGAYNHAP, (decimal)item.TONGTIEN);
+
                                     NSLIST.Add(nhapSach);
                                 }
                             }
@@ -874,13 +887,15 @@ namespace QLThuVien.ViewModel
                     NSLIST = new ObservableCollection<NV_NHAP>();
                     foreach (var nhap in NHAPSACHLIST)
                     {
-                        if (nhap.NGAYNHAP.Value.Year.ToString() ==_NSChonNam)
+                        if (nhap.NGAYNHAP.Value.Year.ToString() == _NSChonNam)
                         {
-                            foreach (var item in SACHLIST)
+                            foreach (var item in CHITIETNHAPLIST)
                             {
-                                if (item.MASACH == nhap.MASACH)
+                                if (item.MAPHIEU == nhap.MAPHIEU)
                                 {
-                                    NV_NHAP nhapSach = new NV_NHAP(nhap, item.MALOAISACH, item.TENSACH);
+                                    NV_NHAP nhapSach = new NV_NHAP(item.MASACH, item.MAPHIEU, item.MASACH, (int)item.SOLUONG,
+                                       (DateTime)nhap.NGAYNHAP, (decimal)item.TONGTIEN);
+
                                     NSLIST.Add(nhapSach);
                                 }
                             }
@@ -897,9 +912,7 @@ namespace QLThuVien.ViewModel
 
         }
 
-        //NSChonMaLoai  NSChonMaSach
-
-
+       
         private string _NSChonMaLoai;
         public string NSChonMaLoai
         {
@@ -908,7 +921,8 @@ namespace QLThuVien.ViewModel
             {
                 _NSChonMaLoai = value;
                 OnPropertyChanged();
-                if (_NSChonMaLoai != null || _NSChonMaLoai != "Nhập mã mới"){
+                if (_NSChonMaLoai != null || _NSChonMaLoai != "Nhập mã mới"){// ma loai da ton tai
+
                     NSMASACHCBX = new ObservableCollection<string>();
                     NSMASACHCBX.Add("Nhập mã mới");
                     foreach (var item in SACHLIST)
@@ -1233,7 +1247,8 @@ namespace QLThuVien.ViewModel
                 SachGrid = true;
                 SettingGrid = TTDocGiaGrid = ThemNhapSachGrid = DGXemTT=
                   NhapHuyGrid = NhapThanhLyGrid = 
-                  SachThanhLyGrid =SachDaHuyGrid=DocGiaGrid=ViPhamGrid= LogOutGrid = NhapSachGrid = DangMuonGrid = DaTraGrid = false;
+                  SachThanhLyGrid =SachDaHuyGrid=DocGiaGrid=ViPhamGrid= 
+                  LogOutGrid = NhapSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
             DangXuatCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
@@ -1305,19 +1320,27 @@ namespace QLThuVien.ViewModel
 
             SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
             LOAISACHLIST = new ObservableCollection<LOAISACH>(DataProvider.Ins.DB.LOAISACHes);
+
             NHANVIENList = new ObservableCollection<NHANVIEN>(DataProvider.Ins.DB.NHANVIENs);
             TAIKHOANNVList = new ObservableCollection<TAIKHOANNV>(DataProvider.Ins.DB.TAIKHOANNVs);
+
             PHIEUDDLIST = new ObservableCollection<PHIEUGIAODICH>(DataProvider.Ins.DB.PHIEUGIAODICHes);
             PHIEUSACHLIST = new ObservableCollection<PHIEUSACH>(DataProvider.Ins.DB.PHIEUSACHes);
+
             THANHLYLIST = new ObservableCollection<THANHLYHUY>(DataProvider.Ins.DB.THANHLYHUYs);
+
             NHAPSACHLIST = new ObservableCollection<NHAPSACH>(DataProvider.Ins.DB.NHAPSACHes);
+            CHITIETNHAPLIST = new ObservableCollection<CHITIETNHAP>(DataProvider.Ins.DB.CHITIETNHAPs);
+
             KHOLIST = new ObservableCollection<KHO>(DataProvider.Ins.DB.KHOes);
+
             DGLIST = new ObservableCollection<DOCGIA>(DataProvider.Ins.DB.DOCGIAs);
             VPLIST = new ObservableCollection<PHAT>(DataProvider.Ins.DB.PHATs);
 
             DANGMUONLIST = new ObservableCollection<NV_DANGMUON>();
             DATRALIST = new ObservableCollection<NV_DANGMUON>();
             NSLIST = new ObservableCollection<NV_NHAP>();
+            NSTHEMLIST = new ObservableCollection<NV_NHAP>();
             KHOSACHLIST = new ObservableCollection<KHOSACH>();
 
             LOAICBX = new ObservableCollection<string>();
@@ -1428,20 +1451,24 @@ namespace QLThuVien.ViewModel
             NSNAMCBX.Add("ALL");
             NSTHANGCBX.Add("ALL");
 
+            // load NHAPSACHLIST
            foreach(var item in NHAPSACHLIST){
-
                 if (CkeckCombobox(item.NGAYNHAP.Value.Month.ToString(), NSTHANGCBX))
                     NSTHANGCBX.Add(item.NGAYNHAP.Value.Month.ToString());
 
                 if (CkeckCombobox(item.NGAYNHAP.Value.Year.ToString(), NSNAMCBX))
                     NSNAMCBX.Add(item.NGAYNHAP.Value.Year.ToString());
-
-                foreach(var item1 in SACHLIST){
-                    if(item.MASACH == item1.MASACH)  {
-                        NV_NHAP nhap = new NV_NHAP(item, item1.MALOAISACH, item1.TENSACH);
-                        NSLIST.Add(nhap);
+                foreach(var item1 in CHITIETNHAPLIST)
+                {
+                    if(item1.MAPHIEU == item.MAPHIEU)
+                    {
+                        var NSSach = DataProvider.Ins.DB.SACHes.Where(x => x.MASACH == item1.MASACH).SingleOrDefault();
+                        var NSNhap = new NV_NHAP(item1.MASACH, item1.MAPHIEU, NSSach.TENSACH,
+                            (int)item1.SOLUONG, (DateTime)item.NGAYNHAP, (decimal)item1.TONGTIEN);
+                        NSLIST.Add(NSNhap);
                     }
                 }
+               
             }
 
             LOAICBX.Add("ALL");
@@ -1465,7 +1492,8 @@ namespace QLThuVien.ViewModel
                     NSMALOAICBX.Add(item.MALOAISACH);
 
                 var item1 = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == item.MASACH).SingleOrDefault();
-                KHOSACHLIST.Add(new KHOSACH(item, (int)item1.SOLUONG));
+                if (item1 != null)
+                    KHOSACHLIST.Add(new KHOSACH(item, (int)item1.SOLUONG));
 
             }
 
@@ -1568,93 +1596,141 @@ namespace QLThuVien.ViewModel
                 }
                 );
 
+            NSThemVaoGio = new  RelayCommand<object>(
+                (p) => { return true; },
+                (p) => {
+                    if (NSChonMaLoai != "Nhập mã mới" && NSChonMaSach != "Nhập mã mới")// nhap sach da co san
+                    {
+                        if (checkThongTinNhapSach1())  {
+                            var nhap = new NV_NHAP(NSChonMaSach, int.Parse(NSSoLuong), decimal.Parse(NSTongTien));
+                            NSTHEMLIST.Add(nhap);
+                            NSSoLuong = NSTongTien = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Thong tin nhap vao khong hop le ");
+                        }
+                      
+                    }
+                    else  {
+                        if (NSChonMaLoai == "Nhập mã mới") // nhap sach moi 
+                        {
+                            var loai = new LOAISACH()
+                            {
+                                MALOAISACH = NSNhapMaLoai,
+                                TENLOAISACH = NSNhapTenLoai,
+                            };
+                            DataProvider.Ins.DB.LOAISACHes.Add(loai);
+                            DataProvider.Ins.DB.SaveChanges();
+                            LOAICBX.Add(NSNhapTenLoai);
+                            if(CkeckCombobox(loai.MALOAISACH,NSMALOAICBX))
+                            NSMALOAICBX.Add(loai.MALOAISACH);
+                        }
+
+                        if (checkThongTinNhapSach2())  {
+                            var sach = new SACH()
+                            {
+                                MASACH = NSNhapMaSach,
+                                MALOAISACH = NSNhapMaLoai,
+                                TENSACH = NSNhapTenSach,
+                                TACGIA = NSNhapTacGia,
+                                NAMSX = int.Parse(NSNhapNamSX),
+                                GIASACH = decimal.Parse(NSNhapGia)
+                            };
+                            DataProvider.Ins.DB.SACHes.Add(sach);
+                            DataProvider.Ins.DB.SaveChanges();
+
+                            NSMASACHCBX.Add(sach.MASACH);
+
+                            if (CkeckCombobox(NSNhapNamSX, NAMSXCBX))
+                                NAMSXCBX.Add(NSNhapNamSX);
+                            if (CkeckCombobox(NSNhapTacGia, TACGIACBX))
+                                TACGIACBX.Add(NSNhapTacGia);
+                            
+                            var nhap = new NV_NHAP(sach.MASACH, int.Parse(NSSoLuong),decimal.Parse(NSTongTien));
+
+                            NSTHEMLIST.Add(nhap);
+                            NSTongTien = NSNhapTacGia=NSNhapMaLoai=NSNhapMaSach = NSNhapNamSX = NSNhapTenLoai = NSNhapTenSach=NSNhapGia = "";
+
+                        }
+
+                        else
+                        {
+                            MessageBox.Show("Thong tin nhap vao khong hop le ");
+                        }
+
+
+                    }
+                }
+                );
+
             NSThem = new RelayCommand<object>(
                (p) => { return true; },
                (p) => {
+
+                   NSTHEMLIST = new ObservableCollection<NV_NHAP>();
                    string ma = "";
                    ma = KhoiTaoMaPhieu(DataProvider.Ins.DB.NHAPSACHes.Count() + 1);
-                   if (NSChonMaLoai != "Nhập mã mới" && NSChonMaSach != "Nhập mã mới")// nhap sach da co san
+                   // THEM NHAP
+                   decimal tongtien = 0;
+                   foreach (var item in NSTHEMLIST) {
+                       tongtien += item.TONGTIEN;
+                   }
+                   var nhapsach = new NHAPSACH()
                    {
-                       var nhapsach = new NHAPSACH()
+                       MAPHIEU = ma,
+                       NGAYNHAP = DateTime.Today,
+                       TONGTIEN = tongtien
+                   };
+
+                   DataProvider.Ins.DB.NHAPSACHes.Add(nhapsach);
+                   DataProvider.Ins.DB.SaveChanges();
+
+
+                   foreach (var item in NSTHEMLIST)  {
+                       var sach = DataProvider.Ins.DB.SACHes.Where(x => x.MASACH == item.MASACH).SingleOrDefault();
+                       // add chi tiet nhap
+                       var chitiet = new CHITIETNHAP()
                        {
                            MAPHIEU = ma,
-                           MASACH = NSChonMaSach,
-                           NGAYNHAP = NSNgayNhap,
-                           SOLUONG = int.Parse(NSSoLuong),
-                           TONGTIEN = Decimal.Parse(NSTongTien),
+                           MASACH = item.MASACH,
+                           SOLUONG = item.SOLUONG,
+                           TONGTIEN = item.TONGTIEN,
                        };
-                       var sach = DataProvider.Ins.DB.SACHes.Where(x => x.MASACH == nhapsach.MASACH).SingleOrDefault();
 
-                       NSLIST.Add(new NV_NHAP(nhapsach, NSChonMaLoai, sach.TENSACH));
-                       DataProvider.Ins.DB.NHAPSACHes.Add(nhapsach);
+                       DataProvider.Ins.DB.CHITIETNHAPs.Add(chitiet);
                        DataProvider.Ins.DB.SaveChanges();
 
-                       var sachKho = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == sach.MASACH).SingleOrDefault();
-                       sachKho.SOLUONG += nhapsach.SOLUONG;
-
-                   }
-                   else
-                   {
-                           if (NSChonMaLoai == "Nhập mã mới")  {
-                               var loai = new LOAISACH() {
-                                   MALOAISACH = NSNhapMaLoai,
-                                   TENLOAISACH = NSNhapTenLoai,
-                               };
-                               DataProvider.Ins.DB.LOAISACHes.Add(loai);
-                               DataProvider.Ins.DB.SaveChanges();
-                              LOAICBX.Add(NSNhapTenLoai);
-                           
-                           }
-
-                           var sach = new SACH() {
-                               MASACH = NSNhapMaSach,
-                               MALOAISACH = NSNhapMaLoai,
-                               TENSACH = NSNhapTenSach,
-                               TACGIA = NSNhapTacGia,
-                               NAMSX = int.Parse(NSNhapNamSX),
-                               GIASACH = decimal.Parse(NSNhapGia)
-                           };
-                           DataProvider.Ins.DB.SACHes.Add(sach);
-                           DataProvider.Ins.DB.SaveChanges();
-
-                       if (CkeckCombobox(NSNhapNamSX, NAMSXCBX))
-                           NAMSXCBX.Add(NSNhapNamSX);
-                       if (CkeckCombobox(NSNhapTacGia, TACGIACBX))
-                           TACGIACBX.Add(NSNhapTacGia);
-                        
-                           var nhapsach = new NHAPSACH()
-                           {
-                               MAPHIEU = ma,
-                               MASACH = sach.MASACH,
-                               NGAYNHAP = NSNgayNhap,
-                               SOLUONG = int.Parse(NSSoLuong),
-                               TONGTIEN = Decimal.Parse(NSTongTien),
-                           };
-
-                           NSLIST.Add(new NV_NHAP(nhapsach, NSNhapMaLoai, sach.TENSACH));
-
-                           DataProvider.Ins.DB.NHAPSACHes.Add(nhapsach);
-                           DataProvider.Ins.DB.SaveChanges();
-
-                       var sachKhoMoi = new KHO()
+                       // add/ cap nhat kho
+                       var sachkho = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == sach.MASACH).SingleOrDefault();
+                       if(sachkho != null)
                        {
-                           MASACH = sach.MASACH,
-                           SOLUONG = nhapsach.SOLUONG
-                       };
-                       DataProvider.Ins.DB.KHOes.Add(sachKhoMoi);
-                       DataProvider.Ins.DB.SaveChanges();
-                       
+                           sachkho.SOLUONG += item.SOLUONG;
+                           DataProvider.Ins.DB.SaveChanges();
+                       }
+                       else
+                       {
+                           var kho = new KHO()
+                           {
+                               MASACH = item.MASACH,
+                               SOLUONG = item.SOLUONG
+                           };
+                           DataProvider.Ins.DB.KHOes.Add(kho);
+                           DataProvider.Ins.DB.SaveChanges();
+
+                       }
+
+                       var nhapSach = new NV_NHAP(sach.MASACH, chitiet.MAPHIEU, sach.TENSACH,
+                           (int)chitiet.SOLUONG, DateTime.Today, (decimal)nhapsach.TONGTIEN);
+
+                       NSLIST.Add(nhapSach);
+
+
                    }
 
+                  
 
 
-                   if (CkeckCombobox(NSNgayNhap.Month.ToString(), NSTHANGCBX))
-                       NSTHANGCBX.Add(NSNgayNhap.Month.ToString());
-
-                   if (CkeckCombobox(NSNgayNhap.Year.ToString(), NSNAMCBX))
-                       NSNAMCBX.Add(NSNgayNhap.Year.ToString());
-
-                
                    NhapSachGrid = true;
                    ThemNhapSachGrid = false;
                }
@@ -2023,16 +2099,17 @@ namespace QLThuVien.ViewModel
         void LoadNhapSach()
         {
             NSLIST = new ObservableCollection<NV_NHAP>();
-            foreach (var item in NHAPSACHLIST) {
-               
-                foreach (var item1 in SACHLIST)
-                {
-                    if (item.MASACH == item1.MASACH)
-                    {
-                        NV_NHAP nhap = new NV_NHAP(item, item1.MALOAISACH, item1.TENSACH);
-                        NSLIST.Add(nhap);
+          
+            foreach (var item in NHAPSACHLIST){
+                foreach (var item1 in CHITIETNHAPLIST) {
+                    if (item1.MAPHIEU == item.MAPHIEU) {
+                        var NSSach = DataProvider.Ins.DB.SACHes.Where(x => x.MASACH == item1.MASACH).SingleOrDefault();
+                        var NSNhap = new NV_NHAP(item1.MASACH, item1.MAPHIEU, NSSach.MASACH,
+                            (int)item1.SOLUONG, (DateTime)item.NGAYNHAP, (decimal)item1.TONGTIEN);
+                        NSLIST.Add(NSNhap);
                     }
                 }
+
             }
 
         }
@@ -2096,7 +2173,15 @@ namespace QLThuVien.ViewModel
             return ma;
         }
 
+        bool checkThongTinNhapSach1()
+        {
+            return true;
+        }
 
+        bool checkThongTinNhapSach2()
+        {
+            return true;
+        }
 
         private string ConvertToUnSign(string input)
         {

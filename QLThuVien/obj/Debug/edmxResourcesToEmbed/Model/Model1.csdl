@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="quanlythuvienModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CHITIETNHAP">
+    <Key>
+      <PropertyRef Name="MAPHIEU" />
+      <PropertyRef Name="MASACH" />
+    </Key>
+    <Property Name="MAPHIEU" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MASACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SOLUONG" Type="Int32" />
+    <Property Name="TONGTIEN" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="NHAPSACH" Relationship="Self.FK__CHITIETNH__MAPHI__2DE6D218" FromRole="CHITIETNHAP" ToRole="NHAPSACH" />
+    <NavigationProperty Name="SACH" Relationship="Self.FK__CHITIETNH__MASAC__2EDAF651" FromRole="CHITIETNHAP" ToRole="SACH" />
+  </EntityType>
   <EntityType Name="DOCGIA">
     <Key>
       <PropertyRef Name="MADG" />
@@ -49,11 +61,9 @@
       <PropertyRef Name="MAPHIEU" />
     </Key>
     <Property Name="MAPHIEU" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="MASACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="SOLUONG" Type="Int32" />
     <Property Name="NGAYNHAP" Type="DateTime" Precision="3" />
     <Property Name="TONGTIEN" Type="Decimal" Precision="19" Scale="4" />
-    <NavigationProperty Name="SACH" Relationship="Self.fk_NHAPSACH_SACH" FromRole="NHAPSACH" ToRole="SACH" />
+    <NavigationProperty Name="CHITIETNHAPs" Relationship="Self.FK__CHITIETNH__MAPHI__2DE6D218" FromRole="NHAPSACH" ToRole="CHITIETNHAP" />
   </EntityType>
   <EntityType Name="PHAT">
     <Key>
@@ -98,9 +108,9 @@
     <Property Name="TACGIA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="NAMSX" Type="Int32" />
     <Property Name="GIASACH" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="CHITIETNHAPs" Relationship="Self.FK__CHITIETNH__MASAC__2EDAF651" FromRole="SACH" ToRole="CHITIETNHAP" />
     <NavigationProperty Name="KHO" Relationship="Self.fk_KHO_MASACH" FromRole="SACH" ToRole="KHO" />
     <NavigationProperty Name="LOAISACH" Relationship="Self.fk_SACH_MALOAISACH" FromRole="SACH" ToRole="LOAISACH" />
-    <NavigationProperty Name="NHAPSACHes" Relationship="Self.fk_NHAPSACH_SACH" FromRole="SACH" ToRole="NHAPSACH" />
     <NavigationProperty Name="PHIEUSACHes" Relationship="Self.fk_PHIEUSACH_MASACH" FromRole="SACH" ToRole="PHIEUSACH" />
     <NavigationProperty Name="THANHLYHUYs" Relationship="Self.fk_THANHLYHUY_MASACH" FromRole="SACH" ToRole="THANHLYHUY" />
   </EntityType>
@@ -136,6 +146,30 @@
     <Property Name="GHICHU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="SACH" Relationship="Self.fk_THANHLYHUY_MASACH" FromRole="THANHLYHUY" ToRole="SACH" />
   </EntityType>
+  <Association Name="FK__CHITIETNH__MAPHI__2DE6D218">
+    <End Role="NHAPSACH" Type="Self.NHAPSACH" Multiplicity="1" />
+    <End Role="CHITIETNHAP" Type="Self.CHITIETNHAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHAPSACH">
+        <PropertyRef Name="MAPHIEU" />
+      </Principal>
+      <Dependent Role="CHITIETNHAP">
+        <PropertyRef Name="MAPHIEU" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETNH__MASAC__2EDAF651">
+    <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
+    <End Role="CHITIETNHAP" Type="Self.CHITIETNHAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SACH">
+        <PropertyRef Name="MASACH" />
+      </Principal>
+      <Dependent Role="CHITIETNHAP">
+        <PropertyRef Name="MASACH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_PHAT_MADG">
     <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="1" />
     <End Role="PHAT" Type="Self.PHAT" Multiplicity="0..1" />
@@ -208,18 +242,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_NHAPSACH_SACH">
-    <End Role="SACH" Type="Self.SACH" Multiplicity="0..1" />
-    <End Role="NHAPSACH" Type="Self.NHAPSACH" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SACH">
-        <PropertyRef Name="MASACH" />
-      </Principal>
-      <Dependent Role="NHAPSACH">
-        <PropertyRef Name="MASACH" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_PHIEUSACH_MAPHIEU">
     <End Role="PHIEUGIAODICH" Type="Self.PHIEUGIAODICH" Multiplicity="1" />
     <End Role="PHIEUSACH" Type="Self.PHIEUSACH" Multiplicity="*" />
@@ -257,6 +279,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="quanlythuvienEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CHITIETNHAPs" EntityType="Self.CHITIETNHAP" />
     <EntitySet Name="DOCGIAs" EntityType="Self.DOCGIA" />
     <EntitySet Name="KHOes" EntityType="Self.KHO" />
     <EntitySet Name="LOAISACHes" EntityType="Self.LOAISACH" />
@@ -269,6 +292,14 @@
     <EntitySet Name="TAIKHOANDGs" EntityType="Self.TAIKHOANDG" />
     <EntitySet Name="TAIKHOANNVs" EntityType="Self.TAIKHOANNV" />
     <EntitySet Name="THANHLYHUYs" EntityType="Self.THANHLYHUY" />
+    <AssociationSet Name="FK__CHITIETNH__MAPHI__2DE6D218" Association="Self.FK__CHITIETNH__MAPHI__2DE6D218">
+      <End Role="NHAPSACH" EntitySet="NHAPSACHes" />
+      <End Role="CHITIETNHAP" EntitySet="CHITIETNHAPs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETNH__MASAC__2EDAF651" Association="Self.FK__CHITIETNH__MASAC__2EDAF651">
+      <End Role="SACH" EntitySet="SACHes" />
+      <End Role="CHITIETNHAP" EntitySet="CHITIETNHAPs" />
+    </AssociationSet>
     <AssociationSet Name="fk_PHAT_MADG" Association="Self.fk_PHAT_MADG">
       <End Role="DOCGIA" EntitySet="DOCGIAs" />
       <End Role="PHAT" EntitySet="PHATs" />
@@ -292,10 +323,6 @@
     <AssociationSet Name="FK_TK_MANV" Association="Self.FK_TK_MANV">
       <End Role="NHANVIEN" EntitySet="NHANVIENs" />
       <End Role="TAIKHOANNV" EntitySet="TAIKHOANNVs" />
-    </AssociationSet>
-    <AssociationSet Name="fk_NHAPSACH_SACH" Association="Self.fk_NHAPSACH_SACH">
-      <End Role="SACH" EntitySet="SACHes" />
-      <End Role="NHAPSACH" EntitySet="NHAPSACHes" />
     </AssociationSet>
     <AssociationSet Name="fk_PHIEUSACH_MAPHIEU" Association="Self.fk_PHIEUSACH_MAPHIEU">
       <End Role="PHIEUGIAODICH" EntitySet="PHIEUGIAODICHes" />

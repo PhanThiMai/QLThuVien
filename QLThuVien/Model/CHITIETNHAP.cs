@@ -12,19 +12,14 @@ namespace QLThuVien.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class NHAPSACH
+    public partial class CHITIETNHAP
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NHAPSACH()
-        {
-            this.CHITIETNHAPs = new HashSet<CHITIETNHAP>();
-        }
-    
         public string MAPHIEU { get; set; }
-        public Nullable<System.DateTime> NGAYNHAP { get; set; }
+        public string MASACH { get; set; }
+        public Nullable<int> SOLUONG { get; set; }
         public Nullable<decimal> TONGTIEN { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETNHAP> CHITIETNHAPs { get; set; }
+        public virtual NHAPSACH NHAPSACH { get; set; }
+        public virtual SACH SACH { get; set; }
     }
 }

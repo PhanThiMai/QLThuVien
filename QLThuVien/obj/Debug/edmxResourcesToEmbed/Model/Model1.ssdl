@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="quanlythuvienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CHITIETNHAP">
+    <Key>
+      <PropertyRef Name="MAPHIEU" />
+      <PropertyRef Name="MASACH" />
+    </Key>
+    <Property Name="MAPHIEU" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MASACH" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="SOLUONG" Type="int" />
+    <Property Name="TONGTIEN" Type="money" />
+  </EntityType>
   <EntityType Name="DOCGIA">
     <Key>
       <PropertyRef Name="MADG" />
@@ -43,8 +53,6 @@
       <PropertyRef Name="MAPHIEU" />
     </Key>
     <Property Name="MAPHIEU" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="MASACH" Type="varchar" MaxLength="30" />
-    <Property Name="SOLUONG" Type="int" />
     <Property Name="NGAYNHAP" Type="datetime" />
     <Property Name="TONGTIEN" Type="money" />
   </EntityType>
@@ -116,6 +124,30 @@
     <Property Name="TIEN" Type="money" />
     <Property Name="GHICHU" Type="nvarchar" MaxLength="200" />
   </EntityType>
+  <Association Name="FK__CHITIETNH__MAPHI__2DE6D218">
+    <End Role="NHAPSACH" Type="Self.NHAPSACH" Multiplicity="1" />
+    <End Role="CHITIETNHAP" Type="Self.CHITIETNHAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHAPSACH">
+        <PropertyRef Name="MAPHIEU" />
+      </Principal>
+      <Dependent Role="CHITIETNHAP">
+        <PropertyRef Name="MAPHIEU" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETNH__MASAC__2EDAF651">
+    <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
+    <End Role="CHITIETNHAP" Type="Self.CHITIETNHAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SACH">
+        <PropertyRef Name="MASACH" />
+      </Principal>
+      <Dependent Role="CHITIETNHAP">
+        <PropertyRef Name="MASACH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_KHO_MASACH">
     <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
     <End Role="KHO" Type="Self.KHO" Multiplicity="0..1" />
@@ -124,18 +156,6 @@
         <PropertyRef Name="MASACH" />
       </Principal>
       <Dependent Role="KHO">
-        <PropertyRef Name="MASACH" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_NHAPSACH_SACH">
-    <End Role="SACH" Type="Self.SACH" Multiplicity="0..1" />
-    <End Role="NHAPSACH" Type="Self.NHAPSACH" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SACH">
-        <PropertyRef Name="MASACH" />
-      </Principal>
-      <Dependent Role="NHAPSACH">
         <PropertyRef Name="MASACH" />
       </Dependent>
     </ReferentialConstraint>
@@ -237,6 +257,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="quanlythuvienModelStoreContainer">
+    <EntitySet Name="CHITIETNHAP" EntityType="Self.CHITIETNHAP" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DOCGIA" EntityType="Self.DOCGIA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KHO" EntityType="Self.KHO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOAISACH" EntityType="Self.LOAISACH" Schema="dbo" store:Type="Tables" />
@@ -249,13 +270,17 @@
     <EntitySet Name="TAIKHOANDG" EntityType="Self.TAIKHOANDG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TAIKHOANNV" EntityType="Self.TAIKHOANNV" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="THANHLYHUY" EntityType="Self.THANHLYHUY" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__CHITIETNH__MAPHI__2DE6D218" Association="Self.FK__CHITIETNH__MAPHI__2DE6D218">
+      <End Role="NHAPSACH" EntitySet="NHAPSACH" />
+      <End Role="CHITIETNHAP" EntitySet="CHITIETNHAP" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETNH__MASAC__2EDAF651" Association="Self.FK__CHITIETNH__MASAC__2EDAF651">
+      <End Role="SACH" EntitySet="SACH" />
+      <End Role="CHITIETNHAP" EntitySet="CHITIETNHAP" />
+    </AssociationSet>
     <AssociationSet Name="fk_KHO_MASACH" Association="Self.fk_KHO_MASACH">
       <End Role="SACH" EntitySet="SACH" />
       <End Role="KHO" EntitySet="KHO" />
-    </AssociationSet>
-    <AssociationSet Name="fk_NHAPSACH_SACH" Association="Self.fk_NHAPSACH_SACH">
-      <End Role="SACH" EntitySet="SACH" />
-      <End Role="NHAPSACH" EntitySet="NHAPSACH" />
     </AssociationSet>
     <AssociationSet Name="fk_PHAT_MADG" Association="Self.fk_PHAT_MADG">
       <End Role="DOCGIA" EntitySet="DOCGIA" />

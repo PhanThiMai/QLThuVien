@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="quanlythuvienModelStoreContainer" CdmEntityContainer="quanlythuvienEntities1">
+    <EntitySetMapping Name="CHITIETNHAPs">
+      <EntityTypeMapping TypeName="quanlythuvienModel.CHITIETNHAP">
+        <MappingFragment StoreEntitySet="CHITIETNHAP">
+          <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
+          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+          <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="DOCGIAs">
       <EntityTypeMapping TypeName="quanlythuvienModel.DOCGIA">
         <MappingFragment StoreEntitySet="DOCGIA">
@@ -47,8 +57,6 @@
       <EntityTypeMapping TypeName="quanlythuvienModel.NHAPSACH">
         <MappingFragment StoreEntitySet="NHAPSACH">
           <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
-          <ScalarProperty Name="MASACH" ColumnName="MASACH" />
-          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
           <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
           <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
         </MappingFragment>

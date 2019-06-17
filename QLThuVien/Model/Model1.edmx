@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="quanlythuvienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CHITIETNHAP">
+          <Key>
+            <PropertyRef Name="MAPHIEU" />
+            <PropertyRef Name="MASACH" />
+          </Key>
+          <Property Name="MAPHIEU" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MASACH" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" />
+          <Property Name="TONGTIEN" Type="money" />
+        </EntityType>
         <EntityType Name="DOCGIA">
           <Key>
             <PropertyRef Name="MADG" />
@@ -48,8 +58,6 @@
             <PropertyRef Name="MAPHIEU" />
           </Key>
           <Property Name="MAPHIEU" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="MASACH" Type="varchar" MaxLength="30" />
-          <Property Name="SOLUONG" Type="int" />
           <Property Name="NGAYNHAP" Type="datetime" />
           <Property Name="TONGTIEN" Type="money" />
         </EntityType>
@@ -121,6 +129,30 @@
           <Property Name="TIEN" Type="money" />
           <Property Name="GHICHU" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <Association Name="FK__CHITIETNH__MAPHI__2DE6D218">
+          <End Role="NHAPSACH" Type="Self.NHAPSACH" Multiplicity="1" />
+          <End Role="CHITIETNHAP" Type="Self.CHITIETNHAP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHAPSACH">
+              <PropertyRef Name="MAPHIEU" />
+            </Principal>
+            <Dependent Role="CHITIETNHAP">
+              <PropertyRef Name="MAPHIEU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CHITIETNH__MASAC__2EDAF651">
+          <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
+          <End Role="CHITIETNHAP" Type="Self.CHITIETNHAP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SACH">
+              <PropertyRef Name="MASACH" />
+            </Principal>
+            <Dependent Role="CHITIETNHAP">
+              <PropertyRef Name="MASACH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_KHO_MASACH">
           <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
           <End Role="KHO" Type="Self.KHO" Multiplicity="0..1" />
@@ -129,18 +161,6 @@
               <PropertyRef Name="MASACH" />
             </Principal>
             <Dependent Role="KHO">
-              <PropertyRef Name="MASACH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_NHAPSACH_SACH">
-          <End Role="SACH" Type="Self.SACH" Multiplicity="0..1" />
-          <End Role="NHAPSACH" Type="Self.NHAPSACH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SACH">
-              <PropertyRef Name="MASACH" />
-            </Principal>
-            <Dependent Role="NHAPSACH">
               <PropertyRef Name="MASACH" />
             </Dependent>
           </ReferentialConstraint>
@@ -242,6 +262,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="quanlythuvienModelStoreContainer">
+          <EntitySet Name="CHITIETNHAP" EntityType="Self.CHITIETNHAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DOCGIA" EntityType="Self.DOCGIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHO" EntityType="Self.KHO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAISACH" EntityType="Self.LOAISACH" Schema="dbo" store:Type="Tables" />
@@ -254,13 +275,17 @@
           <EntitySet Name="TAIKHOANDG" EntityType="Self.TAIKHOANDG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAIKHOANNV" EntityType="Self.TAIKHOANNV" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="THANHLYHUY" EntityType="Self.THANHLYHUY" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CHITIETNH__MAPHI__2DE6D218" Association="Self.FK__CHITIETNH__MAPHI__2DE6D218">
+            <End Role="NHAPSACH" EntitySet="NHAPSACH" />
+            <End Role="CHITIETNHAP" EntitySet="CHITIETNHAP" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CHITIETNH__MASAC__2EDAF651" Association="Self.FK__CHITIETNH__MASAC__2EDAF651">
+            <End Role="SACH" EntitySet="SACH" />
+            <End Role="CHITIETNHAP" EntitySet="CHITIETNHAP" />
+          </AssociationSet>
           <AssociationSet Name="fk_KHO_MASACH" Association="Self.fk_KHO_MASACH">
             <End Role="SACH" EntitySet="SACH" />
             <End Role="KHO" EntitySet="KHO" />
-          </AssociationSet>
-          <AssociationSet Name="fk_NHAPSACH_SACH" Association="Self.fk_NHAPSACH_SACH">
-            <End Role="SACH" EntitySet="SACH" />
-            <End Role="NHAPSACH" EntitySet="NHAPSACH" />
           </AssociationSet>
           <AssociationSet Name="fk_PHAT_MADG" Association="Self.fk_PHAT_MADG">
             <End Role="DOCGIA" EntitySet="DOCGIA" />
@@ -300,6 +325,18 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="quanlythuvienModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CHITIETNHAP">
+          <Key>
+            <PropertyRef Name="MAPHIEU" />
+            <PropertyRef Name="MASACH" />
+          </Key>
+          <Property Name="MAPHIEU" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MASACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="TONGTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="NHAPSACH" Relationship="Self.FK__CHITIETNH__MAPHI__2DE6D218" FromRole="CHITIETNHAP" ToRole="NHAPSACH" />
+          <NavigationProperty Name="SACH" Relationship="Self.FK__CHITIETNH__MASAC__2EDAF651" FromRole="CHITIETNHAP" ToRole="SACH" />
+        </EntityType>
         <EntityType Name="DOCGIA">
           <Key>
             <PropertyRef Name="MADG" />
@@ -349,11 +386,9 @@
             <PropertyRef Name="MAPHIEU" />
           </Key>
           <Property Name="MAPHIEU" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MASACH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="SOLUONG" Type="Int32" />
           <Property Name="NGAYNHAP" Type="DateTime" Precision="3" />
           <Property Name="TONGTIEN" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="SACH" Relationship="Self.fk_NHAPSACH_SACH" FromRole="NHAPSACH" ToRole="SACH" />
+          <NavigationProperty Name="CHITIETNHAPs" Relationship="Self.FK__CHITIETNH__MAPHI__2DE6D218" FromRole="NHAPSACH" ToRole="CHITIETNHAP" />
         </EntityType>
         <EntityType Name="PHAT">
           <Key>
@@ -398,9 +433,9 @@
           <Property Name="TACGIA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NAMSX" Type="Int32" />
           <Property Name="GIASACH" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="CHITIETNHAPs" Relationship="Self.FK__CHITIETNH__MASAC__2EDAF651" FromRole="SACH" ToRole="CHITIETNHAP" />
           <NavigationProperty Name="KHO" Relationship="Self.fk_KHO_MASACH" FromRole="SACH" ToRole="KHO" />
           <NavigationProperty Name="LOAISACH" Relationship="Self.fk_SACH_MALOAISACH" FromRole="SACH" ToRole="LOAISACH" />
-          <NavigationProperty Name="NHAPSACHes" Relationship="Self.fk_NHAPSACH_SACH" FromRole="SACH" ToRole="NHAPSACH" />
           <NavigationProperty Name="PHIEUSACHes" Relationship="Self.fk_PHIEUSACH_MASACH" FromRole="SACH" ToRole="PHIEUSACH" />
           <NavigationProperty Name="THANHLYHUYs" Relationship="Self.fk_THANHLYHUY_MASACH" FromRole="SACH" ToRole="THANHLYHUY" />
         </EntityType>
@@ -436,6 +471,30 @@
           <Property Name="GHICHU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SACH" Relationship="Self.fk_THANHLYHUY_MASACH" FromRole="THANHLYHUY" ToRole="SACH" />
         </EntityType>
+        <Association Name="FK__CHITIETNH__MAPHI__2DE6D218">
+          <End Role="NHAPSACH" Type="Self.NHAPSACH" Multiplicity="1" />
+          <End Role="CHITIETNHAP" Type="Self.CHITIETNHAP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHAPSACH">
+              <PropertyRef Name="MAPHIEU" />
+            </Principal>
+            <Dependent Role="CHITIETNHAP">
+              <PropertyRef Name="MAPHIEU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CHITIETNH__MASAC__2EDAF651">
+          <End Role="SACH" Type="Self.SACH" Multiplicity="1" />
+          <End Role="CHITIETNHAP" Type="Self.CHITIETNHAP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SACH">
+              <PropertyRef Name="MASACH" />
+            </Principal>
+            <Dependent Role="CHITIETNHAP">
+              <PropertyRef Name="MASACH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_PHAT_MADG">
           <End Role="DOCGIA" Type="Self.DOCGIA" Multiplicity="1" />
           <End Role="PHAT" Type="Self.PHAT" Multiplicity="0..1" />
@@ -508,18 +567,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_NHAPSACH_SACH">
-          <End Role="SACH" Type="Self.SACH" Multiplicity="0..1" />
-          <End Role="NHAPSACH" Type="Self.NHAPSACH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SACH">
-              <PropertyRef Name="MASACH" />
-            </Principal>
-            <Dependent Role="NHAPSACH">
-              <PropertyRef Name="MASACH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_PHIEUSACH_MAPHIEU">
           <End Role="PHIEUGIAODICH" Type="Self.PHIEUGIAODICH" Multiplicity="1" />
           <End Role="PHIEUSACH" Type="Self.PHIEUSACH" Multiplicity="*" />
@@ -557,6 +604,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="quanlythuvienEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CHITIETNHAPs" EntityType="Self.CHITIETNHAP" />
           <EntitySet Name="DOCGIAs" EntityType="Self.DOCGIA" />
           <EntitySet Name="KHOes" EntityType="Self.KHO" />
           <EntitySet Name="LOAISACHes" EntityType="Self.LOAISACH" />
@@ -569,6 +617,14 @@
           <EntitySet Name="TAIKHOANDGs" EntityType="Self.TAIKHOANDG" />
           <EntitySet Name="TAIKHOANNVs" EntityType="Self.TAIKHOANNV" />
           <EntitySet Name="THANHLYHUYs" EntityType="Self.THANHLYHUY" />
+          <AssociationSet Name="FK__CHITIETNH__MAPHI__2DE6D218" Association="Self.FK__CHITIETNH__MAPHI__2DE6D218">
+            <End Role="NHAPSACH" EntitySet="NHAPSACHes" />
+            <End Role="CHITIETNHAP" EntitySet="CHITIETNHAPs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CHITIETNH__MASAC__2EDAF651" Association="Self.FK__CHITIETNH__MASAC__2EDAF651">
+            <End Role="SACH" EntitySet="SACHes" />
+            <End Role="CHITIETNHAP" EntitySet="CHITIETNHAPs" />
+          </AssociationSet>
           <AssociationSet Name="fk_PHAT_MADG" Association="Self.fk_PHAT_MADG">
             <End Role="DOCGIA" EntitySet="DOCGIAs" />
             <End Role="PHAT" EntitySet="PHATs" />
@@ -593,10 +649,6 @@
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
             <End Role="TAIKHOANNV" EntitySet="TAIKHOANNVs" />
           </AssociationSet>
-          <AssociationSet Name="fk_NHAPSACH_SACH" Association="Self.fk_NHAPSACH_SACH">
-            <End Role="SACH" EntitySet="SACHes" />
-            <End Role="NHAPSACH" EntitySet="NHAPSACHes" />
-          </AssociationSet>
           <AssociationSet Name="fk_PHIEUSACH_MAPHIEU" Association="Self.fk_PHIEUSACH_MAPHIEU">
             <End Role="PHIEUGIAODICH" EntitySet="PHIEUGIAODICHes" />
             <End Role="PHIEUSACH" EntitySet="PHIEUSACHes" />
@@ -616,6 +668,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="quanlythuvienModelStoreContainer" CdmEntityContainer="quanlythuvienEntities1">
+          <EntitySetMapping Name="CHITIETNHAPs">
+            <EntityTypeMapping TypeName="quanlythuvienModel.CHITIETNHAP">
+              <MappingFragment StoreEntitySet="CHITIETNHAP">
+                <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
+                <ScalarProperty Name="MASACH" ColumnName="MASACH" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DOCGIAs">
             <EntityTypeMapping TypeName="quanlythuvienModel.DOCGIA">
               <MappingFragment StoreEntitySet="DOCGIA">
@@ -662,8 +724,6 @@
             <EntityTypeMapping TypeName="quanlythuvienModel.NHAPSACH">
               <MappingFragment StoreEntitySet="NHAPSACH">
                 <ScalarProperty Name="MAPHIEU" ColumnName="MAPHIEU" />
-                <ScalarProperty Name="MASACH" ColumnName="MASACH" />
-                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
                 <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
                 <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
               </MappingFragment>

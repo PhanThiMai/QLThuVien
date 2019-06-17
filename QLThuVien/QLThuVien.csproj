@@ -82,6 +82,9 @@
     <Compile Include="DocGia.xaml.cs">
       <DependentUpon>DocGia.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\CHITIETNHAP.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\DATRA.cs" />
     <Compile Include="Model\DOCGIA.cs">

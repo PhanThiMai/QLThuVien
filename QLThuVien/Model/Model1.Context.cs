@@ -25,6 +25,7 @@ namespace QLThuVien.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CHITIETNHAP> CHITIETNHAPs { get; set; }
         public virtual DbSet<DOCGIA> DOCGIAs { get; set; }
         public virtual DbSet<KHO> KHOes { get; set; }
         public virtual DbSet<LOAISACH> LOAISACHes { get; set; }

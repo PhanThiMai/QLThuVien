@@ -17,7 +17,7 @@ namespace QLThuVien.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SACH()
         {
-            this.NHAPSACHes = new HashSet<NHAPSACH>();
+            this.CHITIETNHAPs = new HashSet<CHITIETNHAP>();
             this.PHIEUSACHes = new HashSet<PHIEUSACH>();
             this.THANHLYHUYs = new HashSet<THANHLYHUY>();
         }
@@ -29,10 +29,10 @@ namespace QLThuVien.Model
         public Nullable<int> NAMSX { get; set; }
         public Nullable<decimal> GIASACH { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CHITIETNHAP> CHITIETNHAPs { get; set; }
         public virtual KHO KHO { get; set; }
         public virtual LOAISACH LOAISACH { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NHAPSACH> NHAPSACHes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEUSACH> PHIEUSACHes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
