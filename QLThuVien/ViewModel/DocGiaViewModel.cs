@@ -566,7 +566,6 @@ namespace QLThuVien.ViewModel
                             MAPHIEU = maPhieuDD,
                             MASACH = item.MASACH,
                             SOLUONG = item.SOLUONG,
-
                         };
                         PHIEUSACHLIST.Add(GSSach);
                         DataProvider.Ins.DB.PHIEUSACHes.Add(GSSach);

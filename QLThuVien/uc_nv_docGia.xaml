@@ -17,9 +17,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="AntiqueWhite">
 
-        <Grid Visibility="{Binding Path=DangMuonGrid, Converter={StaticResource Converter}}">
 
-
+        <Grid Visibility="{Binding Path=DocGiaGrid,
+                Converter={StaticResource Converter}}">
 
             <Grid.Resources>
                 <Style TargetType="Grid">
@@ -50,14 +50,14 @@
                 <Grid Grid.Column="0">
                     <TextBox Width="250"
                              materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
-                       Text=""></TextBox>
+                       Text="{Binding DGNhapTimKiem}"></TextBox>
 
                 </Grid>
                 <Grid Grid.Column="1">
                     <Button
                      Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       Width="100" 
-                         
+                         Command="{Binding DGTimKiem}"
                       ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
                     </Button>
                 </Grid>
@@ -65,20 +65,130 @@
             </Grid>
 
             <Grid Grid.Row="2">
-                <ListView >
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Mã ĐG"   ></GridViewColumn>
-                            <GridViewColumn Header="Tên ĐG"  ></GridViewColumn>
-                            <GridViewColumn Header="Giới Tính"  ></GridViewColumn>
-                            <GridViewColumn Header="CMND" ></GridViewColumn>
-                            <GridViewColumn Header="Địa Chỉ" ></GridViewColumn>
-                            <GridViewColumn Header="Số ĐT" ></GridViewColumn>
-                            <GridViewColumn Header="Ngày Sinh" ></GridViewColumn>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <Grid Grid.Column="0" Width="450" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+                    <ListView  ItemsSource="{Binding DGLIST}" SelectedItem="{Binding DGSelected}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="100" Header="Mã ĐG" DisplayMemberBinding="{Binding MADG}"  ></GridViewColumn>
+                                <GridViewColumn Width="180" Header="Tên ĐG" DisplayMemberBinding="{Binding TEN}" ></GridViewColumn>
+                                <GridViewColumn Width="100" Header="Giới Tính" DisplayMemberBinding="{Binding GIOITINH}" ></GridViewColumn>
+                                <GridViewColumn Width="160" Header="CMND" DisplayMemberBinding="{Binding CMND}" ></GridViewColumn>
+                                <GridViewColumn Width="180" Header="Địa Chỉ" DisplayMemberBinding="{Binding DIACHI}" ></GridViewColumn>
+                                <GridViewColumn Width="180" Header="Số ĐT" DisplayMemberBinding="{Binding SODT}" ></GridViewColumn>
+                                <GridViewColumn Width="180 " Header="Ngày Sinh" DisplayMemberBinding="{Binding NGAYSINH}"></GridViewColumn>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
+                <Grid Grid.Column="1" Margin="76,0,0,5"  Visibility="{Binding Path= DGXemTT, Converter={StaticResource Converter}}" >
+                    <StackPanel Margin="0,0,10,0">
+
+                        <Label Height="42" Content="{Binding DGMaDG}" Margin="111,0,128,0"/>
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="{Binding DGHoTen}"  FontSize="16" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="224"
+                          >
+                            </Label>
+                            <Label Content="{Binding DGGioiTinh}"  FontSize="16" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="104"
+                          >
+                            </Label>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="CMND       : "  FontSize="16" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="93"
+                          >
+                            </Label>
+                            <Label Content="{Binding DGCMND}"  FontSize="16" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="216"
+                          >
+                            </Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Ngày sinh  : "  FontSize="16" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="93"
+                          >
+                            </Label>
+                            <Label Content="{Binding DGNgaySinh}"  FontSize="16" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="215"
+                          >
+                            </Label>
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="SĐT           : "  FontSize="16" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="91"
+                          >
+                            </Label>
+                            <Label Content="{Binding DGSoDT}"  FontSize="16" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="220"
+                          >
+                            </Label>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Height="60">
+
+                            <Label Content="Địa chỉ      : "  FontSize="16" 
+                           FontStyle="Normal"
+                               VerticalContentAlignment="Center"
+                           Width="91"
+                          >
+                            </Label>
+                            <Label Content="{Binding DGDiaChi}"  FontSize="16" 
+                           FontStyle="Normal"
+                          VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Right"
+
+                         Width="220"
+                          >
+                            </Label>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
 
             </Grid>
         </Grid>

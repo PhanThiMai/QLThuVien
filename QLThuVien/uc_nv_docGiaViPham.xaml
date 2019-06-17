@@ -20,8 +20,6 @@
         <!-- list doc gia vi pham-->
         <Grid >
 
-
-
             <Grid.Resources>
                 <Style TargetType="Grid">
                     <Setter Property="Margin" Value="5 0 0 5"/>
@@ -67,266 +65,94 @@
             </Grid>
 
             <Grid Grid.Row="2">
-                <ListView >
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Mã ĐG"   ></GridViewColumn>
-                            <GridViewColumn Header="Tên ĐG"  ></GridViewColumn>
-                            <GridViewColumn Header="Mã Sách"  ></GridViewColumn>
-                            <GridViewColumn Header="Ngày" ></GridViewColumn>
-                            <GridViewColumn Header="Ghi Chú" ></GridViewColumn>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition>
+
+                    </ColumnDefinition>
+                    <ColumnDefinition>
+
+                    </ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Width=" auto" >
+                    <ListView  ItemsSource="{Binding VPLIST}" SelectedIndex="{Binding VPSelectedIndex}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã ĐG"  DisplayMemberBinding="{Binding MADG}" ></GridViewColumn>
+                                <GridViewColumn Header="Ngày" Width="120" DisplayMemberBinding="{Binding NGAY}" ></GridViewColumn>
+                                <GridViewColumn Header="Ghi Chú" Width="180" DisplayMemberBinding="{Binding GHICHU}"></GridViewColumn>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
+                <Grid Grid.Column="1">
+                    <StackPanel Margin="45,53,28,34">
+                        <StackPanel Orientation="Horizontal"
+                                    
+                                    Height="65">
+                            <Label VerticalContentAlignment="Center"
+                                Width="131" FontSize="16"
+                                   >Chọn Mã ĐG  :</Label>
+                            <ComboBox Width="179" Margin="0,18,0,19"
+                                      ItemsSource="{Binding MaDGCBX}"
+                                    SelectedItem="{Binding VPChonMaDG}"
+                                      >
+
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Height="60">
+                            <Label Width="130" FontSize="16" VerticalContentAlignment="Center">Ghi Chú :</Label>
+                            <TextBox Width="183" Margin="0,10" Text="{Binding VPGhiChu}"></TextBox>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right" Width="279" Margin="0,190,50,34"
+                                >
+                        <Button
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                      Width="121" 
+                         
+                            Command="{Binding VPThem}"
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Margin="0,6,0,7">_Thêm
+                        </Button>
+                        <Button
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                      Width="128" 
+                       Margin="10,6,90,7"
+                            Command="{Binding VPHuy}"
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" >_Hủy
+                        </Button>
+                    </StackPanel>
 
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                </Grid>
+
 
             </Grid>
-
-            <Grid Grid.Row="3"
-                 
-                  >
+            <Grid Grid.Row="3" >
 
                 <StackPanel Orientation="Horizontal" 
-                            HorizontalAlignment="Right"
-                           
+                            HorizontalAlignment="Left" Width="348" Margin="27,0,0,0"
                             >
+
                     <Button
                      Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       Width="100" 
-                        
-                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Thêm
+                         
+                            Command="{Binding VPXoa}"
+                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" RenderTransformOrigin="-5.43,0.734" >_Xóa
                     </Button>
-                    <Button
-                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                      Width="100" 
-                         Margin="10 0 10 0"
-                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Xóa
-                    </Button>
-                    <Button
-                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                      Width="100" 
-                          Margin="10 0 10 0"
-                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Sửa
-                    </Button>
+
                 </StackPanel>
+
             </Grid>
-        </Grid>
-        
-        
-        <!-- thêm-->
-        <Grid Background="AntiqueWhite"  Visibility="Hidden" >
-            <StackPanel>
 
-                <Label Content="Thêm Độc Giả Vi Phạm "
-                       Margin="10,0,386,0"
-                       FontSize="20" 
-                       FontStyle="Normal" HorizontalContentAlignment="Center"
-                       Background="CornflowerBlue"/>
-
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Label  
-                          Content="Mã độc giả:"
-                                FontSize="22" 
-                           FontStyle="Normal"
-                               VerticalContentAlignment="Center"
-                          
-                           Width="124"
-                           
-                          />
-                    <TextBox  
-                              Foreground="Black"
-                            FontSize="23" 
-                           FontStyle="Normal"
-                          VerticalContentAlignment="Center"
-                               HorizontalContentAlignment="Right"
-
-                         Width="294"/>
-
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Label Content="Mã sách    : "  FontSize="22" 
-                           FontStyle="Normal"
-                               VerticalContentAlignment="Center"
-                           Width="117"
-                          />
-                    <TextBox FontSize="23" 
-                           FontStyle="Normal"
-                          VerticalContentAlignment="Center"
-                               HorizontalContentAlignment="Right"
-                                 Foreground="Black"
-
-                         Width="301"
-                          />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Label Content="Ngày        : "  FontSize="22" 
-                           FontStyle="Normal"
-                               VerticalContentAlignment="Center"
-                           Width="123"
-                          />
-                    <TextBox   FontSize="23" 
-                           FontStyle="Normal"
-                          VerticalContentAlignment="Center"
-                               HorizontalContentAlignment="Right"
-                                   Foreground="Black"
-
-                         Width="295"
-                          />
-                </StackPanel>
-
-
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Label Content="Ghi chú    : "  FontSize="22" 
-                           FontStyle="Normal"
-                               VerticalContentAlignment="Center"
-                           Width="120"
-                          />
-                    <TextBox FontSize="23" 
-                           FontStyle="Normal"
-                          VerticalContentAlignment="Center"
-                               HorizontalContentAlignment="Right"
-                               Foreground="Black"
-                         Width="298"
-                          />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Button
-                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                      Width="109" 
-                      
-                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Content="_Thêm" Margin="10 0"/>
-                    <Button
-                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                      Width="118" 
-                         Margin="20,14"
-                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Content="_Hủy"/>
-                </StackPanel>
-
-            </StackPanel>
         </Grid>
 
 
-        <!-- xóa-->
-        <!-- sua-->
-
-        <Grid Background="AntiqueWhite"  Visibility="Hidden" >
-            <StackPanel>
-
-                <Label Content="Sửa Thông Tin Độc Giả Vi Phạm "
-                       Margin="10,0,386,0"
-                       FontSize="20" 
-                       FontStyle="Normal" HorizontalContentAlignment="Center"
-                       Background="CornflowerBlue"/>
-
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Label  
-                          Content="Mã độc giả:"
-                                FontSize="22" 
-                           FontStyle="Normal"
-                               VerticalContentAlignment="Center"
-                          
-                           Width="124"
-                           
-                          />
-                    <TextBox  
-                              Foreground="Black"
-                            FontSize="23" 
-                           FontStyle="Normal"
-                          VerticalContentAlignment="Center"
-                               HorizontalContentAlignment="Right"
-                     Text="DG0001"
-                        
-                         Width="294"/>
-
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Label Content="Mã sách    : "  FontSize="22" 
-                           FontStyle="Normal"
-                               VerticalContentAlignment="Center"
-                           Width="117"
-                          />
-                    <TextBox FontSize="23" 
-                           FontStyle="Normal"
-                          VerticalContentAlignment="Center"
-                               HorizontalContentAlignment="Right"
-                                 Foreground="Black"
-Text="MS0001"
-                         Width="301"
-                          />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Label Content="Ngày        : "  FontSize="22" 
-                           FontStyle="Normal"
-                               VerticalContentAlignment="Center"
-                           Width="123"
-                          />
-                    <TextBox   FontSize="23" 
-                           FontStyle="Normal"
-                          VerticalContentAlignment="Center"
-                               HorizontalContentAlignment="Right"
-                                   Foreground="Black"
-Text="10/5/2019"
-                         Width="295"
-                          />
-                </StackPanel>
-
-
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Label Content="Ghi chú    : "  FontSize="22" 
-                           FontStyle="Normal"
-                               VerticalContentAlignment="Center"
-                           Width="120"
-                          />
-                    <TextBox FontSize="23" 
-                           FontStyle="Normal"
-                          VerticalContentAlignment="Center"
-                               HorizontalContentAlignment="Right"
-                               Foreground="Black"
-                         Width="298"
-                             Text="Trả sách trễ hạn nhiều lần"
-                          />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal"
-                                Height="60">
-
-                    <Button
-                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                      Width="100" 
-                        Margin="10 0 "
-                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Content="_Lưu"/>
-
-                    <Button
-                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                      Width="100" 
-                         Margin="20 0"
-                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Content="_Hủy"/>
-                </StackPanel>
-
-            </StackPanel>
-        </Grid>
 
     </Grid>
 </UserControl>

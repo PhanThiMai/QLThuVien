@@ -39,6 +39,11 @@ namespace QLThuVien.ViewModel
         public ICommand NSThem { get; set; }
         public ICommand NSHuy { get; set; }
 
+        public ICommand VPXoa { get; set; }
+        public ICommand VPHuy { get; set; }
+        public ICommand VPThem { get; set; }
+
+
         private bool _SachGrid;
         private bool _TTDocGiaGrid;
         private bool _LogOutGrid;
@@ -50,7 +55,7 @@ namespace QLThuVien.ViewModel
         private bool _SachDaHuyGrid;
         private bool _NhapSachGrid;
         //ThemNhapSachGrid
-        //NhapSachMoi
+        //NhapSachMoi DGXemTT
         private bool _NhapSachMoi;
         private bool _ThemNhapSachGrid;
         private bool _DocGiaGrid;
@@ -58,6 +63,19 @@ namespace QLThuVien.ViewModel
 
         private bool _NhapThanhLyGrid;
         private bool _NhapHuyGrid;
+
+        private bool _DGXemTT;
+
+        public bool DGXemTT
+        {
+            get { return _DGXemTT; }
+            set
+            {
+                _DGXemTT = value;
+                OnPropertyChanged("DGXemTT");
+            }
+
+        }
 
         public bool SachGrid
         {
@@ -543,6 +561,12 @@ namespace QLThuVien.ViewModel
             set { _VPLIST = value; OnPropertyChanged(); }
         }
 
+        private ObservableCollection<string> _MaDGCBX;
+        public ObservableCollection<string> MaDGCBX
+        {
+            get => _MaDGCBX;
+            set { _MaDGCBX = value; OnPropertyChanged(); }
+        }
 
         private string passUserName;
         //KSChonLoaiSach
@@ -700,6 +724,34 @@ namespace QLThuVien.ViewModel
 
          private string _NSTongTien;
         public string NSTongTien { get => _NSTongTien; set { _NSTongTien = value; OnPropertyChanged(); } }
+
+
+        private string _DGMaDG;
+        public string DGMaDG { get => _DGMaDG; set { _DGMaDG = value; OnPropertyChanged(); } }
+
+        private string _DGHoTen;
+        public string DGHoTen { get => _DGHoTen; set { _DGHoTen = value; OnPropertyChanged(); } }
+
+        private string _DGGioiTinh;
+        public string DGGioiTinh { get => _DGGioiTinh; set { _DGGioiTinh = value; OnPropertyChanged(); } }
+
+        private string _DGCMND;
+        public string DGCMND { get => _DGCMND; set { _DGCMND = value; OnPropertyChanged(); } }
+
+        private DateTime _DGNgaySinh;
+        public DateTime DGNgaySinh { get => _DGNgaySinh; set { _DGNgaySinh = value; OnPropertyChanged(); } }
+
+        private string _DGSoDT;
+        public string DGSoDT { get => _DGSoDT; set { _DGSoDT = value; OnPropertyChanged(); } }
+
+        private string _DGDiaChi;
+        public string DGDiaChi { get => _DGDiaChi; set { _DGDiaChi = value; OnPropertyChanged(); } }
+
+
+
+
+
+
 
         //
 
@@ -1073,10 +1125,70 @@ namespace QLThuVien.ViewModel
             }
         }
 
+        public bool SelectedVP = false;
+        private PHAT _VPSelectedIndex;
+        public PHAT VPSelectedIndex
+        {
+            get => _VPSelectedIndex;
+            set {
+                _VPSelectedIndex = value;
+                OnPropertyChanged();
+                if (_VPSelectedIndex != null) {
+                    SelectedVP = true;
+                }
+            }
+        }
+
+        
+        private DOCGIA _DGSelectedItem;
+        public DOCGIA DGSelectedItem
+        {
+            get => _DGSelectedItem;
+            set
+            {
+                _DGSelectedItem = value;
+                OnPropertyChanged();
+                if (_DGSelectedItem != null)
+                {
+                    DGXemTT = true;
+                    DGMaDG = _DGSelectedItem.MADG;
+                    DGHoTen = _DGSelectedItem.TEN;
+                    DGGioiTinh = _DGSelectedItem.GIOITINH;
+                    DGDiaChi = _DGSelectedItem.DIACHI;
+                    DGCMND = _DGSelectedItem.CMND;
+                    DGSoDT = _DGSelectedItem.SODT;
+                    DGNgaySinh =(DateTime) _DGSelectedItem.NGAYSINH;
+                }
+            }
+        }
+
+
+        //VPChonMaDG VPGhiChu DGSelectedItem
+        private string _VPChonMaDG;
+        public string VPChonMaDG {
+            get => _VPChonMaDG;
+            set{
+                _VPChonMaDG = value;
+                OnPropertyChanged();
+               
+            }
+        }
+
+        private string _VPGhiChu;
+        public string VPGhiChu
+        {
+            get => _VPGhiChu;
+            set
+            {
+                _VPGhiChu = value;
+                OnPropertyChanged();
+
+            }
+        }
 
         public NhanVienViewModel()
         {
-            SettingGrid = SachGrid = DangMuonGrid = DaTraGrid
+            SettingGrid = SachGrid = DangMuonGrid = DaTraGrid= DGXemTT
                 = TTDocGiaGrid = NhapSachGrid = LogOutGrid =SachDaHuyGrid=
                 NhapHuyGrid=NhapThanhLyGrid= ThemNhapSachGrid
                 =SachThanhLyGrid=ViPhamGrid=DocGiaGrid= NhapSachMoi=false;
@@ -1090,28 +1202,28 @@ namespace QLThuVien.ViewModel
                 SettingGrid = true;
                 SachGrid =ViPhamGrid=DocGiaGrid=SachDaHuyGrid=SachThanhLyGrid=
                 TTDocGiaGrid = LogOutGrid = ThemNhapSachGrid=
-                NhapHuyGrid = NhapThanhLyGrid=
+                NhapHuyGrid = NhapThanhLyGrid= DGXemTT=
                 NhapSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
             SachCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
-                _SachGrid = true;
+            
                 SachGrid = true;
-                SettingGrid = TTDocGiaGrid = ThemNhapSachGrid =
+                SettingGrid = TTDocGiaGrid = ThemNhapSachGrid = DGXemTT=
                   NhapHuyGrid = NhapThanhLyGrid = 
                   SachThanhLyGrid =SachDaHuyGrid=DocGiaGrid=ViPhamGrid= LogOutGrid = NhapSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
             DangXuatCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 LogOutGrid = true;
-                SachGrid = TTDocGiaGrid = ThemNhapSachGrid =
+                SachGrid = TTDocGiaGrid = ThemNhapSachGrid = DGXemTT=
                   NhapHuyGrid = NhapThanhLyGrid = 
                   SachThanhLyGrid =SachDaHuyGrid=DocGiaGrid=ViPhamGrid= SettingGrid = NhapSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
             ThongTinDocGiaCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 TTDocGiaGrid = true;
-                SachGrid = SettingGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid =
+                SachGrid = SettingGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid = DGXemTT=
                 SachThanhLyGrid = SachDaHuyGrid = DocGiaGrid = ViPhamGrid = LogOutGrid = NhapSachGrid = DangMuonGrid = DaTraGrid = false;
 
             });
@@ -1119,7 +1231,7 @@ namespace QLThuVien.ViewModel
             SachThanhLyCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
 
                 SachThanhLyGrid = true;
-                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid =
+                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid = DGXemTT=
                 SachDaHuyGrid = DocGiaGrid = ViPhamGrid= LogOutGrid= NhapSachGrid
                 = SettingGrid = DangMuonGrid = DaTraGrid = false;
 
@@ -1127,42 +1239,42 @@ namespace QLThuVien.ViewModel
             DangMuonCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
 
                 DangMuonGrid = true;
-                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid =
+                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid = DGXemTT=
                 SachThanhLyGrid = SachDaHuyGrid = DocGiaGrid = ViPhamGrid = LogOutGrid = NhapSachGrid = SettingGrid = DaTraGrid = false;
 
             });
             DaTraCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 DaTraGrid = true;
                 SachGrid = TTDocGiaGrid = SachThanhLyGrid = SachDaHuyGrid
-                = DocGiaGrid = ViPhamGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid =
+                = DocGiaGrid = ViPhamGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid = DGXemTT=
                 LogOutGrid = NhapSachGrid = DangMuonGrid = SettingGrid = false;
 
             });
            
             SachDaHuyCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 SachDaHuyGrid = true;
-                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid =
+                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid = DGXemTT=
                 SachThanhLyGrid = DaTraGrid = DocGiaGrid = ViPhamGrid = LogOutGrid = NhapSachGrid = DangMuonGrid = SettingGrid = false;
 
             });
 
             DanhSachDocGiaCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 DocGiaGrid = true;
-                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid =
+                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid = DGXemTT=
                 SachThanhLyGrid = SachDaHuyGrid = DaTraGrid = ViPhamGrid = LogOutGrid = NhapSachGrid = DangMuonGrid = SettingGrid = false;
 
             });
 
             DocGiaViPhamCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 ViPhamGrid = true;
-                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid =
+                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid = DGXemTT=
                 SachThanhLyGrid = SachDaHuyGrid = DocGiaGrid = DaTraGrid = LogOutGrid = NhapSachGrid = DangMuonGrid = SettingGrid = false;
 
             });
 
             NhapSachCommand = new RelayCommand<object>((p) => { return true; }, (p) => {
                 NhapSachGrid = true;
-                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid =
+                SachGrid = TTDocGiaGrid = NhapHuyGrid = NhapThanhLyGrid = ThemNhapSachGrid = DGXemTT=
                 SachThanhLyGrid = SachDaHuyGrid = DocGiaGrid = DaTraGrid = LogOutGrid = DaTraGrid = DangMuonGrid = SettingGrid = false;
 
             });
@@ -1210,6 +1322,8 @@ namespace QLThuVien.ViewModel
 
             NSMALOAICBX = new ObservableCollection<string>();
             NSMASACHCBX = new ObservableCollection<string>();
+
+            MaDGCBX = new ObservableCollection<string>();
 
             NSMALOAICBX.Add("Nhập mã mới");
             NSMASACHCBX.Add("Nhập mã mới");
@@ -1330,6 +1444,9 @@ namespace QLThuVien.ViewModel
             
             }
 
+            foreach(var item in DGLIST) {
+                MaDGCBX.Add(item.MADG);
+            }
 
             STSetting = new RelayCommand<object>((p) => {
                 return true;
@@ -1526,6 +1643,53 @@ namespace QLThuVien.ViewModel
                    ThemNhapSachGrid = false;
                }
                );
+
+            VPXoa = new RelayCommand<object>(
+                (p) =>
+                {
+                    if (SelectedVP) return true;
+                    return false;
+                },
+                (p) =>
+                {
+                    var phat = DataProvider.Ins.DB.PHATs.Where(x => x.MADG == VPSelectedIndex.MADG).SingleOrDefault();
+                    VPLIST.Remove(phat);
+                    DataProvider.Ins.DB.PHATs.Remove(phat);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                });
+
+            VPThem = new RelayCommand<object>(
+                (p) => {
+                    if (VPChonMaDG != "")
+                        return true;
+                    return false;
+                },
+                (p) => {
+                    if(VPChonMaDG != "") {
+                        var phat = new PHAT(){
+                            MADG = VPChonMaDG,
+                            NGAY = DateTime.Today,
+                            GHICHU = VPGhiChu
+                        };
+
+                        VPLIST.Add(phat);
+                        DataProvider.Ins.DB.PHATs.Add(phat);
+                        DataProvider.Ins.DB.SaveChanges();
+                        VPChonMaDG = VPGhiChu = "";
+
+                    }
+               
+                }
+                );
+            VPHuy = new RelayCommand<object>(
+                (p) => {
+                    return true;
+                },
+                (p)=> {
+                    VPChonMaDG = VPGhiChu = "";
+                } 
+                );
         }
 
 

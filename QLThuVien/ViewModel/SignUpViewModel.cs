@@ -219,7 +219,6 @@ namespace QLThuVien.ViewModel
                         int numDocGia = DataProvider.Ins.DB.DOCGIAs.Count();
                         maDocGia = KhoiTaoMa("DG", numDocGia + 1);
 
-
                         var DG = new DOCGIA()
                         {
                             MADG = maDocGia,
