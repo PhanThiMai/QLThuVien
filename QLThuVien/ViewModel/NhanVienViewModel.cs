@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -42,6 +43,12 @@ namespace QLThuVien.ViewModel
         public ICommand VPXoa { get; set; }
         public ICommand VPHuy { get; set; }
         public ICommand VPThem { get; set; }
+
+        public ICommand KSTimKiem { get; set; }
+        public ICommand DMTimKiem { get; set; }
+        public ICommand LSTimKiem { get; set; }
+        public ICommand NSTimKiem { get; set; }
+        public ICommand DGTimKiem { get; set; }
 
 
         private bool _SachGrid;
@@ -643,6 +650,21 @@ namespace QLThuVien.ViewModel
 
         private string _KSThongTinTimKiem;
         public string KSThongTinTimKiem { get => _KSThongTinTimKiem; set { _KSThongTinTimKiem = value; OnPropertyChanged(); } }
+        //DMThongTinTimKiem
+
+        private string _DMThongTinTimKiem;
+        public string DMThongTinTimKiem { get => _DMThongTinTimKiem; set { _DMThongTinTimKiem = value; OnPropertyChanged(); } }
+
+        private string _LSThongTinTimKiem;
+        public string LSThongTinTimKiem { get => _LSThongTinTimKiem; set { _LSThongTinTimKiem = value; OnPropertyChanged(); } }
+
+
+        private string _NSThongTinTimKiem;
+        public string NSThongTinTimKiem { get => _NSThongTinTimKiem; set { _NSThongTinTimKiem = value; OnPropertyChanged(); } }
+
+        private string _DGThongTinTimKiem;
+        public string DGThongTinTimKiem { get => _DGThongTinTimKiem; set { _DGThongTinTimKiem = value; OnPropertyChanged(); } }
+
 
         private string _TTMaNHANVIEN;
         public string TTMaNHANVIEN { get => _TTMaNHANVIEN; set { _TTMaNHANVIEN = value; OnPropertyChanged(); } }
@@ -747,13 +769,6 @@ namespace QLThuVien.ViewModel
         private string _DGDiaChi;
         public string DGDiaChi { get => _DGDiaChi; set { _DGDiaChi = value; OnPropertyChanged(); } }
 
-
-
-
-
-
-
-        //
 
         //TLNTongTien
 
@@ -1617,9 +1632,21 @@ namespace QLThuVien.ViewModel
                            DataProvider.Ins.DB.SaveChanges();
 
                        var sachKho = DataProvider.Ins.DB.KHOes.Where(x => x.MASACH == sach.MASACH).SingleOrDefault();
-                       sachKho.SOLUONG += nhapsach.SOLUONG;
-
-
+                       if(sachKho != null)
+                       {
+                           sachKho.SOLUONG += nhapsach.SOLUONG;
+                           DataProvider.Ins.DB.SaveChanges();
+                       }
+                       else
+                       {
+                           var sachKhoMoi = new KHO()
+                           {
+                               MASACH = sach.MASACH,
+                               SOLUONG = nhapsach.SOLUONG
+                           };
+                           DataProvider.Ins.DB.KHOes.Add(sachKhoMoi);
+                           DataProvider.Ins.DB.SaveChanges();
+                       }
                    }
 
 
@@ -1690,10 +1717,152 @@ namespace QLThuVien.ViewModel
                     VPChonMaDG = VPGhiChu = "";
                 } 
                 );
+
+
+            KSTimKiem = new RelayCommand<object>(
+              (p) => {
+                  return true;
+              },
+              (p) => {
+                  if (KSThongTinTimKiem != "")
+                  {
+                      SACHLIST = new ObservableCollection<SACH>();
+                      KSThongTinTimKiem = KSThongTinTimKiem.ToLower();
+                      KSThongTinTimKiem = ConvertToUnSign(KSThongTinTimKiem);
+                      foreach (var item in DataProvider.Ins.DB.SACHes)
+                      {
+                          string temp = item.TENSACH.ToLower();
+                          temp = ConvertToUnSign(temp);
+                          if (temp.Contains(KSThongTinTimKiem))
+                              SACHLIST.Add(item);
+                      }
+                  }
+                  else
+                  {
+                      SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
+                  }
+
+              }
+              );
+
+            DMTimKiem = new RelayCommand<object>(
+              (p) => {
+                  return true;
+              },
+              (p) => {
+                  if (DMThongTinTimKiem != "")
+                  {
+                      var DMTemp = new ObservableCollection<NV_DANGMUON>();
+                      DMTemp = DANGMUONLIST;
+                      DANGMUONLIST = new ObservableCollection<NV_DANGMUON>();
+
+                      DMThongTinTimKiem = DMThongTinTimKiem.ToLower();
+                      DMThongTinTimKiem = ConvertToUnSign(DMThongTinTimKiem);
+                      foreach (var item in DMTemp)
+                      {
+                          string temp = item.TENSACH.ToLower();
+                          temp = ConvertToUnSign(temp);
+                          if (temp.Contains(DMThongTinTimKiem))
+                              DANGMUONLIST.Add(item);
+                      }
+                  }
+                  else
+                  {
+                      LoadDangMuon();
+                  }
+
+              }
+              );
+
+            LSTimKiem = new RelayCommand<object>(
+             (p) => {
+                 return true;
+             },
+             (p) => {
+                 if (LSThongTinTimKiem != "")
+                 {
+                     var DMTemp = new ObservableCollection<NV_DANGMUON>();
+                     DMTemp = DATRALIST;
+                     DATRALIST = new ObservableCollection<NV_DANGMUON>();
+
+                     LSThongTinTimKiem = LSThongTinTimKiem.ToLower();
+                     LSThongTinTimKiem = ConvertToUnSign(LSThongTinTimKiem);
+                     foreach (var item in DMTemp)
+                     {
+                         string temp = item.TENSACH.ToLower();
+                         temp = ConvertToUnSign(temp);
+                         if (temp.Contains(LSThongTinTimKiem))
+                             DATRALIST.Add(item);
+                     }
+                 }
+                 else
+                 {
+                     LoadDaTra();
+                 }
+
+             }
+             );
+
+
+            NSTimKiem = new RelayCommand<object>(
+             (p) => {
+                 return true;
+             },
+             (p) => {
+                 if (NSThongTinTimKiem != "")
+                 {
+                     var DMTemp = new ObservableCollection<NV_NHAP>();
+                     DMTemp = NSLIST;
+                     NSLIST = new ObservableCollection<NV_NHAP>();
+
+                     NSThongTinTimKiem = NSThongTinTimKiem.ToLower();
+                     NSThongTinTimKiem = ConvertToUnSign(NSThongTinTimKiem);
+                     foreach (var item in DMTemp)
+                     {
+                         string temp = item.TENSACH.ToLower();
+                         temp = ConvertToUnSign(temp);
+                         if (temp.Contains(NSThongTinTimKiem))
+                             NSLIST.Add(item);
+                     }
+                 }
+                 else
+                 {
+                     LoadNhapSach();
+                 }
+
+             }
+             );
+
+        
+            DGTimKiem = new RelayCommand<object>(
+
+              (p) => {
+                  return true;
+              },
+              (p) => {
+                  if (DGThongTinTimKiem != "")
+                  {
+                      DGLIST = new ObservableCollection<DOCGIA>();
+                      DGThongTinTimKiem = DGThongTinTimKiem.ToLower();
+                      DGThongTinTimKiem = ConvertToUnSign(DGThongTinTimKiem);
+                      foreach (var item in DataProvider.Ins.DB.DOCGIAs)
+                      {
+                          string temp = item.TEN.ToLower();
+                          temp = ConvertToUnSign(temp);
+                          if (temp.Contains(DGThongTinTimKiem))
+                              DGLIST.Add(item);
+                      }
+                  }
+                  else
+                  {
+                      DGLIST = new ObservableCollection<DOCGIA>(DataProvider.Ins.DB.DOCGIAs);
+                  }
+
+              }
+              );
+            
         }
-
-
-
+        
         public NhanVienViewModel(string passUserName) : this()
         {
 
@@ -1733,31 +1902,37 @@ namespace QLThuVien.ViewModel
 
 
         }
-
         bool checkDataSetting()
         {
+            // check sdt
             foreach (var c in TTSoDT.Trim())
             {
                 if (c < 48 || c > 57)
                     return false;
             }
-
+            //check cmnd
             foreach (var c in TTCMND.Trim())
             {
                 if (c < 48 || c > 57)
                     return false;
             }
 
-            if (TTGioiTinh.Trim() != "Nam" && TTGioiTinh.Trim() != "Nữ" && TTGioiTinh.Trim() != "Khác")
+            if (TTGioiTinh.Trim() != "Nam"
+                && TTGioiTinh.Trim() != "Nữ" &&
+                TTGioiTinh.Trim() != "Khác" && TTGioiTinh.ToLower() != "nam"
+                && TTGioiTinh.ToLower() != "nu" && TTGioiTinh.ToLower() != "khac")
                 return false;
 
-            if ((DateTime.Today.Year - TTNgaySinh.Year) < 3 || (DateTime.Today.Year - TTNgaySinh.Year) > 130)
+            if ((DateTime.Today.Year - TTNgaySinh.Year) < 3 ||
+                (DateTime.Today.Year - TTNgaySinh.Year) > 130)
+                return false;
+
+            if (TTHoTen.Trim() == "" || TTCMND.Trim() == "" || TTDiaChi.Trim() == "" ||
+                TTSoDT.Trim() == "")
                 return false;
 
             return true;
         }
-
-
 
         void Setting()
         {
@@ -1855,6 +2030,7 @@ namespace QLThuVien.ViewModel
             }
 
         }
+
         string KhoiTaoMaPhieu(int num)
         {
             string ma = "";
@@ -1912,6 +2088,25 @@ namespace QLThuVien.ViewModel
             }
 
             return ma;
+        }
+
+
+
+        private string ConvertToUnSign(string input)
+        {
+            input = input.Trim();
+            for (int i = 0x20; i < 0x30; i++)
+            {
+                input = input.Replace(((char)i).ToString(), " ");
+            }
+            Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
+            string str = input.Normalize(NormalizationForm.FormD);
+            string str2 = regex.Replace(str, string.Empty).Replace('đ', 'd').Replace('Đ', 'D');
+            while (str2.IndexOf("?") >= 0)
+            {
+                str2 = str2.Remove(str2.IndexOf("?"), 1);
+            }
+            return str2;
         }
 
 

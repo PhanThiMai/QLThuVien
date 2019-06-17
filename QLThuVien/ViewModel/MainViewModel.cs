@@ -25,8 +25,7 @@ namespace QLThuVien.ViewModel
         public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
 
         private string _Password;
-      //  private object FloatingPasswordBox;
-
+     
         public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
 
         public ICommand LoginCommand { get; set; }
@@ -84,7 +83,12 @@ namespace QLThuVien.ViewModel
 
         }
 
-        
+        public MainViewModel(string username, string matkhau) : this()
+        {
+            this.UserName = username;
+            this.Password = matkhau;
+        }
+
         void Login(Window p)
         {
             if (p == null)

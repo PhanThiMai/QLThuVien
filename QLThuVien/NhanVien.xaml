@@ -688,14 +688,14 @@ Text="{Binding TTHoTen}"
                     <Grid Grid.Column="0">
                         <TextBox Width="250"
                              materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
-                       Text=""></TextBox>
+                       Text="{Binding DMThongTinTimKiem}"></TextBox>
 
                     </Grid>
                     <Grid Grid.Column="1">
                         <Button
                      Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       Width="100" 
-                         
+                         Command="{Binding DMTimKiem}"
                       ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
                         </Button>
                     </Grid>
@@ -796,14 +796,14 @@ Text="{Binding TTHoTen}"
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBox Width="250" materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
-                       Text=""></TextBox>
+                       Text="{Binding LSThongTinTimKiem}"></TextBox>
 
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Button
+                        <Button 
                      Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       Width="100" 
-                        
+                        Command="{Binding LSTimKiem}"
                       ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
                         </Button>
                     </Grid>
@@ -895,25 +895,7 @@ Text="{Binding TTHoTen}"
 
                 </Grid>
                 <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBox Width="250"
-                             materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
-                       Text=""></TextBox>
-
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Button
-                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                      Width="100" 
-                         Command="{Binding TLTimKiem}"
-                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
-                        </Button>
-                    </Grid>
-
+          
                 </Grid>
 
                 <Grid Grid.Row="3">
@@ -1168,7 +1150,7 @@ Text="{Binding TTHoTen}"
                         <TextBox Width="250"
                              materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
                       
-                                 Text=""></TextBox>
+                                 Text="{Binding NSThongTinTimKiem}"></TextBox>
 
                     </Grid>
                     <Grid Grid.Column="1">
@@ -1548,7 +1530,7 @@ Text="{Binding TTHoTen}"
                     <Grid Grid.Column="0">
                         <TextBox Width="250"
                              materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
-                       Text="{Binding DGNhapTimKiem}"></TextBox>
+                       Text="{Binding DGThongTinTimKiem}"></TextBox>
 
                     </Grid>
                     <Grid Grid.Column="1">
@@ -1720,24 +1702,7 @@ Text="{Binding TTHoTen}"
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBox Width="250"
-                             materialDesign:HintAssist.Hint="Nhập thông tin muốn tìm kiếm"
-                       Text="{Binding VPNhapTimKiem}"></TextBox>
-
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Button
-                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                      Width="100" 
-                         Command="{Binding VPTimKiem}"
-                      ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">_Tìm kiếm
-                        </Button>
-                    </Grid>
+                   
 
                 </Grid>
                 <Grid Grid.Row="2">

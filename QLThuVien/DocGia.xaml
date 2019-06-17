@@ -182,7 +182,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã Sách" Width="100" x:Name="MASACH" DisplayMemberBinding="{Binding MASACH}"></GridViewColumn>
-                                <GridViewColumn Header="Mã Độc Giả" Width="120" x:Name="TENSACH" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
+                                <GridViewColumn Header="Tên Sách" Width="120" x:Name="TENSACH" DisplayMemberBinding="{Binding TENSACH}" ></GridViewColumn>
                                 <GridViewColumn Header="Mã Loại" Width="120" x:Name="MALOAISACH" DisplayMemberBinding="{Binding MALOAISACH}"></GridViewColumn>
                                 <GridViewColumn Header="Tác Giả" Width="120" x:Name="TACGIA" DisplayMemberBinding="{Binding TACGIA}"></GridViewColumn>
 
@@ -262,7 +262,7 @@
                             <Label Content="{Binding TTHoTen}"  FontSize="22" 
                            FontStyle="Normal"
                                VerticalContentAlignment="Center"
-                           Width="200"
+                           Width="296"
                           >
                             </Label>
                             <Label Content="{Binding TTGioiTinh}"  FontSize="23" 
@@ -270,7 +270,7 @@
                           VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"
 
-                         Width="200"
+                         Width="104"
                           >
                             </Label>
                         </StackPanel>
@@ -708,18 +708,9 @@
                           />
 
                     <Label Content="{Binding DMNgayMuon}"  FontSize="15" 
-                           FontStyle="Normal"
-                               VerticalContentAlignment="Center"
-                   Margin="98,0,643,0" RenderTransformOrigin="0.5,0.5" 
+                           
+                   Margin="114,0,659,0"  
                           >
-                        <Label.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="-1"/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Label.RenderTransform>
                     </Label>
 
 
@@ -800,7 +791,7 @@
                                 <GridViewColumn Header="Số Lượng"  DisplayMemberBinding="{Binding SOLUONG}" ></GridViewColumn>
                                 <GridViewColumn Header="Năm SX"  DisplayMemberBinding="{Binding NAMSX}" ></GridViewColumn>
                                 <GridViewColumn Header="Tác Giả"  DisplayMemberBinding="{Binding TACGIA}" ></GridViewColumn>
-                                <GridViewColumn Header="Giá"  DisplayMemberBinding="{Binding GIA}" ></GridViewColumn>
+                                <GridViewColumn Header="Giá"  DisplayMemberBinding="{Binding GIASACH}" ></GridViewColumn>
 
                             </GridView>
                         </ListView.View>

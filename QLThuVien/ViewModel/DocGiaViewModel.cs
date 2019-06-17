@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -419,6 +420,7 @@ namespace QLThuVien.ViewModel
                 SachGrid = TTDocGiaGrid = LogOutGrid
                 = GioSachGrid = SettingGrid = DaTraGrid = false;
 
+                DANGMUONLIST = new ObservableCollection<GIOHANG>();
 
                 var phieu = DataProvider.Ins.DB.PHIEUGIAODICHes.Where(x => x.MADG == TTMaDocGia && x.NGAYTRA > DateTime.Today).SingleOrDefault();
                 if (phieu != null)
@@ -630,7 +632,13 @@ namespace QLThuVien.ViewModel
              }
              );
 
-            DMTraSach = new RelayCommand<object>((p) => {return true; },
+            DMTraSach = new RelayCommand<object>((p) => {
+                if (DANGMUONLIST.Count > 0)
+                    return true;
+
+                return false ;
+
+            },
             (p)=>{
                 var phieudd = DataProvider.Ins.DB.PHIEUGIAODICHes.Where(x => x.MAPHIEU == DMMaPhieuMuon).SingleOrDefault();
                 phieudd.NGAYTRA = DateTime.Today;
@@ -645,6 +653,33 @@ namespace QLThuVien.ViewModel
 
             }
             );
+
+
+            KSTimKiem = new RelayCommand<object>(
+                (p) => {
+                    return true;
+                },
+                (p) => {
+                    if(KSThongTinTimKiem != "")
+                    {
+                        SACHLIST = new ObservableCollection<SACH>();
+                        KSThongTinTimKiem = KSThongTinTimKiem.ToLower();
+                        KSThongTinTimKiem = ConvertToUnSign(KSThongTinTimKiem);
+                        foreach( var item in DataProvider.Ins.DB.SACHes)
+                        {
+                            string temp = item.TENSACH.ToLower();
+                            temp = ConvertToUnSign(temp);
+                            if (temp.Contains(KSThongTinTimKiem))
+                                SACHLIST.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        SACHLIST = new ObservableCollection<SACH>(DataProvider.Ins.DB.SACHes);
+                    }
+                    
+                }
+                );
         }
 
         public DocGiaViewModel(string passUserName) : this()
@@ -707,24 +742,33 @@ namespace QLThuVien.ViewModel
             }
             
         }
-        
+
         bool checkDataSetting() {
-            foreach(var c in TTSoDT.Trim()) {
+            // check sdt
+            foreach (var c in TTSoDT.Trim()) {
+                if (c < 48 || c > 57)
+                    return false;
+            }
+            //check cmnd
+            foreach (var c in TTCMND.Trim()) {
                 if (c < 48 || c > 57)
                     return false;
             }
 
-            foreach (var c in TTCMND.Trim()){
-                if (c < 48 || c > 57)
-                    return false;
-            }
-
-            if (TTGioiTinh.Trim() != "Nam" && TTGioiTinh.Trim() != "Nữ" && TTGioiTinh.Trim() != "Khác")
+            if (TTGioiTinh.Trim() != "Nam"
+                && TTGioiTinh.Trim() != "Nữ" &&
+                TTGioiTinh.Trim() != "Khác" && TTGioiTinh.ToLower() != "nam"
+                && TTGioiTinh.ToLower() != "nu" && TTGioiTinh.ToLower() != "khac")
                 return false;
 
-            if ((DateTime.Today.Year - TTNgaySinh.Year) < 3 || (DateTime.Today.Year - TTNgaySinh.Year) > 130)
+            if ((DateTime.Today.Year - TTNgaySinh.Year) < 3 ||
+                (DateTime.Today.Year - TTNgaySinh.Year) > 130)
                 return false;
 
+            if (TTHoTen.Trim() == "" || TTCMND.Trim() == "" || TTDiaChi.Trim() == "" ||
+                TTSoDT.Trim() == "")
+                return false;
+                    
             return true;
         }
 
@@ -749,7 +793,8 @@ namespace QLThuVien.ViewModel
         void LoadLichSuMuonSach() {
 
             DATRALIST = new ObservableCollection<DATRA>();
-            
+            PHIEUDDLIST = new ObservableCollection<PHIEUGIAODICH>(DataProvider.Ins.DB.PHIEUGIAODICHes);
+
           foreach(var item in PHIEUDDLIST) {
                 if(item.MADG == TTMaDocGia)  {
                     foreach (var item1 in PHIEUSACHLIST) {
@@ -770,6 +815,25 @@ namespace QLThuVien.ViewModel
             
             return true;
         }
+
+        private string ConvertToUnSign(string input)
+        {
+            input = input.Trim();
+            for (int i = 0x20; i < 0x30; i++)
+            {
+                input = input.Replace(((char)i).ToString(), " ");
+            }
+            Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
+            string str = input.Normalize(NormalizationForm.FormD);
+            string str2 = regex.Replace(str, string.Empty).Replace('đ', 'd').Replace('Đ', 'D');
+            while (str2.IndexOf("?") >= 0)
+            {
+                str2 = str2.Remove(str2.IndexOf("?"), 1);
+            }
+            return str2;
+        }
+
+
     }
 }
 

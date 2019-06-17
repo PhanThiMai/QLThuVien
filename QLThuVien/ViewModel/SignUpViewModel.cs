@@ -141,16 +141,33 @@ namespace QLThuVien.ViewModel
             get => _TKNHANVIENList;
             set { _TKNHANVIENList = value; OnPropertyChanged(); }
         }
+        //GIOITINHCBX
+
+        private ObservableCollection<string> _GIOITINHCBX;
+        public ObservableCollection<string> GIOITINHCBX
+        {
+            get => _GIOITINHCBX;
+            set { _GIOITINHCBX = value; OnPropertyChanged(); }
+        }
+
 
         public SignUpViewModel()
         {
             // DOCGIAList = new ObservableCollection<DOCGIA>(DataProvider.Ins.DB.DOCGIAs);
             TKDOCGIAList = new ObservableCollection<TAIKHOANDG>(DataProvider.Ins.DB.TAIKHOANDGs);
             TKNHANVIENList = new ObservableCollection<TAIKHOANNV>(DataProvider.Ins.DB.TAIKHOANNVs);
-
+            GIOITINHCBX = new ObservableCollection<string>();
+            GIOITINHCBX.Add("Nam");
+            GIOITINHCBX.Add("Nữ");
+            GIOITINHCBX.Add("Khác");
             MatKhau = UserName = HoTen = DiaChi = CMND =ChonGioiTinh= TypeOfAccount= SoDienThoai="";
             NgaySinh = new DateTime(1980, 1, 1);
             ErrorHoTen = false;
+
+            PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => {
+                MatKhau = p.Password;
+            });
+
             SignUpCommand = new RelayCommand<Window>((p) => {
                 return true;
             },
@@ -213,14 +230,12 @@ namespace QLThuVien.ViewModel
             else
             {
                 if(TypeOfAccount == "DocGia" ) {
-                    if (CheckUserName(true))
-                    {
+                    if (CheckUserName(true)){
                         string maDocGia = "";
                         int numDocGia = DataProvider.Ins.DB.DOCGIAs.Count();
                         maDocGia = KhoiTaoMa("DG", numDocGia + 1);
-
-                        var DG = new DOCGIA()
-                        {
+                        
+                        var DG = new DOCGIA(){
                             MADG = maDocGia,
                             TEN = HoTen,
                             GIOITINH = ChonGioiTinh,
@@ -230,12 +245,13 @@ namespace QLThuVien.ViewModel
                             NGAYSINH = NgaySinh
 
                         };
-
+                        
+                       
                         DataProvider.Ins.DB.DOCGIAs.Add(DG);
                         DataProvider.Ins.DB.SaveChanges();
 
-                        var tk = new TAIKHOANDG()
-                        {
+                        
+                        var tk = new TAIKHOANDG() {
                             TENTK = UserName,
                             MADG = maDocGia,
                             MATKHAU = MatKhau,
@@ -244,6 +260,11 @@ namespace QLThuVien.ViewModel
 
                         DataProvider.Ins.DB.TAIKHOANDGs.Add(tk);
                         DataProvider.Ins.DB.SaveChanges();
+
+                        MainWindow main = new MainWindow();
+                        main.DataContext = new MainViewModel(UserName, MatKhau);
+                        main.Show();
+                        p.Close();
                     }
                     else
                     {
@@ -285,6 +306,11 @@ namespace QLThuVien.ViewModel
                         DataProvider.Ins.DB.TAIKHOANNVs.Add(tk);
                         DataProvider.Ins.DB.SaveChanges();
 
+                        MainWindow main = new MainWindow();
+                        main.DataContext = new MainViewModel(UserName, MatKhau);
+                        main.Show();
+                        p.Close();
+
                     }
                     else
                     {
@@ -296,12 +322,15 @@ namespace QLThuVien.ViewModel
                 }
                 else
                 {
-
+                    MessageBox.Show("Bạn chưa chọn kiểu tài khoản");
                 }
 
-                MainWindow main = new MainWindow();
-                main.Show();
-                p.Close();
+                UserName = MatKhau = SoDienThoai = DiaChi = HoTen = CMND = "";
+
+
+
+               
+
             }
 
 

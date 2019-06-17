@@ -96,40 +96,17 @@
 
                         <StackPanel>
                             <TextBox
-                                  x:Name="HoTenTextBox"
                                 Height="50"
                                 Margin="10 10"
-                                
+                                Text="{Binding HoTen}"
                                   materialDesign:HintAssist.Hint="Họ và tên">
-                                <TextBox.Text>
-                                    <Binding
-                                          Path="HoTen"
-                                          UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
-
-
-
-
                             </TextBox>
 
-
-
                             <TextBox
-                                  x:Name="UserNameTextBox"
                                 Height="50"
                                 Margin="10 10"
+                                Text="{Binding UserName}"
                                   materialDesign:HintAssist.Hint="UserName">
-                                <TextBox.Text>
-                                    <Binding
-                                          Path="UserName"
-                                          UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
                             </TextBox>
 
                             <StackPanel Orientation="Horizontal">
@@ -142,14 +119,13 @@
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="PasswordChanged">
                                             <i:InvokeCommandAction
-                                       Command="{Binding MatKhau}" 
+                                       Command="{Binding PasswordChangedCommand}" 
                                    CommandParameter="{Binding ElementName=FloatingPasswordBox}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
 
 
                                 </PasswordBox>
-
 
                                 <CheckBox
                                     Margin="5 5 5 5"
@@ -162,13 +138,10 @@
 
                             <ComboBox Height="39" 
                                      SelectedItem="{Binding ChonGioiTinh}"
-                                      Name="GioiTinh" Margin="10,30,81,0">
-                                <ComboBoxItem Content="Nam"/>
-                                <ComboBoxItem Content="Nữ"/>
-                                <ComboBoxItem Content="Khác"/>
+                                      ItemsSource="{Binding GIOITINHCBX}"
+                                     Margin="10,30,81,0">
+                                
                             </ComboBox>
-
-
 
                         </StackPanel>
 
@@ -186,50 +159,26 @@
                                   Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
 
                             <TextBox
-                                  x:Name="SoDTTextBox"
                                 Height="50"
                                 Margin="10 10"
-                                
+                                Text="{Binding SoDienThoai}"
                                   materialDesign:HintAssist.Hint="Số điện thoại">
-                                <TextBox.Text>
-                                    <Binding
-                                          Path="SoDienThoai"
-                                          UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
+                         
                             </TextBox>
 
 
                             <TextBox
-                                  x:Name="CMNDTextBox"
                                 Height="50"
-                                Margin="10 10"
+                                Margin="10 10" Text="{Binding CMND}"
                                   materialDesign:HintAssist.Hint="CMND">
-                                <TextBox.Text>
-                                    <Binding
-                                          Path="CMND"
-                                          UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
+                            
                             </TextBox>
 
                             <TextBox
-                                  x:Name="DiaChiTextBox"
                                 Height="50"
-                                Margin="10 10"
+                                Margin="10 10" Text="{ Binding DiaChi}"
                                   materialDesign:HintAssist.Hint="Địa chỉ">
-                                <TextBox.Text>
-                                    <Binding
-                                          Path="DiaChi"
-                                          UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
+                              
                             </TextBox>
                         </StackPanel>
 
